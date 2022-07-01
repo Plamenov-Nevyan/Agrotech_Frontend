@@ -1,3 +1,4 @@
+import "./css/navbar.css"
 import { Navbar } from "./Navbar/Navbar";
 
 export const Header = (props) => {
