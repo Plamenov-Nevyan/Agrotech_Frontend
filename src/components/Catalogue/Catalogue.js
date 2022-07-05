@@ -1,17 +1,14 @@
-import "./css/catalogue.css"
-import "./css/productCard.css"
-// import "./css/catalogueHeader.css"
+import styles from "./css/catalogue.module.css"
 import { ProductCard } from "./ProductCard.js/ProductCard";
-// import { CatalogueHeader } from "./CatalogueHeader/CatalogueHeader";
+import { SubHeader } from "../SubHeader/SubHeader";
+import { Search } from "./Search/Search";
 
 export const Catalogue = () => {
     return (
         <>
-        {/* <CatalogueHeader /> */}
-        <div className="row">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+        <SubHeader />
+        <Search />
+        <div className={styles.row}>
           <ProductCard />
           <ProductCard />
           <ProductCard />

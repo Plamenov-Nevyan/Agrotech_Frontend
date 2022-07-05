@@ -1,12 +1,14 @@
+import styles from "./css/home.module.css"
+
 export const Home = () => {
     return (
         <>
-            <div className="row">
-                <div className="leftcolumn">
-                    <div className="card">
+            <div className={styles.row}>
+                <div className={styles.leftcolumn}>
+                    <div className={styles.card}>
                         <h2>TITLE HEADING</h2>
                         <h5>Title description, Dec 7, 2017</h5>
-                        <div className="fakeimg" style={{ height: 200 }}>
+                        <div className={styles.fakeimg} style={{ height: 200 }}>
                             Image
                         </div>
                         <p>Some text..</p>
@@ -17,10 +19,10 @@ export const Home = () => {
                             exercitation ullamco.
                         </p>
                     </div>
-                    <div className="card">
+                    <div className={styles.card}>
                         <h2>TITLE HEADING</h2>
                         <h5>Title description, Sep 2, 2017</h5>
-                        <div className="fakeimg" style={{ height: 200 }}>
+                        <div className={styles.fakeimg} style={{ height: 200 }}>
                             Image
                         </div>
                         <p>Some text..</p>
@@ -32,27 +34,27 @@ export const Home = () => {
                         </p>
                     </div>
                 </div>
-                <div className="rightcolumn">
-                    <div className="card">
+                <div className={styles.rightcolumn}>
+                    <div className={styles.card}>
                         <h2>About Me</h2>
-                        <div className="fakeimg" style={{ height: 100 }}>
+                        <div className={styles.fakeimg} style={{ height: 100 }}>
                             Image
                         </div>
                         <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
                     </div>
-                    <div className="card">
+                    <div className={styles.card}>
                         <h3>Popular Post</h3>
-                        <div className="fakeimg">
+                        <div className={styles.fakeimg}>
                             <p>Image</p>
                         </div>
-                        <div className="fakeimg">
+                        <div className={styles.fakeimg}>
                             <p>Image</p>
                         </div>
-                        <div className="fakeimg">
+                        <div className={styles.fakeimg}>
                             <p>Image</p>
                         </div>
                     </div>
-                    <div className="card">
+                    <div className={styles.card}>
                         <h3>Follow Me</h3>
                         <p>Some text..</p>
                     </div>

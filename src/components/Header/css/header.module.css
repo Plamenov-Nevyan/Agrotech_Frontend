@@ -1,0 +1,52 @@
+.header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+  }
+  
+  .header h1 {
+    font-size: 50px;
+  }
+  
+.myLinks_inactive {
+  display: none;
+}
+.myLinks_active  {
+  display: flex;
+  width: 26%;
+  position: absolute;
+  right: 2%;
+  background: black;
+  top: 2%;
+  padding: 27px;
+}
+.hamburger_icon {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+  background: dodgerblue;
+  display: block;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+.hamburger_icon:hover {
+  background-color: black;
+}
+
+.myLinks_active a:hover{
+  border-bottom: 1px solid white;
+  border-radius: 15px;
+}
+
+.badge {  
+  position: absolute;
+  top: 16px;
+  right: 142px;
+  padding: 1px 4px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}

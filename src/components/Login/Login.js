@@ -1,4 +1,4 @@
-import "./css/login.css"
+import styles  from "./css/login.module.css"
 import { LoginForm } from "./Login-Form"
 import { RegisterForm } from "./Register-Form"
 import { H2ForLogin } from "./h2ForLogin"
@@ -26,7 +26,7 @@ export const Login = (props) => {
     }
 
     return(
-        <div className="wrapper fadeInDown">
+        <div className= {styles.wrapper + " " + styles.fadeInDown}>
   <div id="formContent">
     <div onClick={actionHandler}>
         { action === 'Register' 
@@ -35,7 +35,7 @@ export const Login = (props) => {
         }
     </div>
      {action === 'Register'
-      ? ( <div className="fadeIn first">
+      ? ( <div className={styles.fadeIn + " " + styles.first}>
       <img
         src="http://danielzawadzki.com/codepen/01/icon.svg"
         id="icon"

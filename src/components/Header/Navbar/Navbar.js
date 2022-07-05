@@ -1,10 +1,12 @@
+import styles from "../css/navbar.module.css"
+
 export const Navbar = (props) => {
     return (
-        <div class="navbar">
-        <a class="active" href="/home"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="/marketplace"><i class="fa fa-fw fa-business"></i> Marketplace</a>
-        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-        <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+        <div className={styles.navbar}>
+        <a className={styles.active} href="/"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="/catalogue"><i class="fa fa-fw fa-business-time"></i> Marketplace</a>
+        <a href="/login"><i class="fa fa-fw fa-user"></i> Sign up</a>
+        <a href="/create"><i class="fa-regular fa-file-lines"></i> Create Publication</a>
       </div>
     )
 }

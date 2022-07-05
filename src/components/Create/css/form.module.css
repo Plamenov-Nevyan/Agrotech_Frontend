@@ -1,0 +1,123 @@
+.form {
+    padding: 1em;
+    background: #f9f9f9;
+    border: 1px solid #c1c1c1;
+    margin-top: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+  }
+  #formContent {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .form_field {
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 1px solid #9c9c9c;
+  }
+  #submit_btn {
+    background: lightgrey;
+    padding: 0.7em;
+    border: 0;
+  }
+  #submit_btn:hover {
+    background: gold;
+  }
+  
+  .label {
+    text-align: right;
+    display: block;
+    margin-top: 30px;
+  }
+
+  
+  .form_field{
+    width: 100%;
+    padding: 0.7em;
+    margin-bottom: 0.5rem;
+  }
+  .form_field:focus {
+    outline: 3px solid gold;
+  }
+  
+  @media (min-width: 400px) {
+    .form {
+      overflow: hidden;
+    }
+  
+    .label {
+      float: left;
+      width: 200px;
+      font-size: 17px;
+    }
+  
+    .form_field {
+      float: left;
+      width: calc(100% - 200px);
+      font-size: 18px;
+    }
+  
+    #submit_btn {
+      float: right;
+      width: calc(100% - 200px);
+    }
+  }
+  .description {
+    padding: 20px;
+    width: 60%;
+    margin: 8px 0px;
+    font-size: 18px;
+  }
+
+  #select_type {
+    margin: 10px 0px 20px 0px;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: none;
+    background: black;
+    color: wheat;
+    font-size: 22px;
+  }
+
+  .underlineHover:after {
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background-color: #56baed;
+    content: "";
+    transition: width 0.2s;
+  }
+  
+  .underlineHover:hover {
+    color: #0d0d0d;
+  }
+  
+  .underlineHover:hover:after{
+    width: 100%;
+  }
+  h2.inactive {
+    color: #cccccc;
+  }
+  
+  h2.active {
+    color: #0d0d0d;
+    border-bottom: 2px solid #5fbae9;
+  }
+  
+  h2:hover {
+    cursor:pointer
+  }  
