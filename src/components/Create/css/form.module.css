@@ -42,6 +42,10 @@
     margin-top: 30px;
   }
 
+  .publType {
+    display:none
+  }
+
   
   .form_field{
     width: 100%;

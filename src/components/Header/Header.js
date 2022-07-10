@@ -22,12 +22,12 @@ export const Header = (props) => {
       : styles.myLinks_active
     }
     >
-    <a href="/my-profile">My Profile <i class="fas fa-user"></i></a>
-    <a href="/notifications">Notifications <i class="fas fa-bell"></i><span className={styles.badge}>3</span></a>
-    <a href="/messages">Messages <i class="fa-regular fa-message"></i></a>
+    <a href="/my-profile">My Profile <i className="fas fa-user"></i></a>
+    <a href="/notifications">Notifications <i className="fas fa-bell"></i><span className={styles.badge}>3</span></a>
+    <a href="/messages">Messages <i className="fa-regular fa-message"></i></a>
   </div>
   <a href="javascript:void(0);" className={styles.hamburger_icon} onClick={hamburgActiviyHandler}>
-    <i class="fa fa-bars"></i>
+    <i className="fa fa-bars"></i>
   </a>
         <h1>My Website</h1>
         <p>Resize the browser window to see the effect.</p>

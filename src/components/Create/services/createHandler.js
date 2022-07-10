@@ -1,15 +1,16 @@
-export  function create(e, publicationType){
+export  function create(e){
     e.preventDefault()
-    let formData = Object.fromEntries(new FormData(e.currentTarget))
-    formData.publicationType = publicationType
+    let data = new FormData(e.currentTarget)
     let userSerialized = sessionStorage.getItem('userData')
     let user = JSON.parse(userSerialized)
+
+
     fetch('http://localhost:5000/publications/create', {
        method: 'POST',
-       headers: {'Content-Type':'application/json', 'X-Authorization':user.accessToken},
-       body: JSON.stringify(formData)
+       headers: {'X-Authorization':user.accessToken},
+       body: data
     })
-    .then((resp) => resp.json())
+    .then(() => console.log(`aa`))
     .catch(err => console.log(err))
  
 }

@@ -1,4 +1,4 @@
-import {Route, Routes, Link} from "react-router-dom"
+import {Route, Routes} from "react-router-dom"
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import {Home} from "./components/Home/Home"
@@ -7,6 +7,9 @@ import {Catalogue} from "./components/Catalogue/Catalogue"
 import { Create } from "./components/Create/Create";
 import {Details} from "./components/Details/Details"
 import {Notifications} from "./components/Notifications/Notifications"
+
+
+
 
 function App() {
   return (

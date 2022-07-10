@@ -35,6 +35,8 @@
   .leftcolumn {   
     float: left;
     width: 75%;
+    margin-bottom: 20px;
+    margin-top: 10px;
   }
   
   /* Right column */

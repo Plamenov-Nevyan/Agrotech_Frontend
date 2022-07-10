@@ -1,19 +1,36 @@
 import styles from "../css/card.module.css"
 
-export const ProductCard = () => {
-    return(
-        <div className={styles['a-box']}>
-  <div className={styles['img-container']}>
-    <div className={styles['img-inner']}>
-      <div className={styles['inner-skew']}>
-        <img src="https://www.lawnandpetal.com/wp-content/uploads/2021/09/roundup.jpg" />
+export const ProductCard = (props) => {
+  let mlSec = Date.parse(props.createdAt)
+  return (
+    <div className={styles['product-card']}>
+      <div className={styles.badge}>{props.createdAt.split('T')[0]}</div>
+      <div className={styles['product-tumb']}>
+        <img src={props.image} alt="" />
+      </div>
+      <div className={styles['product-details']}>
+        <span className={styles['product-catagory']}>{props.name}</span>
+        <h4>
+          <a href="/details">See details</a>
+        </h4>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus
+          nostrum!
+        </p>
+        <div className={styles['product-bottom-details']}>
+          <div className={styles['product-price']}>
+            {props.price} $
+          </div>
+          <div className={styles['product-links']}>
+            <a href="">
+              <i className="fa fa-heart" />
+            </a>
+            <a href="">
+              <i className="fa fa-shopping-cart" />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div className={styles['text-container']}>
-    <h3>A blue bird</h3>
-    <div><a id={styles['details-btn']} href="/details">More Details</a></div>
-  </div>
-</div>
-    )
+  )
 }

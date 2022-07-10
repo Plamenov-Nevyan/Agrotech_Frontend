@@ -1,7 +1,12 @@
+.search_form_container {
+  display: grid;
+justify-content: flex-start;
+}
 .search_form{
     display: flex;
     justify-content: flex-start;
-    width: 60%;
+    width: 65%;
+  margin-top: 20px;
   margin-bottom: 40px;
   padding: 30px;
   }

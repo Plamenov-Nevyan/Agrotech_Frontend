@@ -1,44 +1,32 @@
 import styles from "./css/home.module.css"
+import {useEffect, useState} from 'react'
+import { Carousel } from "./Carousel"
 
 export const Home = () => {
+   const [news, setNews] = useState({})
+
+    useEffect(() => {
+        const getNews = async() => {
+        let resp  = await fetch('http://localhost:5000')
+        let newsReceived = await resp.json()
+        setNews(newsReceived)
+        }
+     getNews()
+    }, [])
     return (
         <>
             <div className={styles.row}>
                 <div className={styles.leftcolumn}>
-                    <div className={styles.card}>
-                        <h2>TITLE HEADING</h2>
-                        <h5>Title description, Dec 7, 2017</h5>
-                        <div className={styles.fakeimg} style={{ height: 200 }}>
-                            Image
-                        </div>
-                        <p>Some text..</p>
-                        <p>
-                            Sunt in culpa qui officia deserunt mollit anim id est laborum
-                            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco.
-                        </p>
-                    </div>
-                    <div className={styles.card}>
-                        <h2>TITLE HEADING</h2>
-                        <h5>Title description, Sep 2, 2017</h5>
-                        <div className={styles.fakeimg} style={{ height: 200 }}>
-                            Image
-                        </div>
-                        <p>Some text..</p>
-                        <p>
-                            Sunt in culpa qui officia deserunt mollit anim id est laborum
-                            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco.
-                        </p>
-                    </div>
+                  {news.hasOwnProperty('articles')
+                   ? <Carousel news={news.articles} />
+                   : <h1>Loading...</h1>
+                  }
                 </div>
                 <div className={styles.rightcolumn}>
                     <div className={styles.card}>
                         <h2>About Me</h2>
                         <div className={styles.fakeimg} style={{ height: 100 }}>
-                            Image
+                            <img src='https://drive.google.com/uc?export=view&id=1J_8BqjhdNbzF-ewVtWezw4F2b9rw2s7e' />
                         </div>
                         <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
                     </div>
