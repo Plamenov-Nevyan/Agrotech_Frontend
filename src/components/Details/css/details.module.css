@@ -51,7 +51,7 @@ transform: translate(-50% , -50% );
   background: black;
   opacity: 0.3;
   width: 680px;
-  height: 100px;
+  height: 50px;
   top: 0%;
   border-radius: 15px;
   font-size: 23px;
@@ -60,6 +60,7 @@ transform: translate(-50% , -50% );
 }
 .author p {
   margin-left: 20px;
+  margin-top: 10px;
 }
 .author a {
   color: dodgerblue;
@@ -85,26 +86,60 @@ transform: translate(-50% , -50% );
     float: right;
     align-self: end;
   }
-  .title h2 {
-    color: white;
-    opacity: 1;
-    margin-left: 15px;
-  }
   .title h3 {
         color: white;
         opacity: 1;
         margin-left: 15px;
+        width: 20%;
+        margin-top: -10px;
+        font-size: 26px;
+        font-weight: 400px;
   }
+
+  .title_header {
+    text-align: center;
+    font-size: 28px;
+font-weight: 800;
+text-transform: uppercase;
+display: inline-block;
+margin: 5px 8px 10px 8px;
+  margin-left: 8px;
+  color: darkgoldenrod;
+  }
+
+
 .likes:hover {
   font-size: 30px;
   color: gold;
 }
+
 .likes {
     margin: -35px 35px;
     color: white;
     padding: 0px;
     font-size: 23px;
+    right: 0%;
+    position: absolute;
+    top: 50%;
+    transition: ease-in-out 0.2s;
   }
+
+  .followings{
+    color: white;
+    position: absolute;
+    right: 5%;
+    bottom: 17%;
+    font-size: 23px;
+    padding: 0px;
+    transition: ease-in-out 0.2s;
+  }
+
+  .followings:hover {
+    font-size: 30px;
+    padding: 10px;
+    color: gold;
+  }
+
 .product_info_wrapper {
     display: inline-block;
     margin:20px 0px 20px auto;
@@ -131,10 +166,14 @@ padding: 30px;
 .descr_p {
     font-size: 20px;
 }
+.info_title{
+ margin-bottom: 20px;
+}
 
 .info_title:hover {
    border-bottom: 2px solid; 
 }
+
 
 .buttons {
     display: flex;

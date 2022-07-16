@@ -8,12 +8,12 @@ export const InventoryTypeSelect = ({value, onChangeHandler}) => {
         </div>
         <div className={styles.select_holder}>
                  <select className={styles.select_type} name="serviceType" id="serviceType" defaultValue={value} onChange={(e) => onChangeHandler(e)}>
-                  <option value="plough">Plough</option>
-                  <option value="harrow">Harrow</option>
-                  <option value="sprinkler">Sprinkler</option>
-                  <option value="cultivator">Cultivator</option>
-                  <option value="sower">Sower</option>      
-                  <option value="other">Others</option>   
+                  <option value="Plough">Plough</option>
+                  <option value="Harrow">Harrow</option>
+                  <option value="Sprinkler">Sprinkler</option>
+                  <option value="Cultivator">Cultivator</option>
+                  <option value="Seeder">Sower</option>      
+                  <option value="Other">Others</option>   
                 </select>   
         </div>
         </>

@@ -1,21 +1,21 @@
 import styles from "./css/details.module.css"
+import { InventoryInfo } from "./InfoFields.js/InventoryInfo"
+import { OtherInfo } from "./InfoFields.js/OtherInfo"
+import { ProductInfo } from "./InfoFields.js/ProductInfo"
+import { ServiceInfo } from "./InfoFields.js/ServiceInfo"
+import { VehicleInfo } from "./InfoFields.js/VehicleInfo"
 
-export const InfoWrapper = () => {
+export const InfoWrapper = ({publDetails, userData}) => {
     return (
         <div className={styles.product_info_wrapper}>
             <div className={styles.info}>
-                <h1 className={styles.info_title}>Product name</h1>
-                <h1 className={styles.info_title}>Price per unit: 155$</h1>
-                <h1 className={styles.info_title}>Quantity Available : 4 </h1>
-                <h1 className={styles.info_title}>
-                    Description:
-                    <p className={styles.descr_p}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro quaerat
-                        expedita odio, sit sapiente a. Officiis assumenda officia consequatur
-                        inventore libero omnis minus, impedit ad hic labore saepe ratione rem.
-                    </p>
-                </h1>
-                <h1 className={styles.info_title}>Type: Crop treatment product</h1>
+                <div className={styles.h1_info_container}>
+                 {publDetails.publicationType === 'product' && <ProductInfo publDetails={publDetails}/>}
+                 {publDetails.publicationType === 'vehicle' && <VehicleInfo publDetails={publDetails}/>}
+                 {publDetails.publicationType === 'service' && <ServiceInfo publDetails={publDetails}/>}
+                 {publDetails.publicationType === 'inventory' && <InventoryInfo publDetails={publDetails}/>}
+                 {publDetails.publicationType === 'other' && <OtherInfo publDetails={publDetails}/>}
+                 </div>
                 <div className={styles.buttons}>
                     <a href="/edit">
                         Edit <i className="fas fa-edit" />

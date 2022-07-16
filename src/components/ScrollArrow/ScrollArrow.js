@@ -16,7 +16,7 @@ export const ScrollArrow = () => {
             setShowArrow(false)
         }
     }
- console.log(showArrow)
+
     const scrollToTop = () => {
         window.scrollTo({top: 0, behavior: 'smooth'})
     }

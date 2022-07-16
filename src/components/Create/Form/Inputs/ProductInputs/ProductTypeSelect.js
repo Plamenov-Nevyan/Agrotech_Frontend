@@ -8,11 +8,12 @@ export const ProductTypeSelect = ({value, onChangeHandler}) => {
         </div>
         <div className={styles.select_holder}>
                  <select className={styles.select_type} name="productType" id="productType" defaultValue={value} onChange={(e) => onChangeHandler(e)}>
-                  <option value="insecticide">Insecticide</option>
-                  <option value="fungicide">Fungicide</option>
-                  <option value="herebicide">Herbicide</option>
-                  <option value="seedTreament">Seed Treatment</option>
-                  <option value="other">Others</option>      
+                  <option value="Insecticide">Insecticide</option>
+                  <option value="Fungicide">Fungicide</option>
+                  <option value="Herbicide">Herbicide</option>
+                  <option value="Seed Treament">Seed Treatment</option>
+                  <option value="Fertilizer">Fertilizer</option>
+                  <option value="Other">Others</option>      
                 </select>   
         </div>
         </>
