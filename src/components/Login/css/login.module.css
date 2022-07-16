@@ -20,7 +20,7 @@ a {
 
 h2 {
   text-align: center;
-  font-size: 16px;
+  font-size: 23px;
   font-weight: 600;
   text-transform: uppercase;
   display:inline-block;
@@ -41,6 +41,11 @@ h2 {
   min-height: 100%;
   padding: 20px;
 }
+.action_container {
+  width: 50%;
+display: flex;
+justify-content: center;
+}
 
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
@@ -48,12 +53,29 @@ h2 {
   background: #fff;
   padding: 30px;
   width: 90%;
-  max-width: 450px;
+  max-width: 750px;
   position: relative;
   padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
+}
+.form_wrapper{
+  width: 100%;
+}
+.register_form{
+  width: 100%;
+}
+.login_form{
+  width: 100%;
+}
+
+.input_holder {
+  width: 100%;
+}
+.input_label {
+  color: white;
+  font-size: 20px;
 }
 
 #formFooter {
@@ -70,11 +92,11 @@ h2 {
 /* TABS */
 
 h2.inactive {
-  color: #cccccc;
+  color: gray;
 }
 
 h2.active {
-  color: #0d0d0d;
+  color: black;
   border-bottom: 2px solid #5fbae9;
 }
 
@@ -82,7 +104,42 @@ h2:hover {
   cursor:pointer
 }
 
-
+#checkbox_lb_holder {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+.company_check {
+  display: inline-block;
+  width: 44%;
+  margin-bottom: 10px;
+}
+.company_check span {
+  font-size: 18px;
+  margin-left: 5px;
+}
+.individual_check{
+  display: inline-block;
+  width: 46%;
+  margin-bottom: 10px;
+}
+.individual_check span {
+  font-size: 18px;
+  margin-left: 5px;
+}
+.tac_span{
+  margin-left: 5px;
+  font-size: 20px;
+}
+.tac_show_span {
+  color: blueviolet;
+  cursor: pointer;
+  transition: ease-in 0.2s;
+}
+.tac_show_span:hover {
+  font-size: 25px;
+  text-decoration: underline;
+}
 /* FORM TYPOGRAPHY*/
 
 #register_btn,#login_btn{

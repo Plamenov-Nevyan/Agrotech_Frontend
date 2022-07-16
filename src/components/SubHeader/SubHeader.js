@@ -1,15 +1,6 @@
 import styles from "./subheader.module.css"
 
-export const SubHeader = (props) => {
-
-  //  const selectTypeHandler = (e) => {
-  //   let selectedOption = e.currentTarget.options[e.currentTarget.selectedIndex]
-  //   console.log(selectedOption);
-  //   props.typesToShow(selectedOption.value)
-  //  }
-
-
-
+export const SubHeader = ({typesToShow}) => {
 
     return(
         <div className={styles['hero-image']}>
@@ -19,7 +10,7 @@ export const SubHeader = (props) => {
           <ul>
               <li>
                 <label htmlFor="sort-by"> Sort by:</label>
-                <select name="sort-by" id="sort-by" onChange={(e) => props.typesToShow(e.target.value)}>
+                <select name="sort-by" id="sort-by" onChange={(e) => typesToShow(e.target.value)}>
                     <option value="mostRecent">Most recent</option>
                     <option value="oldest">Oldest</option>
                     <option value="mostPopular">Most popular</option>

@@ -1,6 +1,6 @@
 .search_form_container {
-  display: grid;
-justify-content: flex-start;
+  display: inline-block;
+  width: 50%;
 }
 .search_form{
     display: flex;
@@ -11,6 +11,10 @@ justify-content: flex-start;
   padding: 30px;
   }
   
+  .input_wrapper label{
+     color: wheat;
+  }
+
   #name_input{
     padding: 10px;
   width: 50%;
@@ -18,6 +22,7 @@ justify-content: flex-start;
   background-repeat: no-repeat;
   background-position: left center;
   padding-left: 40px;
+  margin-top: 10px;
   -webkit-appearance: none;
   }
   #name_input {

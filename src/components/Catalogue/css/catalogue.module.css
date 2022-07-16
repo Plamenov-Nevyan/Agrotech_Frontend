@@ -19,3 +19,35 @@ body{
     height: 0;
   }
 
+  .load_more_container {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .load_more_container button {
+    padding: 17px;
+    width: 18%;
+    border-radius: 100%;
+    font-size: 30px;
+    background-color: blanchedalmond;
+    border: 0;
+    color: darkgoldenrod;
+    cursor: pointer;
+    box-shadow: 0 5px 10px #ccc;
+    transition:  ease-in-out 0.3s;
+  }
+
+  .load_more_container button:hover {
+    padding: 23px;
+    font-size: 40px;
+    background-color: gold;
+    color: crimson;
+    width: 23%;
+  }
+
+  .no_more_remaining {
+    text-align: center;
+    color: aqua;
+  }
+

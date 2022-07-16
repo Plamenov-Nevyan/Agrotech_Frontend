@@ -1,13 +1,15 @@
+import { useState } from "react"
 import styles  from "./css/login.module.css"
-import { LoginForm } from "./Login-Form"
-import { RegisterForm } from "./Register-Form"
+import { LoginForm } from "./LoginForm/LoginForm"
+import { RegisterForm } from "./RegisterForm/RegisterForm"
 import { H2ForLogin } from "./h2ForLogin"
 import { H2ForRegister } from "./h2ForRegister"
-import { useState } from "react"
+import { FormFooter } from "./FormFooter/FormFooter"
+import { registerUser, loginUser } from "../../services/userServices"
 
 export const Login = (props) => {
     const [action, setAction] = useState('Register')
-    const [profilePic, setProfilePic] = useState(props.fileName || null)
+ 
 
     function actionHandler(e){
         if(e.target.id === `sign-up` && e.target.className !== `active`){
@@ -18,37 +20,37 @@ export const Login = (props) => {
             }
     }
 
-    const loginRedirect = (e) => {e.preventDefault(); setAction('Login')}
-
-    function profPicShowcase(e){
-        // TO DO WHEN I LEARN HOW TO MAKE API REQUESTS !!
-        // IMG TAG ABOVE FILE INPUT MUST SHOW CURRENTLY UPLOADED PIC
-    }
+   const onSubmitHandler = (e, userData) => {
+    e.preventDefault()
+    console.log(userData)
+     if(action == 'Register'){
+        registerUser(userData)
+        .then((newUser) => console.log(newUser))
+        .catch(err => console.log(err))
+     }
+     else{
+        loginUser(userData)
+        .then((loggedUser) => console.log(loggedUser))
+        .catch(err => console.log(err))
+     }
+   }
 
     return(
         <div className= {styles.wrapper + " " + styles.fadeInDown}>
-  <div id="formContent">
-    <div onClick={actionHandler}>
+  <div id={styles.formContent}>
+    <div className={styles.action_container} onClick={actionHandler}>
         { action === 'Register' 
         ? (<H2ForRegister />)
         : (< H2ForLogin /> )
         }
     </div>
-     {action === 'Register'
-      ? ( <div className={styles.fadeIn + " " + styles.first}>
-      <img
-        src="http://danielzawadzki.com/codepen/01/icon.svg"
-        id="icon"
-        alt="Select a profile picture? (Optional)"
-      />
-      <input type="file" name="upload" id="upload" onChange={profPicShowcase}/>
-      </div>)
-      : null
-     }
+    <div className={styles.form_wrapper}>
     { action === 'Register' 
-        ? (<RegisterForm loginRedirect={loginRedirect} />)
-        : (<LoginForm /> )
+        ? (<RegisterForm onSubmitHandler={onSubmitHandler}/>)
+        : (<LoginForm onSubmitHandler={onSubmitHandler}/> )
     }
+    <FormFooter action={action} setAction={setAction}/>
+    </div>
   </div>
 </div>
     )

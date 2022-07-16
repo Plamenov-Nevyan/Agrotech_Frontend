@@ -1,0 +1,30 @@
+.scrollArrow {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 100px;
+  background: orange;
+  color: white;
+  cursor: pointer;
+  border-radius: 100px;
+  border: none;
+  box-shadow: 0 5px 10px #ccc;
+  transition: ease-in 0.2s;
+}
+.scrollArrow:hover{
+  background: greenyellow;
+  color: black;
+}
+
+.scrollArrow-hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }

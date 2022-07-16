@@ -1,0 +1,32 @@
+.category_container{
+    width: 50%;
+display: inline-block;
+height: 100px;
+text-align: center;
+vertical-align: text-top;
+}
+
+.category_container select {
+    padding: 15px;
+    width: 40%;
+    margin-left: 15px;
+    border-radius: 20px;
+    border: 0;
+    background-color: cadetblue;
+    color: bisque;
+    font-size: 20px;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+  }
+
+  .category_container select:hover{
+    padding: 18px;
+    color: bisque;
+    background-color:dodgerblue;
+    font-size: 23px;
+  }
+
+  .category_container label{
+    color: bisque;
+    font-size: 20px;
+  }
