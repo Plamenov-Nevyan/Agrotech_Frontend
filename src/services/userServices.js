@@ -5,23 +5,34 @@ const endpoints = {
 }
 
 export const registerUser = async (userData) => {
+  try {  
     let resp = await fetch(baseUrl + endpoints.REGISTER, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(userData)
     })
-    userData = await resp.json()
-    sessionStorage.setItem('session', JSON.stringify(userData))
-    return {email: userData.email, username : userData.username, _id : userData._id}
+    let newUser = await resp.json()
+    if(resp.status !== 200){throw newUser}
+    sessionStorage.setItem('session', JSON.stringify(newUser))
+    return newUser
+}
+catch(err){
+    throw err
+}
 }
 
 export const loginUser = async (userData) => {
-    let resp = await fetch(baseUrl + endpoints.LOGIN, {
+   try{ let resp = await fetch(baseUrl + endpoints.LOGIN, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(userData)
     })
-    userData = await resp.json()
-    sessionStorage.setItem('session', JSON.stringify(userData))
-    return {email: userData.email, username : userData.username, _id : userData._id}
+    let loggedUser = await resp.json()
+    console.log(loggedUser)
+    if(resp.status !== 200){throw loggedUser}
+    sessionStorage.setItem('session', JSON.stringify(loggedUser))
+    return loggedUser
+}catch(err){
+    throw err
+}
 }

@@ -7,7 +7,7 @@ export const InventoryTypeSelect = ({value, onChangeHandler}) => {
             <label htmlFor="inventoryType" className={styles.label}>Inventory type:</label>
         </div>
         <div className={styles.select_holder}>
-                 <select className={styles.select_type} name="serviceType" id="serviceType" defaultValue={value} onChange={(e) => onChangeHandler(e)}>
+                 <select className={styles.select_type} name="inventoryType" id="inventoryType" defaultValue={value} onChange={(e) => onChangeHandler(e)}>
                   <option value="Plough">Plough</option>
                   <option value="Harrow">Harrow</option>
                   <option value="Sprinkler">Sprinkler</option>

@@ -4,9 +4,11 @@ import {convertToFormData} from "../utils/convertToFormData"
 const baseUrl = 'http://localhost:5000'
 const endpoints = {
     CREATE_PUBLICATION :'/publications/create',
-    GET_PUBLICATIONS : '/publications/marketplace',
+    GET_PUBLICATIONS : '/publications/marketplace', 
     GET_BY_ID : '/publications/marketplace/',
-    LIKE : '/publications/like/'
+    LIKE : '/publications/like/',
+    COMMENT : '/publications/add-comment/',
+    GET_MOST_RECENT : '/publications/most-recent',
 }
 
 export  const createPublication = async(publicationData) => {
@@ -21,18 +23,21 @@ export  const createPublication = async(publicationData) => {
         headers: {'X-Authorization':userData.accessToken},
         body: formData
      })
-    let newPublication = await resp.json()
-    console.log(newPublication)
-    return newPublication
+     console.log(resp)
+    if(resp.status !== 203){
+      let error = await resp.json()
+      throw error
+    }
    }
    catch(err){
       throw {message : err.message}
    }
 }
 
-export const getLimitedPublications = async (skip, limit, sortType) => {
-   const query = `?skip=${skip}&limit=${limit}&sort=${sortType}`
-   let resp = await fetch(baseUrl + endpoints.GET_PUBLICATIONS + query)
+export const getLimitedPublications = async (skip, limit, category, searchParam) => {
+   const queryPagination = `?skip=${skip}&limit=${limit}`
+   const queryFilter = searchParam ?`&search=${searchParam}` : `&category=${category}`
+   let resp = await fetch(baseUrl + endpoints.GET_PUBLICATIONS + queryPagination + queryFilter)
    let publicationsData = await resp.json()
    return publicationsData
 }
@@ -50,6 +55,12 @@ export const getDetails = async(publicationId) => {
    return publicationDetails
 }
 
+export const getMostRecent = async() => {
+   let resp = await fetch(baseUrl + endpoints.GET_MOST_RECENT)
+   let publications = await resp.json()
+   return publications
+}
+
 export const likeOrFollow = async (publicationId, action) => {
      let user = getSession()
      if(!user){throw {message : 'Unauthorized !'}}
@@ -60,4 +71,22 @@ export const likeOrFollow = async (publicationId, action) => {
      })
      let data = await resp.json()
      return data
+}
+
+export const addComment = async(publicationId, content) => {
+   let user = getSession()
+   if(!user){throw {message : 'Unauthorized !'}}
+   let resp = await fetch(baseUrl + endpoints.COMMENT + publicationId, {
+      method: 'POST',
+      headers : {'Content-Type':'application/json', 'x-authorization': user.accessToken},
+      body: JSON.stringify({author : user._id, content})
+   })
+   let comments = await resp.json()
+   return comments
+}
+
+export const searchPublications = (searchParam) => {
+     const query = `?search=${searchParam}`
+     fetch(baseUrl + endpoints.GET_PUBLICATIONS + query)
+     .then(resp => resp.json())
 }

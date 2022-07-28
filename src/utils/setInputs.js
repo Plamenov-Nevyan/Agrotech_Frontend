@@ -55,7 +55,6 @@ else if(publicationType === 'other'){
         price: '',
         quantity: '',
         description: '',
-        producedBy: '',
         upload: undefined
     }
 }

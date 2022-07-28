@@ -1,0 +1,38 @@
+.link_container {
+  width: 25%;
+  height: 110%;
+  overflow: hidden;
+  text-align: center;
+  float: left;
+}
+
+.recent_container {
+    height: 210px;
+    width: 60%;
+    margin-left: 0px;
+    margin-top: 35px;
+    overflow: hidden;
+  }
+.recent_info  {
+    width: 80%;
+    height: 100%;
+    float: left;
+    margin-right: 41px;
+    overflow: hidden;
+    margin-top: 51px;
+    text-align: center;
+    background: wheat;
+border-radius: 35px;
+  }
+
+  .recent_info img {
+    width: 80%;
+    height: 50%;
+    margin-top: 20px;
+    border-radius: 35px;
+  }
+  .recent_heading {
+    margin-top: 0px;
+    position: relative;
+    left: -48%;
+  }

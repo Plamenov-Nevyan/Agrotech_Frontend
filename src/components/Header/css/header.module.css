@@ -2,6 +2,10 @@
     padding: 30px;
     text-align: center;
     background: white;
+    background-image: url('../images/header_img.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
   }
   
   .header h1 {

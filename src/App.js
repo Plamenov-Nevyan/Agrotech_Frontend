@@ -7,6 +7,7 @@ import {Catalogue} from "./components/Catalogue/Catalogue"
 import { Create } from "./components/Create/Create";
 import {Details} from "./components/Details/Details"
 import {Notifications} from "./components/Notifications/Notifications"
+import { MyProfile } from "./components/Profile/MyProfile/MyProfile";
 
 
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/create" element={<Create />} />
           <Route path="/catalogue/details/:publicationId" element={<Details />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/my-profile" element={<MyProfile />} />
       </Routes>
      <Footer />
     </div>

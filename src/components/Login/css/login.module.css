@@ -87,6 +87,10 @@ justify-content: center;
   border-radius: 0 0 10px 10px;
 }
 
+.error {
+  color: red;
+}
+
 
 
 /* TABS */
@@ -176,7 +180,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-#username, #email, #password, #confirmPass {
+#username, #email, #password, #confirmPass, #phoneNumber{
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -213,7 +217,10 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
-
+#phoneNumber:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
 
 #username:placeholder {
   color: #cccccc;
@@ -225,6 +232,9 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   color: #cccccc;
 }
 #confirmPass:placeholder {
+  color: #cccccc;
+}
+#phoneNumber:placeholder {
   color: #cccccc;
 }
 input[type=submit]:hover {

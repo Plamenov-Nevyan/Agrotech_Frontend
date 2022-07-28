@@ -1,0 +1,30 @@
+.sort_container {
+    margin: 31px auto;
+}
+.sort_by {
+width: 100%;
+padding: 12px;
+font-size: 20px;
+background: transparent;
+color: white;
+border-radius: 20px;
+margin-top : 10px;
+}
+.sort_by_label {
+    font-size: 23px;
+color: wheat;
+}
+
+.sort_by:hover {
+  color: black;
+  background-color: wheat;
+}
+
+.search_btn {
+  padding: 10px;
+margin-left: 5px;
+font-size: 15px;
+background: bisque;
+border: 0;
+cursor: pointer;
+}

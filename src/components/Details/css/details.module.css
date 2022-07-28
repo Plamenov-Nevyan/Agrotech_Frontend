@@ -203,8 +203,11 @@ padding: 30px;
 .choose_quantity label {
     font-size: 20px;
 }
-.choose_quantity select {
+.choose_quantity input {
     font-size: 20px;
+    padding:6px;
+    border:0;
+    border-radius: 20px;
 }
 .choose_quantity button {
     padding: 12px;
@@ -234,8 +237,6 @@ padding: 30px;
 .add_comment_wrapper {
    width: 65%;
     margin: 0 auto;
-    display: flex;
-   justify-content: center;
 }
 .add_comment {
     width: 60%;
@@ -262,10 +263,14 @@ margin: 0 auto;
 display: grid;
 overflow: hidden;
   }
-  #comments_list {
-    display: grid;
-width: 100%;
-justify-content: center;
+  .comments_list {
+    list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+background: transparent;
+display: contents;
+
   }
   .comments li {
     background-color: wheat;
@@ -293,7 +298,56 @@ justify-content: center;
 .comments li .comment_content {
     font-size: 20px;
 }
+
+.owner_img {
+  margin-top:10px;
+  width: 70px;
+}
+
+.contact_btn{
+  width: 40%;
+  float: left;
+  position: relative;
+  left: -30%;
+  padding: 14px;
+  color: crimson;
+  background: chartreuse;
+  border: 0;
+  border-radius: 20px;
+  font-size: 15px;
+  transition: ease-in-out 0.2s;
+}
+.contact_btn:hover {
+  color: chartreuse;
+  background:crimson ;
+  font-size: 19px;
+  padding: 17px;
+  left : -35%;
+  cursor: pointer;
+}
+
+.buy_message_area{
+  width: 100%;
+  height: 70px;
+  font-size: 18px;
+  border: 0;
+  padding: 0;
+  border-radius: 10px;
+}
   
+.send_buy_msg_btn {
+  padding: 5px;
+  width: 32%;
+  font-size: 16px;
+  background: bisque;
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+}
+.send_buy_msg_btn:hover{
+  background: darksalmon;
+}
+
   @keyframes gradient {
     0% {
         background-position: 0% 50%;

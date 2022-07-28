@@ -1,6 +1,8 @@
 import styles from "./css/home.module.css"
 import {useEffect, useState} from 'react'
-import { Carousel } from "./Carousel"
+import { Carousel } from "./Carousel/Carousel"
+import { RecentPublications } from "./RecentPublications/RecentPublications"
+import { Sponsors } from "./Sponsors/Sponsors"
 
 export const Home = () => {
    const [news, setNews] = useState({})
@@ -30,24 +32,10 @@ export const Home = () => {
                         </div>
                         <p>Learn more about our team</p>
                     </div>
-                    <div className={styles.card}>
-                        <h3>Our Sponsors</h3>
-                        <div className={styles.sponsorContainer}>
-                        <a href="/#"><img className={styles.sponsor_img} src='https://drive.google.com/uc?export=view&id=1qOL-2MsXUSkCD1OGCnxW68EuCIlUtXoM' /></a>
-                        </div>
-                        <div className={styles.sponsorContainer}>
-                        <a href="/#"><img className={styles.sponsor_img} src='https://drive.google.com/uc?export=view&id=1_B5E7ImkF3zw_AEqivmeZ2zZ2R3_8vnv' /></a>
-                        </div>
-                        <div className={styles.sponsorContainer}>
-                        <a href="/#"><img className={styles.sponsor_img} src='https://drive.google.com/uc?export=view&id=1a3a1JzuOc2UuwffUsWrMVqZgZ7KMOa3G' /></a>
-                        </div>
-                    </div>
-                    {/* <div className={styles.card}>
-                        <h3>Follow Me</h3>
-                        <p>Some text..</p>
-                    </div> */}
+                    <Sponsors />
                 </div>
             </div>
+            <RecentPublications />
         </>
     )
 }

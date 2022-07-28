@@ -30,7 +30,7 @@ body, html {
   h1{
     margin-bottom: 10px;
   }
-  ul {
+  .sort_list {
     list-style-type: none;
     margin: 0;
     padding: 0;

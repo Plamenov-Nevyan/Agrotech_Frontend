@@ -1,0 +1,30 @@
+.user_who-liked {
+
+}
+.user_who-liked img {
+    width: 110px;
+    float: left;
+}
+.user_who-liked h5{
+    color: black;
+  font-size: 25px;
+  transition: ease-in-out 0.2s;
+  cursor: pointer;
+}
+.user_who-liked h5:hover {
+    font-size: 30px;
+    text-decoration: underline;
+    color: chocolate;
+  }
+
+.user_li_item {
+    width: 100%;
+}
+.user_list_likes{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+

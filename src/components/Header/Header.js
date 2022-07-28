@@ -18,8 +18,8 @@ export const Header = (props) => {
         <div className={styles.header}>
         <div className={
       linksActive 
-      ? styles.myLinks_inactive
-      : styles.myLinks_active
+      ? styles.myLinks_active
+      : styles.myLinks_inactive
     }
     >
     <a href="/my-profile">My Profile <i className="fas fa-user"></i></a>
@@ -29,8 +29,8 @@ export const Header = (props) => {
   <a href="javascript:void(0);" className={styles.hamburger_icon} onClick={hamburgActiviyHandler}>
     <i className="fa fa-bars"></i>
   </a>
-        <h1>My Website</h1>
-        <p>Resize the browser window to see the effect.</p>
+        <h1>Agro-Tech Market</h1>
+        <h3>Excellent solutions for the modern farmer</h3>
       </div>
       <Navbar />
       </>

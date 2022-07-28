@@ -1,7 +1,9 @@
 import { useEffect, useState} from "react"
+import {useNavigate} from 'react-router-dom'
 import styles from "../css/form.module.css"
 import {createPublication} from "../../../services/publicationServices"
 import {setInputsForState} from "../../../utils/setInputs"
+import { checkForErrors } from "../../../utils/validateCreateData"
 import { NameInput } from "./Inputs/CommonInputs/NameInput"
 import { PriceInput } from "./Inputs/CommonInputs/PriceInput"
 import { QuantityInput } from "./Inputs/CommonInputs/QuantityInput"
@@ -19,11 +21,14 @@ import { ServiceTypeSelect } from "./Inputs/ServicesInputs/SeviceTypeSelect"
 import { AvailableInput } from "./Inputs/ServicesInputs/AvailableInput"
 import {DosageInput} from "./Inputs/ProductInputs/DosageInput"
 import {ProducedByInput} from "./Inputs/ProductInputs/ProducedByInput"
+import { ErrorAlert } from "../../Alerts/Error"
 
 export const Form = () => {
     const [type, setType] = useState('product')
-    const [inputValues, setInputValues] = useState({})  
- 
+    const [inputValues, setInputValues] = useState({}) 
+    const [errors, setErrors] = useState([]) 
+    let navigate = useNavigate()
+
     useEffect(() => {
       setInputValues(setInputsForState(type))
     }, [type])
@@ -39,10 +44,23 @@ export const Form = () => {
 
     const onSubmitHandler = (e, publicationData) => {
         e.preventDefault()
+        console.log(publicationData)
+        let errors = checkForErrors(publicationData)
+
+        if(Object.values(publicationData).includes('')){
+          window.scrollTo({top: 0, behavior: 'smooth'})
+          return setErrors(['Please fill the required information!'])
+        }
+        else if(errors.length > 0){
+          window.scrollTo({top: 0, behavior: 'smooth'})
+          return setErrors(errors)
+        }
+        else{setErrors([])}
+
         createPublication(publicationData)
-        .then(newPublication => console.log(newPublication))
-        .catch(err => console.log(err))
-    }
+        .then(() => navigate('/catalogue') )
+        .catch(err => setErrors([err.message]))
+}
 
     const onSelectTypeHandler = (e) => {
        setType(e.target.value)
@@ -50,6 +68,7 @@ export const Form = () => {
 
     return(
 <>
+{errors.length > 0 && <ErrorAlert errors={errors} />}
     <form className={styles.form} encType="multipart/form-data" onSubmit={(e) => onSubmitHandler(e, inputValues)}>
     <div id={styles.formContent}>
       <h1 className={styles.active}>Create a new publication, and post it on the market!</h1>

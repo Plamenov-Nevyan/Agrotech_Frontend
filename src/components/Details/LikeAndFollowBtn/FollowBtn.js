@@ -2,7 +2,7 @@ import {useState} from "react"
 import styles from "../css/details.module.css"
 import {likeOrFollow} from "../../../services/publicationServices"
 
-export const FollowBtn = ({follows, publicationId, userData}) => {
+export const FollowBtn = ({follows, publicationId, userData, ownerId, onModalClickHandler}) => {
     const [currentFollows, setCurrentFollows] = useState(follows)
 
     const onFollowHandler = () => {
@@ -14,16 +14,20 @@ export const FollowBtn = ({follows, publicationId, userData}) => {
     return (
     <>   
      {userData
-       ? currentFollows.some((user) => user._id === userData._id)
-           ?  <p className={styles.followings}>
-               <i class="fa-solid fa-bookmark" aria-hidden="true"></i> : {currentFollows.length}
-             </p>
-           : <p className={styles.followings} onClick={onFollowHandler}>
-               <i class="fa-solid fa-bookmark" aria-hidden="true"></i> : {currentFollows.length}
-             </p>
-     : <p className={styles.followings}>
-   <i class="fa-solid fa-bookmark" aria-hidden="true"></i> : {currentFollows.length}
-   </p>
+     ? userData._id !== ownerId
+            ? currentFollows.some((user) => user._id === userData._id)
+                ?  <p className={styles.followings}>
+                   <i class="fa-solid fa-bookmark" aria-hidden="true"></i> : <span onClick={() => onModalClickHandler(currentFollows, 'followed')}>{currentFollows.length}</span>
+                 </p>
+               : <p className={styles.followings} onClick={onFollowHandler}>
+                   <i class="fa-solid fa-bookmark" aria-hidden="true"></i> : <span onClick={() => onModalClickHandler(currentFollows, 'followed')}>{currentFollows.length}</span>
+                 </p>
+          : <p className={styles.followings}>
+            <i class="fa-solid fa-bookmark" aria-hidden="true"></i> : <span onClick={() => onModalClickHandler(currentFollows, 'followed')}>{currentFollows.length}</span>
+            </p>
+    : <p className={styles.followings}>
+        <i class="fa-solid fa-bookmark" aria-hidden="true"></i> : <span onClick={() => onModalClickHandler(currentFollows, 'followed')}>{currentFollows.length}</span>
+     </p>
      }
 </>
     )

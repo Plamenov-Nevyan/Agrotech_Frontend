@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom"
 import styles from "./css/details.module.css"
 import {LikeBtn} from './LikeAndFollowBtn/LikeBtn'
 import {FollowBtn} from './LikeAndFollowBtn/FollowBtn'
  
-export const ImageWrapper = ({publDetails, userData}) => {
+export const ImageWrapper = ({publDetails, userData, onModalClickHandler}) => {
 
   return (
   <div className={styles.product_card_wrapper}>
@@ -11,7 +12,7 @@ export const ImageWrapper = ({publDetails, userData}) => {
   <p>
     Publication added by: 
     <span>
-      <a href="/profile/user"> {publDetails.owner.username}</a>
+      <Link to={`/profile/user/${publDetails.owner._id}`}> {publDetails.owner.username}</Link>
     </span>
   </p>
 </div>
@@ -24,8 +25,8 @@ export const ImageWrapper = ({publDetails, userData}) => {
       : publDetails.serviceType}
   </h2>
   <button className={styles.like_btn}>
-    <LikeBtn likes={publDetails.likedBy} publicationId={publDetails._id} userData={userData}/>
-    <FollowBtn follows={publDetails.followedBy} publicationId={publDetails._id} userData={userData}/>
+    <LikeBtn likes={publDetails.likedBy} publicationId={publDetails._id} userData={userData} ownerId={publDetails.owner._id} onModalClickHandler={onModalClickHandler}/>
+    <FollowBtn follows={publDetails.followedBy} publicationId={publDetails._id} userData={userData} ownerId={publDetails.owner._id} onModalClickHandler={onModalClickHandler}/>
   </button>
   <h3 className={styles.title_price}>{publDetails.price}$</h3>
 </div>
