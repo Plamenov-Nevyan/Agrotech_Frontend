@@ -1,9 +1,10 @@
+import { useEffect, useState, useContext} from "react"
 import { useParams} from "react-router-dom"
-import { useEffect, useState } from "react"
 import styles from "./css/details.module.css"
 import modalStyles from "./css/usersModal.module.css"
 import {getDetails} from "../../services/publicationServices"
 import {getSession} from "../../utils/getUserSession"
+import {authContext} from "../../contexts/authContext"
 import { CommentForm } from "./CommentForm"
 import { ImageWrapper } from "./ImageWrapper"
 import { InfoWrapper } from "./InfoWrapper"
@@ -34,7 +35,8 @@ export const Details = () => {
    ? setShowModal({showModal:false, data:[], likedOrFollowed : ''}) 
    : setShowModal({showModal:true, data, likedOrFollowed}) 
    
-let userData = getSession()
+   let {_,authData} = useContext(authContext)
+
 
     return(<>
     {showModalData.showModal && <Modal 
@@ -53,13 +55,13 @@ let userData = getSession()
          {Object.values(publicationDetails).length > 0
         ? <> 
         <div className={styles.wrapper}>
-            <ImageWrapper publDetails={publicationDetails} userData={userData} onModalClickHandler={onModalClickHandler}/>
-            <InfoWrapper publDetails={publicationDetails} userData={userData}/>
+            <ImageWrapper publDetails={publicationDetails} userData={authData} onModalClickHandler={onModalClickHandler}/>
+            <InfoWrapper publDetails={publicationDetails} userData={authData}/>
         </div>
         <h1 className ={styles.comments_title}>Comments</h1>
          <div className={styles.add_comment_wrapper}>
-           {userData
-            ? <CommentForm comments={publicationDetails.comments} userData={userData} publicationId={publicationDetails._id} />
+           {authData
+            ? <CommentForm userData={authData} publicationId={publicationDetails._id} />
             : <h3>Login or Sign up to post comments.</h3>
            }
         </div>

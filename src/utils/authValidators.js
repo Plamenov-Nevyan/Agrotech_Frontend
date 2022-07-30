@@ -81,7 +81,8 @@ export const isLocationValid = (location) => {
 
 export const isPhoneNumValid = (phoneNumber) => {
     let isValid = phoneNumber.startsWith('+')
-    let isTooLong = phoneNumber.length > 10
+    let isTooLong = phoneNumber.length > 11
     let errors = []
     if(!isValid || isTooLong){errors.push('Please enter a valid phone number!')}
+    return errors
 }

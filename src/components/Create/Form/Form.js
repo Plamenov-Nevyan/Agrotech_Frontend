@@ -44,7 +44,7 @@ export const Form = () => {
 
     const onSubmitHandler = (e, publicationData) => {
         e.preventDefault()
-        console.log(publicationData)
+
         let errors = checkForErrors(publicationData)
 
         if(Object.values(publicationData).includes('')){

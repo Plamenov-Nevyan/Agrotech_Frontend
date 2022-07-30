@@ -8,7 +8,7 @@ export const checkForErrorsRegister = (userData) => {
       let passwordErrors = authValidators.isPasswordValid(userData.password)
       let confirmErrors = authValidators.isConfirmValid(userData.confirm)
       let phoneNumErrors = authValidators.isPhoneNumValid(userData.phoneNumber)
-      errors = [...usernameErrors, ...emailErrors, ...passwordErrors, ...confirmErrors, ...phoneNumErrors]  
+      errors = [...usernameErrors, ...emailErrors, ...passwordErrors, ...confirmErrors, ...phoneNumErrors] 
    }
    else if(userData.userType === 'organization'){
     let usernameErrors = authValidators.isUsernameValid(userData.username)
@@ -19,7 +19,7 @@ export const checkForErrorsRegister = (userData) => {
     let locationErrors = authValidators.isLocationValid(userData.location)
      errors = [...usernameErrors, ...emailErrors, ...passwordErrors, ...confirmErrors, ...uicErrors, ...locationErrors]  
  }
- 
+
  return errors
 }
 

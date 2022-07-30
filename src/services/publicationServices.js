@@ -73,17 +73,6 @@ export const likeOrFollow = async (publicationId, action) => {
      return data
 }
 
-export const addComment = async(publicationId, content) => {
-   let user = getSession()
-   if(!user){throw {message : 'Unauthorized !'}}
-   let resp = await fetch(baseUrl + endpoints.COMMENT + publicationId, {
-      method: 'POST',
-      headers : {'Content-Type':'application/json', 'x-authorization': user.accessToken},
-      body: JSON.stringify({author : user._id, content})
-   })
-   let comments = await resp.json()
-   return comments
-}
 
 export const searchPublications = (searchParam) => {
      const query = `?search=${searchParam}`

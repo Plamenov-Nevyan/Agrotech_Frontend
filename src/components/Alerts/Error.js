@@ -1,7 +1,7 @@
 import styles from "./alerts.module.css"
 
 export const ErrorAlert = ({errors}) => {
-    const errorsFiltered = Object.values(errors).filter(errors => errors.length > 0)
+    
     return (
     <div className={styles.alert + " " + styles.error}>
         <input type="checkbox" id="alert1" />

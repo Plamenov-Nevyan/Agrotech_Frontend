@@ -1,7 +1,8 @@
 const baseUrl = 'http://localhost:5000'
 const endpoints = {
     REGISTER : '/register',
-    LOGIN: '/login'
+    LOGIN: '/login',
+    LOGOUT : '/logout'
 }
 
 export const registerUser = async (userData) => {
@@ -13,7 +14,6 @@ export const registerUser = async (userData) => {
     })
     let newUser = await resp.json()
     if(resp.status !== 200){throw newUser}
-    sessionStorage.setItem('session', JSON.stringify(newUser))
     return newUser
 }
 catch(err){
@@ -28,11 +28,19 @@ export const loginUser = async (userData) => {
         body: JSON.stringify(userData)
     })
     let loggedUser = await resp.json()
-    console.log(loggedUser)
     if(resp.status !== 200){throw loggedUser}
-    sessionStorage.setItem('session', JSON.stringify(loggedUser))
     return loggedUser
 }catch(err){
     throw err
 }
 }
+
+export const logoutUser = (accessToken) => { 
+    return fetch(baseUrl + endpoints.LOGOUT, {
+    method: 'GET',
+    headers: {'x-authorization' : accessToken}
+})
+.then(resp => resp.json())
+}
+
+  

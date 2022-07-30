@@ -1,22 +1,34 @@
-import styles from "./css/home.module.css"
 import {useEffect, useState} from 'react'
+import { useLocation } from 'react-router-dom'
+import styles from "./css/home.module.css"
 import { Carousel } from "./Carousel/Carousel"
 import { RecentPublications } from "./RecentPublications/RecentPublications"
 import { Sponsors } from "./Sponsors/Sponsors"
+import { SuccessAlert } from "../Alerts/Success"
 
 export const Home = () => {
    const [news, setNews] = useState({})
+   const [showSuccessAlert, setShowSuccessAlert] = useState(false)
+   const location = useLocation()
+
+   useEffect(() => {
+       const getNews = async() => {
+           let resp  = await fetch('http://localhost:5000')
+           let newsReceived = await resp.json()
+           setNews(newsReceived)
+        }
+        getNews()
+    }, [])
 
     useEffect(() => {
-        const getNews = async() => {
-        let resp  = await fetch('http://localhost:5000')
-        let newsReceived = await resp.json()
-        setNews(newsReceived)
-        }
-     getNews()
-    }, [])
+    if(location.state !== null && location.state.showSuccessAlert){
+     setShowSuccessAlert(true)
+    }
+    }, [location])
+
     return (
         <>
+        {showSuccessAlert && <SuccessAlert message={`Goodbye, ${location.state.username}`}/>}
             <div className={styles.row}>
                 <div className={styles.leftcolumn}>
                   {news.hasOwnProperty('articles')

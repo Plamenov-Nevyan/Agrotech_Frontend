@@ -1,9 +1,13 @@
+import { useState } from "react";
 import styles from "./css/header.module.css"
 import { Navbar } from "./Navbar/Navbar";
-import { useState } from "react";
+import { ConfirmModal } from "./ConfirmModal/ConfirmModal";
+import { ErrorAlert } from "../Alerts/Error";
 
-export const Header = (props) => {
+export const Header = () => {
   const [linksActive, setActivity] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [logoutError, setLogoutError] = useState([])
 
   function hamburgActiviyHandler(e){
     e.preventDefault()
@@ -13,8 +17,21 @@ export const Header = (props) => {
     else{setActivity(false)}
   } 
 
+  const onCloseHandler = () => setShowModal(false)
+  const onLogoutError = (error) => {
+    window.scrollTo({top:0,behavior:'smooth'})
+    setLogoutError(errors => [...errors, error])
+  }
+
+  const logoutModalShow = (e) =>{ 
+    e.preventDefault()
+    setShowModal(true)
+  }
+
     return(
         <>
+        {logoutError.length > 0 && <ErrorAlert errors={logoutError} />}
+        {showModal && <ConfirmModal onCloseHandler={onCloseHandler} onLogoutError={onLogoutError}/>}
         <div className={styles.header}>
         <div className={
       linksActive 
@@ -32,7 +49,7 @@ export const Header = (props) => {
         <h1>Agro-Tech Market</h1>
         <h3>Excellent solutions for the modern farmer</h3>
       </div>
-      <Navbar />
+      <Navbar logoutModalShow={logoutModalShow}/>
       </>
 )
 }

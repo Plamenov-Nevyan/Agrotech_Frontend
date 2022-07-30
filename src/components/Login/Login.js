@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { useContext } from "react"
+import { authContext } from "../../contexts/authContext"
 import { registerUser, loginUser } from "../../services/userServices"
 import { checkForErrorsRegister, checkForErrorsLogin } from "../../utils/validateUserData"
 import styles  from "./css/login.module.css"
@@ -21,6 +23,8 @@ export const Login = () => {
         successOrUnsuccessfull: ''
     })
    const [errors, setErrors] = useState([])
+   
+   const {onUserSignUp_SignIn, authData} = useContext(authContext)
 
 function actionHandler(e){
         if(e.target.id === `sign-up` && e.target.className !== `active`){
@@ -32,38 +36,38 @@ function actionHandler(e){
     }
 
    const onSubmitHandler = (e, userData, action) => {
-    e.preventDefault()
+    e.preventDefault();
     if(userData.userType === 'individual'){
         delete userData.uic; 
         delete userData.location; 
-        delete userData.countrySelect
+        delete userData.countrySelect;
     }
     else if(userData.userType === 'organization'){
         delete userData.phoneNumber; 
         delete userData.gender; 
-        delete userData.countrySelect
-    }
+        delete userData.countrySelect;
+    };
 
-    let errors = action === 'Register' ? checkForErrorsRegister(userData) : checkForErrorsLogin(userData)
-
+    let errors = action === 'Register' ? checkForErrorsRegister(userData) : checkForErrorsLogin(userData);
 
     if(Object.values(userData).includes('')){
-    window.scrollTo({top: 0, behavior: 'smooth'})
-    return setErrors(oldErrors => ['Please enter the required information'])
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    return setErrors(oldErrors => ['Please enter the required information']);
     } 
     else if(action === 'Register' && userData.password !== userData.confirm){
-    window.scrollTo({top: 0, behavior: 'smooth'})
-    return setErrors(oldErrors => ['Passwords must match each other!'])
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    return setErrors(oldErrors => ['Passwords must match each other!']);
     }
     else if(errors.length > 0 ){
-    window.scrollTo({top: 0, behavior: 'smooth'})
-    return setErrors(oldErrors => [...errors])
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    return setErrors(oldErrors => [...errors]);
     }
-    else{setErrors([])}
+    else{setErrors([])};
    
      if(action === 'Register'){
         registerUser(userData)
         .then((newUser) => {
+            onUserSignUp_SignIn(newUser);
             setShowRedirModal(state => {
                 return{
                     ...state,
@@ -81,19 +85,18 @@ function actionHandler(e){
                     },
                     loginOrRegister: 'Registration',
                     successOrUnsuccessfull: 'Succesfull' 
-                }
-            })
-        } 
-        )
-        .catch(err => {
-            console.log(err)
-            window.scrollTo({top: 0, behavior: 'smooth'})
-            setErrors([err.message])
+                };
+            });
         })
+        .catch(err => {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            setErrors([err.message]);
+        });
      }
      else if(action === 'Login'){
         loginUser(userData)
         .then((loggedUser) => {
+            onUserSignUp_SignIn(loggedUser);
             setShowRedirModal(state => {
                 return{
                     ...state,
@@ -111,17 +114,16 @@ function actionHandler(e){
                     },
                     loginOrRegister: 'Login',
                     successOrUnsuccessfull: 'Succesfull' 
-                }
-            })
+                };
+            });
         
-          }
-        )
+          })
         .catch(err => {
-           window.scrollTo({top: 0, behavior: 'smooth'})
-           setErrors([err.message])
-        })
-     }
-   }
+           window.scrollTo({top: 0, behavior: 'smooth'});
+           setErrors([err.message]);
+        });
+     };
+   };
 
    const onCloseHandler = () => setShowRedirModal(state => {return {...state, show:!state.show}})
 
