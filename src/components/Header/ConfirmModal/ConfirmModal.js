@@ -1,22 +1,25 @@
-import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import { useShoppingCart } from "../../../hooks/useShoppingCart"
 import { authContext } from "../../../contexts/authContext"
 import { logoutUser } from "../../../services/userServices"
 import styles from "../css/confirmModal.module.css"
 
-export const ConfirmModal = ({onCloseHandler, onLogoutError}) => {
+export const ConfirmModal = ({onCloseHandler, setErrorsHandler}) => {
 const navigate = useNavigate()
 const {_, authData, onUserLogout} = useContext(authContext)
+const [__, ___, ____, _____, deleteCart] = useShoppingCart()
 const onLogout = () => {
    logoutUser(authData.accessToken)
    .then(message => {
     onCloseHandler()
     onUserLogout()
+    deleteCart()
     navigate('/', {state:{showSuccessAlert:true, username: authData.username}})
 })
    .catch(err => {
       onCloseHandler()
-      onLogoutError(err.message)
+      setErrorsHandler(err.message)
    })
 }
 

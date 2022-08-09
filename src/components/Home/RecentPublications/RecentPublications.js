@@ -11,7 +11,7 @@ export const RecentPublications = () => {
       getMostRecent()
       .then(publications => setRecentPublications(publications))
       .catch(err => console.log(err))
-    })
+    },[])
 
     return (
         <div className={styles.recent_container}>

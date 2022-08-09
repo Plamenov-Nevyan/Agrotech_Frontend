@@ -57,7 +57,7 @@ export const CommentForm = ({userData, publicationId}) => {
       ? sortedComments = commentsData.comments.sort((a,b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
       : sortedComments = commentsData.comments.sort((a,b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))
     }
-    console.log(sortedComments)
+  
     if(userData){
     return (
         <>

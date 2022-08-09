@@ -1,14 +1,24 @@
 import {useState} from "react"
+import { sendNotification } from "../../../services/notificationServices"
 import styles from "../css/details.module.css"
 import {likeOrFollow} from "../../../services/publicationServices"
+
 
 export const LikeBtn = ({likes, publicationId,userData, ownerId, onModalClickHandler}) => {
     const [currentLikes, setCurrentLikes] = useState(likes)
 
-
     const onLikeHandler = () => {
       likeOrFollow(publicationId, 'like')
-      .then(newLikes => setCurrentLikes(newLikes))
+      .then(async (newLikes) => {
+        await sendNotification({ 
+          type : 'like', 
+          receiver : ownerId, 
+          sender : userData._id, 
+          forPublication : publicationId,
+          read : false
+        })
+        setCurrentLikes(newLikes)
+      })
       .catch(err => console.log(err))
     }
 

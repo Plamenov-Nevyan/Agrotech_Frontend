@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
+import { useShoppingCart } from "../../hooks/useShoppingCart"
 import styles from "./css/details.module.css"
 import { ChooseQuantity } from "./ChooseQuantity"
 import { ContactOwner } from "./ContactOwner"
@@ -7,12 +9,40 @@ import { OtherInfo } from "./InfoFields.js/OtherInfo"
 import { ProductInfo } from "./InfoFields.js/ProductInfo"
 import { ServiceInfo } from "./InfoFields.js/ServiceInfo"
 import { VehicleInfo } from "./InfoFields.js/VehicleInfo"
+import { ErrorAlert } from "../Alerts/Error"
 
 export const InfoWrapper = ({ publDetails, userData }) => {
+    const [errors, setErrors] = useState([])
+    const [contactMethod, setContactMethod] = useState('')
      const [showContactOrQuantity, setShowContactOrQuantity] = useState(false)
+     const [items,createCart, addToCart, removeFromCart] = useShoppingCart()
+     const [isItemAddedToCart, setIsItemAddedToCart] = useState(() => items.some(item => item._id === publDetails._id))
+
      const onClickHandler = () => {
-        showContactOrQuantity ?  setShowContactOrQuantity(false) : setShowContactOrQuantity(true)
+        if(showContactOrQuantity){
+            setShowContactOrQuantity(false)
+            contactMethod !== '' && setContactMethod('')
+        } 
+        else {setShowContactOrQuantity(true)}
      }
+
+     const onErrorHandler = (errors) => setErrors(oldErrors => [...oldErrors, ...errors])
+
+     const onAddHandler = (e, quantity) => {
+        e.preventDefault()
+       
+
+        addToCart(publDetails._id, quantity) 
+        setIsItemAddedToCart(true)
+    }
+
+    const onRemoveHandler = (e, quantity) => {
+        e.preventDefault()
+        removeFromCart(publDetails._id, quantity)
+        items.some(item => item._id === publDetails._id) ? setIsItemAddedToCart(true) : setIsItemAddedToCart(false)
+    }
+
+    const onContactMethodChange = (e) => setContactMethod(e.target.value)
       
     return (
         <div className={styles.product_info_wrapper}>
@@ -28,19 +58,29 @@ export const InfoWrapper = ({ publDetails, userData }) => {
                 { userData
                     ? publDetails.owner._id === userData._id
                         ? <>
-                            <a href="/edit">
+                            <Link to={`/edit/${publDetails._id}`}>
                                 Edit <i className="fas fa-edit" />
-                            </a>
-                            <a href="/delete">
-                                Delete <i className="fa fa-trash" aria-hidden="true" />
-                            </a>
+                            </Link>
+                            <Link to={`/delete/${publDetails._id}`}>
+                                Delete  <i className="fa fa-trash" aria-hidden="true" />
+                            </Link>
                         </>
                         : <>
                            {publDetails.publicationType !== 'product'
                              ? publDetails.publicationType !== 'other'
                                 ? <button className={styles.contact_btn} onClick={onClickHandler}>Contact the owner<i class="fas fa-shopping-cart"></i></button>
-                                : <button className={styles.contact_btn} onClick={onClickHandler}>Add to shopping cart<i class="fas fa-shopping-cart"></i></button>
-                             : <button className={styles.contact_btn} onClick={onClickHandler}>Add to shopping cart<i class="fas fa-shopping-cart"></i></button>
+                                : <button className={styles.contact_btn} onClick={onClickHandler}>
+                                     {isItemAddedToCart
+                                      ? 'Remove from shopping cart'
+                                      : `Add to shopping cart` + <i class="fas fa-shopping-cart"></i>
+                                    }
+                                </button>
+                             : <button className={styles.contact_btn} onClick={onClickHandler}>
+                                 {isItemAddedToCart
+                                      ? 'Remove from shopping cart'
+                                      : `Add to shopping cart` + <i class="fas fa-shopping-cart"></i>
+                                    }
+                             </button>
                            }
                         </>
                     : <h2>Login or Sign Up if you want to buy !</h2>
@@ -48,10 +88,34 @@ export const InfoWrapper = ({ publDetails, userData }) => {
                 </div>
                 {showContactOrQuantity
                   ? publDetails.quantity  
-                     ? <ChooseQuantity quantity={publDetails.quantity} />  
-                     : <ContactOwner owner={publDetails.owner}/>
+                     ? <ChooseQuantity 
+                         quantity={publDetails.quantity} 
+                         onAddHandler={onAddHandler}
+                         onRemoveHandler={onRemoveHandler}
+                         isItemAddedToCart={isItemAddedToCart}
+                         item={items.find(item => item._id === publDetails._id)}
+                      />  
+                     : <div>
+                        <label htmlFor="contactMethod">By Phone</label>
+                        <input name="contactMethod" value="phone" type="radio"
+                        onChange={(e) => onContactMethodChange(e)}
+                       />
+                        <label htmlFor="contactMethod">By Message</label>
+                        <input name="contactMethod" value="message" type="radio"
+                        onChange={(e) => onContactMethodChange(e)}
+                        />
+                         <label htmlFor="contactMethod">By Email</label>
+                        <input name="contactMethod" value="email" type="radio"
+                        onChange={(e) => onContactMethodChange(e)}
+                       />
+                     </div>
                   : ''
                 }
+                <ContactOwner 
+                owner={publDetails.owner}
+                 contactMethod={contactMethod} 
+                 userData={userData} 
+                 setErrors={setErrors}/>
             </div>
         </div>
 

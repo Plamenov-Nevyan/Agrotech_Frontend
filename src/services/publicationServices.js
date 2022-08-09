@@ -1,5 +1,5 @@
-import { getSession} from "../utils/getUserSession"
 import {convertToFormData} from "../utils/convertToFormData"
+import {getSession} from "../utils/getUserSession"
 
 const baseUrl = 'http://localhost:5000'
 const endpoints = {
@@ -9,21 +9,25 @@ const endpoints = {
     LIKE : '/publications/like/',
     COMMENT : '/publications/add-comment/',
     GET_MOST_RECENT : '/publications/most-recent',
+    EDIT : '/publications/edit/'
 }
 
-export  const createPublication = async(publicationData) => {
-   let userData = getSession()
-   if(!userData){throw {message : 'You are unauthorized to complete this action!'}}
+export  const createPublication = async(publicationData, authData) => {
+   console.log(authData)
+   if(authData === null){throw new Error('You are unauthorized to complete this action!')}
 
    let formData = convertToFormData(publicationData)
+
 
    try{
     let resp = await fetch(baseUrl + endpoints.CREATE_PUBLICATION, {
         method: 'POST',
-        headers: {'X-Authorization':userData.accessToken},
+        headers: {'X-Authorization':authData.accessToken},
         body: formData
      })
+
      console.log(resp)
+ 
     if(resp.status !== 203){
       let error = await resp.json()
       throw error
@@ -78,4 +82,13 @@ export const searchPublications = (searchParam) => {
      const query = `?search=${searchParam}`
      fetch(baseUrl + endpoints.GET_PUBLICATIONS + query)
      .then(resp => resp.json())
+}
+
+export const editPublication = (publicationData, publicationId, accessToken) => {
+
+   return fetch(baseUrl + endpoints.EDIT + publicationId, {
+      method : 'PUT',
+      headers : {'Content-Type' : 'application/json', 'X-Authorization' : accessToken},
+      body : JSON.stringify(publicationData)
+   })
 }

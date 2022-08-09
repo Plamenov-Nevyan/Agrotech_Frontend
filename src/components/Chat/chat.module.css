@@ -1,0 +1,145 @@
+.wrapper {
+    height : 500px
+}
+.contacts_container  {
+    width: 23%;
+    background: aquamarine;
+    height: 75%;
+    position: absolute;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+.messages_container {
+  width: 50%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.send_message_form {
+    width: 50%;
+    position: relative;
+    left: 0%;
+    top: 6%;
+    height: 100px;
+    text-align: center;
+  }
+.send_msg_input{
+        width: 76%;
+        height: 122%;
+        font-size: 18px;
+        border: 0;
+        border-radius: 20px;
+}
+.send_msg_btn {
+    position: absolute;
+    top: 133%;
+    left: 38%;
+    width: 25%;
+    padding: 15px;
+    border: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+.contacts_list{
+    list-style: none;
+    width: 100%;
+height: 100%;
+padding: 0;
+background: beige;
+}
+.contact_li_item {
+    background: black;
+    width: 95%;
+    height: 16%;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+.contact_info {
+    width: 100%;
+    height: 100%;
+    background: violet;
+    color: white;
+    cursor: pointer;
+}
+.contact_info img {
+  width: 67px;
+  position: relative;
+  top:10%;
+}
+.contact_info h3 {
+  position: relative;
+  top: -40%;
+font-size: 18px;
+}
+.contact_info h4 {
+  position: relative;
+  left: 20%;
+  top: -68%;
+}
+.contact_info h5 {
+  position: relative;
+  left: 73%;
+  top: -110%;
+}
+.contact_info h6  {
+  position: relative;
+  left: 86%;
+  top: -105%;
+}
+.contact_info p {
+  position: relative;
+  left: 24%;
+  top: -46%;
+  font-size: 18px;
+}
+
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  /* Darker chat container */
+  .darker {
+    border-color: #ccc;
+    background-color: #ddd;
+  }
+  
+  /* Clear floats */
+  .container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Style images */
+  .container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
+  
+  /* Style the right image */
+  .container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+  }
+  
+  /* Style time text */
+  .time-right {
+    float: right;
+    color: #aaa;
+  }
+  
+  /* Style time text */
+  .time-left {
+    float: left;
+    color: #999;
+  }

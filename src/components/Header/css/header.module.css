@@ -22,22 +22,25 @@
   right: 2%;
   background: black;
   top: 2%;
-  padding: 27px;
+  padding: 24px;
 }
 .hamburger_icon {
   color: white;
   padding: 14px 16px;
+  border: 0;
+  border-radius: 20px;
   text-decoration: none;
   font-size: 17px;
   display: block;
-  background: dodgerblue;
+  background: black;
   display: block;
   position: absolute;
   right: 12px;
   top: 12px;
+  cursor: pointer;
 }
 .hamburger_icon:hover {
-  background-color: black;
+  background-color: dodgerblue;
 }
 
 .myLinks_active a:hover{
@@ -45,12 +48,99 @@
   border-radius: 15px;
 }
 
-.badge {  
+.badge_notification {  
   position: absolute;
-  top: 16px;
-  right: 142px;
+  top: 7px;
+  right: 180px;
   padding: 1px 4px;
   border-radius: 50%;
   background: red;
   color: white;
+}
+.badge_message {  
+  position: absolute;
+  top: 7px;
+  right: 80px;
+  padding: 1px 4px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
+.notifications_container {
+  background: aqua;
+  width: 93%;
+  height: 194%;
+  position: absolute;
+  top: 85px;
+  right: 1px;
+  visibility: visible;
+}
+.notifications_container-hidden {
+  background: aqua;
+  width: 93%;
+  height: 194%;
+  position: absolute;
+  top: 85px;
+  right: 1px;
+ visibility: hidden;
+}
+
+.notifications_list_holder {
+  width: 95%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: aquamarine;
+}
+
+.notifications_list {
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.notification {
+  width: 100%;
+  margin-bottom: 10px;
+  background: bisque;
+  border-radius: 20px;
+}
+
+.single_notification_container{
+  width: 100%;
+}
+
+.single_notification_container img  {
+  position: relative;
+  width: 30px;
+  height: 18px;
+  right: 148px;
+  border-radius: 15px;
+  top: 20px;
+}
+
+.single_notification_container p  {
+  font-size: 20px;
+  margin-left: 30px;
+}
+
+.check_read_btn {
+  background: transparent;
+  border: 0;
+  font-size: 20px;
+  position: relative;
+  left: 155px;
+  top: -9px;
+  color: black;
+  transition: ease-in-out 0.2s;
+  cursor: pointer;
+}
+
+.check_read_btn:hover {
+  font-size: 25px;
+  color: blue;
 }

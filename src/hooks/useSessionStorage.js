@@ -3,7 +3,7 @@ import { useState } from "react"
 export const useSessionStorage = () => {
   const [storedBrowserData, setStoredData] = useState(() => {
   return  {
-    session : JSON.parse(sessionStorage.getItem('session'))
+    session : JSON.parse(sessionStorage.getItem('session')),
   } 
   })
 
@@ -14,19 +14,21 @@ export const useSessionStorage = () => {
         ...oldData,
         [key]:data
       }
+  
     })
   }
   const clearFromStorage = (key) =>{
     sessionStorage.removeItem(key)
     setStoredData(oldData => {
-      console.log(oldData)
       let newData = {
         ...oldData,
         [key]:null
       }
-      console.log(newData)
       return newData
     })
   }
+
+
+
   return [storedBrowserData, setToStorage, clearFromStorage]
 }
