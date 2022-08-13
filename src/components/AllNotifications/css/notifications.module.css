@@ -34,6 +34,13 @@ font-size: 35px;
   .notification-ui_dd-content {
     margin-bottom: 30px;
   }
+
+  .not_available {
+    text-align: center;
+    font-size: 48px;
+    color: aliceblue;
+  }
+
   .notification-list {
     display: -webkit-box;
     display: -ms-flexbox;

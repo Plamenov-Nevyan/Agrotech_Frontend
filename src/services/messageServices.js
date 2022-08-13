@@ -5,7 +5,9 @@ const endpoints = {
     SEND : '/send/',
     RECENT_FROM_UNIQUE_SENDERS : '/get-recent-chat/',
     GET_TRANSCRIPT : '/get-transcript/',
-    CHECK_FOR_NEW : '/check-new/'
+    CHECK_FOR_NEW : '/check-new/',
+    DELETE : '/delete',
+    SEND_EMAIL : '/contact-by-email'
 }
 
 export const getMostRecentFromUniqueSenders = (userId) => {
@@ -22,7 +24,7 @@ export const markAsRead = (messagesId, userId) => {
     return fetch(baseUrl + endpoints.MARK_AS_READ + userId, {
      method : 'POST',
      headers : {'content-type' : 'application/json'},
-     body : JSON.stringify(messagesId)
+     body : JSON.stringify({data : messagesId})
     })
     .then(resp => resp.json())
  }
@@ -39,9 +41,16 @@ export const getTranscript = (contactId, userId) => {
     return fetch(baseUrl + endpoints.GET_TRANSCRIPT + contactId + '/' + userId)
     .then(resp => resp.json())
 }
-export const checkForNewMessages = (userId, currentCount, contactId) => {
-    console.log(currentCount)
-    let query = `?count=${currentCount}&contactId=${contactId}`
-    return fetch(baseUrl + endpoints.CHECK_FOR_NEW + userId + query)
-    .then(resp => resp.json())
+
+export const sendEmail = (sender, subject, content) => {
+   return fetch(baseUrl + endpoints.SEND_EMAIL, {
+    method : 'POST',
+    headers : {'Content-Type' : 'application/json'},
+    body : JSON.stringify({
+        sender,
+        subject,
+        content
+    })
+   })
+   .then(resp => resp.json())
 }

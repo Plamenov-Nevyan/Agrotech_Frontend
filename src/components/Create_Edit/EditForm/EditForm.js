@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext} from "react"
-import {useNavigate, useParams} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import { authContext } from "../../../contexts/authContext"
 import styles from "../css/form.module.css"
 import {setInputsForState} from "../../../utils/setInputs"
@@ -87,7 +87,7 @@ export const EditForm = () => {
         notificationsToSend.length > 0 && await sendNotification(notificationsToSend)
         navigate(`/catalogue/details/${publicationDetails._id}`)
       })
-      .catch(err => { console.log(err); setErrors([err.message])})
+      .catch(err => setErrors([err.message]))
 }
 
   const onSelectTypeHandler = (e) => {
@@ -99,7 +99,7 @@ export const EditForm = () => {
         {errors.length > 0 && <ErrorAlert errors={errors} />}
         <form className={styles.form} encType="multipart/form-data" onSubmit={(e) => onSubmitHandler(e, inputValues)}>
         <div id={styles.formContent}>
-          <h1 className={styles.active}>Create a new publication, and post it on the market!</h1>
+          <h1 className={styles.active}>Edit your publication</h1>
         </div>
         <div className={styles.input_wrapper}>
         <TypeSelect value={type} onSelectTypeHandler={onSelectTypeHandler}/>
@@ -109,6 +109,7 @@ export const EditForm = () => {
           {type === 'service' && <ServiceInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} /> }
           {type === 'other' && <OtherInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} /> }
             <button id={styles.submit_btn}>Submit</button>
+            <Link to={`/catalogue/details/${publicationId}`}>Cancel</Link>
         </div>
       </form>
     </>

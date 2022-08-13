@@ -32,6 +32,20 @@
     transition: all 5s ease-in-out;
     height: 50%;
   }
+
+  .confirm_btn {
+    width: 20%;
+padding: 10px;
+border: 0;
+background: beige;
+cursor: pointer;
+font-size: 22px;
+border-radius: 15px;
+  }
+  .confirm_btn:hover {
+    background: black;
+    color: wheat;
+  }
   
   .popup h2 {
     margin-top: 0;

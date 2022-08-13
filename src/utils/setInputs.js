@@ -39,7 +39,7 @@ const handlers = {
         else if(publicationType === 'inventory'){
             return {
                 publicationType,
-                inventoryType: '',
+                inventoryType: 'Plough',
                 model: '',
                 brand: '',
                 date: '',

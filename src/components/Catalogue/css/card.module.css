@@ -36,6 +36,10 @@ a
     max-height: 100%;
 }
 
+.sold_out_heading {
+    color: red ;
+}
+
 .product-details {
     padding: 30px;
 }

@@ -1,39 +1,40 @@
 import {useState, useEffect, useContext, useRef} from "react"
 import { authContext } from "../../contexts/authContext"
-import {getMostRecentFromUniqueSenders, getTranscript, checkForNewMessages, sendMessage} from "../../services/messageServices"
+import {getMostRecentFromUniqueSenders, getTranscript, sendMessage} from "../../services/messageServices"
+import { SmallLoadingSpinner } from "../SmallLoadingSpinner/SmallLoadingSpinner"
 import styles from "./chat.module.css"
 import { ContactsList } from "./ContactsList"
-import { useSocket } from "../../hooks/useSocket";
+import { ErrorAlert } from "../Alerts/Error"
 
 
 export const Chat = () => {
     const [messages, setMessages] = useState([])
-    const [transcript, setTranscript ] = useState([])
+    const [transcript, setTranscript ] = useState(null)
     const [sendMsgInput, setSendMsgInput] = useState('')
     const [currentContact, setCurrentContact] = useState('')
     const {_, authData, __} = useContext(authContext)
+    const [errors, setErrors] = useState([])
     const transcriptCount = useRef(null)
     
 
     useEffect(() => {
         getMostRecentFromUniqueSenders(authData._id)
         .then(receivedMessages => setMessages(receivedMessages))
-        .catch(err => console.log(err))
+        .catch(err => setErrors(oldErrors => [...oldErrors, err.message]))
     }, [])
 
     useEffect(() => {
       clearInterval(transcriptCount.current)
-
-      transcriptCount.current = setInterval(() => {
+      transcriptCount.current = setInterval((transcriptLength) => {
         if(currentContact !== ''){
-          checkForNewMessages(authData._id, transcript.length, currentContact)
-          .then(newMessages =>{
+          getTranscript(authData._id, currentContact)
+          .then(newMessages => {
             if(newMessages.length > 0){
-              setTranscript(oldTranscript => [...oldTranscript, ...newMessages])
+              setTranscript(oldTranscript => [...newMessages])
             }
           }
         )
-          .catch(err => console.log(err))
+          .catch(err => setErrors(oldErrors => [...oldErrors, err.message]))
         }
       }, 5000)
 
@@ -43,10 +44,10 @@ export const Chat = () => {
     const onContactChoose = (contactId) => {
       getTranscript(contactId, authData._id)
       .then(receivedTranscript => {
-        setTranscript(oldTranscript => [...oldTranscript, ...receivedTranscript])
+        setTranscript(oldTranscript => [...receivedTranscript])
         setCurrentContact(contactId)
       })
-      .catch(err => console.log(err))
+      .catch(err => setErrors(oldErrors => [...oldErrors, err.message]))
     } 
     
     const sendMessageHandler = async (e,content, receiver, sender) => {
@@ -57,7 +58,12 @@ export const Chat = () => {
           sender : authData._id,
           receiver : currentContact
         }
-       await sendMessage(data, authData.accessToken)
+        try{
+           await sendMessage(data, authData.accessToken)
+           setSendMsgInput(' ')
+        }catch(err){
+          setErrors(oldErrors => [...oldErrors, err.message])
+        }
       }
     }
 
@@ -69,7 +75,8 @@ export const Chat = () => {
           <ContactsList contacts={messages} onContactChoose={onContactChoose} />
         </div>
         <div className={styles.messages_container}>
-            {transcript.length > 0
+            {transcript !== null
+            ? transcript.length > 0
               ? transcript.map(message => message.msgType === 'received'
                   ? <div className={styles.container}>
                         <img src={message.sender.image} alt="Avatar" />
@@ -84,12 +91,13 @@ export const Chat = () => {
                         <span className={styles['time-left']}>{message.createdAt.split('T')[1].split('.')[0]}</span>
                      </div>
               )
-              : <h2>Loading transcript ...</h2>
+              : <h2>No messages yet...</h2>
+            : null
             }
            
             
     </div>
-    <form className={styles.send_message_form}>
+    {transcript !== null && <form className={styles.send_message_form}>
          <input 
          type="text" 
          name="sendMessage" 
@@ -104,7 +112,7 @@ export const Chat = () => {
          >
           Send
           </button>
-    </form>
+    </form>}
 </div>
  )
 }

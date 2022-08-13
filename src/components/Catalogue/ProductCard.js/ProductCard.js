@@ -2,18 +2,20 @@ import { Link } from "react-router-dom"
 import styles from "../css/card.module.css"
 
 export const ProductCard = (props) => {
-
+  console.log(props)
   return (
     <div className={styles['product-card']}>
       <div className={styles.badge}>{props.createdAt.split('T')[0]}</div>
       <div className={styles['product-tumb']}>
-        <img src={props.image} alt="" />   
+        <img src={props.image} alt="Publication Image" />   
       </div>
       <div className={styles['product-details']}>
         <span className={styles['product-catagory']}>
-        {props.publicationType === 'product' || props.publicationType === 'product' && props.name}
+        {props.publicationType === 'product' && props.name}
+        {props.publicationType === 'other' && props.name}
         {props.publicationType === 'service' && props.serviceType}
-        {props.publicationType === 'vehicle' || props.publicationType === 'inventory' && props.model}
+        {props.publicationType === 'vehicle' && props.model}
+        {props.publicationType === 'inventory' && props.model}
         </span>
         <h4>
         <Link to={`/catalogue/details/${props._id}`}>See details</Link> 
@@ -25,14 +27,19 @@ export const ProductCard = (props) => {
             {props.publicationType === 'other' && <p>Available quantity : {props.quantity}</p>}
         <div className={styles['product-bottom-details']}>
           <div className={styles['product-price']}>
-            {props.price} $
+            {props.publicationType === 'product' || props.publicationType === 'other'
+            ? props.quantity > 0
+                ? props.price + `$`
+                : <h3 className={styles.sold_out_heading}>SOLD OUT !</h3>
+            : props.price + `$`
+            }
           </div>
           <div className={styles['product-links']}>
-            <a href="">
-              <i className="fa fa-heart" />
+            <a>
+              <i className="fa fa-thumbs-up" aria-hidden="true" /> {props.likedBy.length}
             </a>
-            <a href="">
-              <i className="fa fa-shopping-cart" />
+            <a>
+            <i class="fa-solid fa-bookmark" aria-hidden="true"></i> {props.followedBy.length}
             </a>
           </div>
         </div>

@@ -1,18 +1,20 @@
 import styles from "../css/carousel.module.css"
 import {v4 as uuidv4} from 'uuid'
 import { useState } from "react"
-import { CarouselSlide } from "./CarouselSlide"
 import { BtnSlideRight } from "./BtnSlideRight"
 import { BtnSlideLeft } from "./BtnSlideLeft"
+import { Link } from "react-router-dom"
 
-export const Carousel = (props) => {
+export const Carousel = ({news}) => {
    const [slideIndex, setSlideIndex] = useState(1)
+ 
    const nextSlide = () => {
-      if(slideIndex !== props.news.length){
+
+      if(slideIndex !== news.length){
         setSlideIndex(slideIndex => slideIndex + 1)
       }
-      else if( slideIndex === props.news.length){
-        setSlideIndex(1)
+      else if( slideIndex === news.length){
+        setSlideIndex(slideIndex => slideIndex - news.length + 1)
       }
    }
    const previousSlide = () => {
@@ -20,7 +22,7 @@ export const Carousel = (props) => {
         setSlideIndex(slideIndex => slideIndex - 1)
       }
       else if(slideIndex === 1){
-        setSlideIndex(props.news.length)
+        setSlideIndex(news.length)
       }
    }
 
@@ -31,28 +33,25 @@ export const Carousel = (props) => {
            <BtnSlideLeft moveSlide={previousSlide}/>
             <div className={styles['carousel_track-container']}>
                 <ul className={styles.carousel_track}>
-                     {props.news.length > 0
-                      ? (props.news.map((news, index) => {
-                        return(
-                            <li key={uuidv4()} className={slideIndex === index + 1
+                     {news.length > 0 && (news.map((news, index) => 
+                     <li key={uuidv4()} className={slideIndex === index + 1
                              ? styles.carousel_slide + " " + styles.active_anim
                              : styles.carousel_slide
-                            }>
+                            }
+                            >
                                 <img className={styles.carousel_image} src={news.urlToImage} />
                                 <div className={styles.title_descr}>
-                                <a href={news.url}>{news.title}</a>
+                                <Link to={`${news.url}`}>{news.title}</Link>
                                 <p>{news.description}</p>
                                 </div>
-                            </li>
-                        )
-                      }))
-                      : (<h1>No recent news available...</h1>)
+                      </li>
+                      ))
                      }
                 </ul>
             </div>
             <BtnSlideRight moveSlide={nextSlide}/>
             <div className={styles.carousel_nav}>
-                    {Array.from({length:props.news.length}).map((btn, index) => {
+                    {Array.from({length:news.length}).map((btn, index) => {
                         return <button className={slideIndex === index + 1
                          ? styles['carousel_indicator-active']
                          : styles.carousel_indicator 

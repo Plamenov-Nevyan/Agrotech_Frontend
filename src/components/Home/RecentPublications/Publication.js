@@ -8,7 +8,7 @@ export const Publication = ({publication}) => {
             <img src={publication.image} />
             <h4>{publication.publicationType === 'product' || publication.publicationType === 'other'
                  ? publication.name
-                 : publication.publicationType === 'vehicle' || publication.publicationType === 'Inventory'
+                 : publication.publicationType === 'vehicle' || publication.publicationType === 'inventory'
                     ? publication.model
                     : publication.serviceType
                 }

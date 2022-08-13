@@ -25,8 +25,20 @@ export const ImageWrapper = ({publDetails, userData, onModalClickHandler}) => {
       : publDetails.serviceType}
   </h2>
   <button className={styles.like_btn}>
-    <LikeBtn likes={publDetails.likedBy} publicationId={publDetails._id} userData={userData} ownerId={publDetails.owner._id} onModalClickHandler={onModalClickHandler}/>
-    <FollowBtn follows={publDetails.followedBy} publicationId={publDetails._id} userData={userData} ownerId={publDetails.owner._id} onModalClickHandler={onModalClickHandler}/>
+    <LikeBtn 
+    likes={publDetails.likedBy} 
+    publicationId={publDetails._id} 
+    userData={userData} 
+    ownerId={publDetails.owner._id} 
+    onModalClickHandler={onModalClickHandler}
+    />
+    <FollowBtn 
+    follows={publDetails.followedBy} 
+    publicationId={publDetails._id} 
+    userData={userData} 
+    ownerId={publDetails.owner._id} 
+    onModalClickHandler={onModalClickHandler}
+    />
   </button>
   <h3 className={styles.title_price}>{publDetails.price}$</h3>
 </div>

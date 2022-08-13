@@ -24,7 +24,7 @@ export const ContactsList = ({contacts, onContactChoose}) => {
                         : contact.content
                         }
                     </p>
-                    {contact.msgType === 'sent' && <h3>To {contact.receiver.username}</h3>}
+                    {contact.msgType === 'sent' && <h3 className={styles.receiver_name}>To {contact.receiver.username}</h3>}
                     <h5>On {contact.date}</h5>
                     <h6>{contact.time}</h6>
                 </div>

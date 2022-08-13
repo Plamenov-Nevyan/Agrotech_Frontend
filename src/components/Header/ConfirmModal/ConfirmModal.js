@@ -32,8 +32,8 @@ const onLogout = () => {
           <div className={styles.content}>
              <p className={styles.content_p}>Are you sure you want to exit your profile ?</p>
              <div className={styles.link_holder}>
-                <button onClick={onLogout}>Yes</button>
-                <button onClick={() => onCloseHandler()}>Cancel</button>
+                <button className={styles.confirm_btn} onClick={onLogout}>Yes</button>
+                <button className={styles.confirm_btn} onClick={() => onCloseHandler()}>Cancel</button>
              </div>
           </div>
         </div>

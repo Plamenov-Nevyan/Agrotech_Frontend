@@ -33,7 +33,7 @@ export const CreateForm = () => {
         }
       })
     }
-
+    
     const onSubmitHandler = (e, publicationData) => {
         e.preventDefault()
         let errors = checkForErrors(publicationData)
@@ -49,8 +49,8 @@ export const CreateForm = () => {
         else{setErrors([])}
 
         createPublication(publicationData, authData)
-        .then(() => navigate('/catalogue') )
-        .catch(err => { console.log(err); setErrors([err.message])})
+        .then(() => navigate('/catalogue', {state:{showSuccessAlert:true}}))
+        .catch(err => setErrors([err.message]))
 }
 
     const onSelectTypeHandler = (e) => {

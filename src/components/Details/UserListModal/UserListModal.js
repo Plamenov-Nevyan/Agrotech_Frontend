@@ -1,7 +1,7 @@
 import {useState} from "react"
-import styles from "./modal.module.css"
+import styles from "./userListModal.module.css"
 
-export const Modal = ({content, onCloseHandler, likeOrFollow}) => {
+export const UserListModal = ({content, onCloseHandler, likeOrFollow}) => {
     return (
     <>
          <div id="popup1" className={styles.overlay} onClick={() => onCloseHandler()}>

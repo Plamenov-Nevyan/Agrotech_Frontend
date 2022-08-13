@@ -28,7 +28,12 @@ export const useSessionStorage = () => {
     })
   }
 
+  const getFromStorage = (key) => {
+    let data = sessionStorage.getItem(key)
+    return JSON.parse(data)
+  }
 
 
-  return [storedBrowserData, setToStorage, clearFromStorage]
+
+  return [storedBrowserData, setToStorage, clearFromStorage, getFromStorage]
 }

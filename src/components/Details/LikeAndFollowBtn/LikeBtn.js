@@ -22,23 +22,27 @@ export const LikeBtn = ({likes, publicationId,userData, ownerId, onModalClickHan
       .catch(err => console.log(err))
     }
 
+    let isUserSignedIn = userData
+    let isOwner = isUserSignedIn ? userData._id === ownerId : false
+    let isLikedAlready = isUserSignedIn ? currentLikes.some((user) => user._id === userData._id) : false
+console.log(isLikedAlready)
     return (
      <>   
-  {userData
-    ? userData._id !== ownerId 
-      ? currentLikes.some((user) => user._id === userData._id)
-          ? <p className={styles.likes}>
-                <i className="fa fa-thumbs-up" aria-hidden="true" /> :<span onClick={() => onModalClickHandler(currentLikes, 'liked')}>{currentLikes.length}</span>
-            </p>
-          : <p className={styles.likes} onClick={onLikeHandler}>  
-                 <i className="fa fa-thumbs-up" aria-hidden="true" /> :<span onClick={() => onModalClickHandler(currentLikes, 'liked')}>{currentLikes.length}</span>  
-            </p>
-      : <p className={styles.likes}>
-            <i className="fa fa-thumbs-up" aria-hidden="true" /> :<span onClick={() => onModalClickHandler(currentLikes, 'liked')}>{currentLikes.length}</span>
+  {isUserSignedIn
+    ? isOwner
+        ? <p className={styles.likes}> 
+             <i className="fa fa-thumbs-up" aria-hidden="true" /> : <span onClick={() => onModalClickHandler(currentLikes, 'liked')}>{currentLikes.length}</span>
           </p>
-    :  <p className={styles.likes}> 
-          <i className="fa fa-thumbs-up" aria-hidden="true" /> : <span onClick={() => onModalClickHandler(currentLikes, 'liked')}>{currentLikes.length}</span>
-      </p>
+        :  isLikedAlready
+            ? <p className={styles.likes}>
+                  <i className="fa fa-thumbs-up" aria-hidden="true" /> :<span onClick={() => onModalClickHandler(currentLikes, 'liked')}>{currentLikes.length}</span>
+              </p>
+            : <p className={styles.likes} onClick={onLikeHandler}>  
+                  <i className="fa fa-thumbs-up" aria-hidden="true" /> :<span onClick={() => onModalClickHandler(currentLikes, 'liked')}>{currentLikes.length}</span>  
+              </p>
+    : <p className={styles.likes}>
+          <i className="fa fa-thumbs-up" aria-hidden="true" /> :<span onClick={() => onModalClickHandler(currentLikes, 'liked')}>{currentLikes.length}</span>
+        </p>
   }
   </>
 )

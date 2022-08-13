@@ -1,6 +1,6 @@
-import {useState} from "react"
 import {Link} from "react-router-dom"
-import styles from "./css/details.module.css"
+import styles from "../css/details.module.css"
+
 export const Comment = ({comments}) => {
     return (
 <div className={styles.comments}>

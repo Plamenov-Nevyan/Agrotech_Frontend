@@ -38,7 +38,7 @@ export const loginUser = async (userData) => {
 export const logoutUser = (accessToken) => { 
     return fetch(baseUrl + endpoints.LOGOUT, {
     method: 'GET',
-    headers: {'x-authorization' : accessToken}
+    headers: {'X-Authorization' : accessToken}
 })
 .then(resp => resp.json())
 }

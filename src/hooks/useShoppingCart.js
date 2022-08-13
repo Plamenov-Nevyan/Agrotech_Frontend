@@ -24,15 +24,18 @@ const addToCart = (itemId, quantity) => {
 
    } 
 
-const removeFromCart = (itemId, quantity) => {
+const removeFromCart = (itemId, quantity, removeAll) => {
        let itemToProcess = items.find(item => item._id === itemId)
        let indexOfItem = items.indexOf(itemToProcess)
        let updatedItems 
-
-       if(Number(quantity) == itemToProcess.quantity){
-           updatedItems = [...items.filter(item => item._id !== itemToProcess._id)]
-        // updatedItems = items.filter(item => item._id !== itemToProcess._id)
-       }
+      if(removeAll){
+        updatedItems = [...items.filter(item => item._id !== itemToProcess._id)]
+      }
+      else if(quantity){
+        if(Number(quantity) == itemToProcess.quantity){
+            updatedItems = [...items.filter(item => item._id !== itemToProcess._id)]
+        }
+      }
        else {
         itemToProcess.quantity -= quantity
         updatedItems = items.splice(indexOfItem, 1, itemToProcess)

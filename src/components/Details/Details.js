@@ -4,11 +4,11 @@ import styles from "./css/details.module.css"
 import modalStyles from "./css/usersModal.module.css"
 import {getDetails} from "../../services/publicationServices"
 import {authContext} from "../../contexts/authContext"
-import { CommentForm } from "./CommentForm"
+import { CommentForm } from "./Comments/CommentForm"
 import { ImageWrapper } from "./ImageWrapper"
 import { InfoWrapper } from "./InfoWrapper"
 import { SubHeader } from "../SubHeader/SubHeader"
-import { Modal } from "../Modal/Modal"
+import { UserListModal } from "./UserListModal/UserListModal"
 import { UsersLikedOrFollowed } from "./UsersLiked"
 
 export const Details = () => {
@@ -38,7 +38,7 @@ export const Details = () => {
 
 
     return(<>
-    {showModalData.showModal && <Modal 
+    {showModalData.showModal && <UserListModal 
      content={
      <ul className={modalStyles.user_list_likes}>
         {showModalData.data.map(userWhoLikedOrFollowed => <li className={modalStyles.user_li_item}>
@@ -61,7 +61,7 @@ export const Details = () => {
          <div className={styles.add_comment_wrapper}>
            {authData
             ? <CommentForm userData={authData} publicationId={publicationDetails._id} />
-            : <h3>Login or Sign up to post comments.</h3>
+            : <h3 className={styles.sign_up_header}>Login or Sign up to post comments.</h3>
            }
         </div>
         </>

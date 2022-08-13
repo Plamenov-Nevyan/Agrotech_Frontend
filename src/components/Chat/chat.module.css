@@ -70,7 +70,7 @@ background: beige;
 }
 .contact_info h3 {
   position: relative;
-  top: -40%;
+  top: -50%;
 font-size: 18px;
 }
 .contact_info h4 {
@@ -80,18 +80,18 @@ font-size: 18px;
 }
 .contact_info h5 {
   position: relative;
-  left: 73%;
-  top: -110%;
+  left: 69%;
+  top: -120%;
 }
 .contact_info h6  {
   position: relative;
   left: 86%;
-  top: -105%;
+  top: -99%;
 }
 .contact_info p {
   position: relative;
   left: 24%;
-  top: -46%;
+  top: -50%;
   font-size: 18px;
 }
 

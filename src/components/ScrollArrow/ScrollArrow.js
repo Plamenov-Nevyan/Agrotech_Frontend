@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import styles from "./scrollArrow.module.css"
-import {FaArrowCircleUp} from "react-icons/fa"
 
 export const ScrollArrow = () => {
     const [showArrow, setShowArrow] = useState(false)

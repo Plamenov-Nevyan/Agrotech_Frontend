@@ -10,9 +10,11 @@ import { ProductInfo } from "./InfoFields.js/ProductInfo"
 import { ServiceInfo } from "./InfoFields.js/ServiceInfo"
 import { VehicleInfo } from "./InfoFields.js/VehicleInfo"
 import { ErrorAlert } from "../Alerts/Error"
+import { ConfirmModal } from "./ConfirmModal/ConfirmModal"
 
 export const InfoWrapper = ({ publDetails, userData }) => {
     const [errors, setErrors] = useState([])
+    const [showModal, setShowModal] = useState(false)
     const [contactMethod, setContactMethod] = useState('')
      const [showContactOrQuantity, setShowContactOrQuantity] = useState(false)
      const [items,createCart, addToCart, removeFromCart] = useShoppingCart()
@@ -30,7 +32,6 @@ export const InfoWrapper = ({ publDetails, userData }) => {
 
      const onAddHandler = (e, quantity) => {
         e.preventDefault()
-       
 
         addToCart(publDetails._id, quantity) 
         setIsItemAddedToCart(true)
@@ -43,8 +44,22 @@ export const InfoWrapper = ({ publDetails, userData }) => {
     }
 
     const onContactMethodChange = (e) => setContactMethod(e.target.value)
+    const onCloseHandler = () => setShowModal(state => false)
+    const onDeleteClick = () => setShowModal(state => true)
+
+    let isSoldOut = publDetails.quantity < 1
       
     return (
+        <>
+        {showModal && <ConfirmModal 
+        onCloseHandler={onCloseHandler} 
+        onErrorHandler={onErrorHandler} 
+        accessToken={userData.accessToken}
+        publicationId={publDetails._id}
+        followers={publDetails.followedBy}
+        owner = {publDetails.owner}
+        />
+        }
         <div className={styles.product_info_wrapper}>
             <div className={styles.info}>
                 <div className={styles.h1_info_container}>
@@ -59,26 +74,26 @@ export const InfoWrapper = ({ publDetails, userData }) => {
                     ? publDetails.owner._id === userData._id
                         ? <>
                             <Link to={`/edit/${publDetails._id}`}>
-                                Edit <i className="fas fa-edit" />
+                                Edit  <i className="fas fa-edit" />
                             </Link>
-                            <Link to={`/delete/${publDetails._id}`}>
+                            <button className={styles.del_btn} onClick={onDeleteClick}>
                                 Delete  <i className="fa fa-trash" aria-hidden="true" />
-                            </Link>
+                            </button>
                         </>
                         : <>
                            {publDetails.publicationType !== 'product'
                              ? publDetails.publicationType !== 'other'
                                 ? <button className={styles.contact_btn} onClick={onClickHandler}>Contact the owner<i class="fas fa-shopping-cart"></i></button>
-                                : <button className={styles.contact_btn} onClick={onClickHandler}>
+                                : !isSoldOut && <button className={styles.contact_btn} onClick={onClickHandler}>
                                      {isItemAddedToCart
                                       ? 'Remove from shopping cart'
-                                      : `Add to shopping cart` + <i class="fas fa-shopping-cart"></i>
+                                      : `Add to shopping cart` 
                                     }
                                 </button>
-                             : <button className={styles.contact_btn} onClick={onClickHandler}>
+                             : !isSoldOut && <button className={styles.contact_btn} onClick={onClickHandler}>
                                  {isItemAddedToCart
                                       ? 'Remove from shopping cart'
-                                      : `Add to shopping cart` + <i class="fas fa-shopping-cart"></i>
+                                      : `Add to shopping cart` 
                                     }
                              </button>
                            }
@@ -104,10 +119,6 @@ export const InfoWrapper = ({ publDetails, userData }) => {
                         <input name="contactMethod" value="message" type="radio"
                         onChange={(e) => onContactMethodChange(e)}
                         />
-                         <label htmlFor="contactMethod">By Email</label>
-                        <input name="contactMethod" value="email" type="radio"
-                        onChange={(e) => onContactMethodChange(e)}
-                       />
                      </div>
                   : ''
                 }
@@ -118,6 +129,6 @@ export const InfoWrapper = ({ publDetails, userData }) => {
                  setErrors={setErrors}/>
             </div>
         </div>
-
+        </>
     )
 }

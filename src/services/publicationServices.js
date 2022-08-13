@@ -9,7 +9,11 @@ const endpoints = {
     LIKE : '/publications/like/',
     COMMENT : '/publications/add-comment/',
     GET_MOST_RECENT : '/publications/most-recent',
-    EDIT : '/publications/edit/'
+    EDIT : '/publications/edit/',
+    DELETE : '/publications/delete/',
+    GET_FOR_SHOPPING_CART : '/publications/get-for-shopping-cart',
+    GET_FOR_SELL : '/publications/get-for-sell',
+    SELL : '/publications/sell/'
 }
 
 export  const createPublication = async(publicationData, authData) => {
@@ -38,8 +42,8 @@ export  const createPublication = async(publicationData, authData) => {
    }
 }
 
-export const getLimitedPublications = async (skip, limit, category, searchParam) => {
-   const queryPagination = `?skip=${skip}&limit=${limit}`
+export const getLimitedPublications = async (sort,skip, limit, category, searchParam) => {
+   const queryPagination = `?skip=${skip}&limit=${limit}&sort=${sort}`
    const queryFilter = searchParam ?`&search=${searchParam}` : `&category=${category}`
    let resp = await fetch(baseUrl + endpoints.GET_PUBLICATIONS + queryPagination + queryFilter)
    let publicationsData = await resp.json()
@@ -91,4 +95,33 @@ export const editPublication = (publicationData, publicationId, accessToken) => 
       headers : {'Content-Type' : 'application/json', 'X-Authorization' : accessToken},
       body : JSON.stringify(publicationData)
    })
+}
+
+export const deletePublication = (publicationId, accessToken) => {
+   return fetch(baseUrl + endpoints.DELETE + publicationId, {
+     method : 'DELETE',
+     headers : {'X-Authorization' : accessToken}
+   })
+   .then(resp => resp.json())
+}
+
+export const getForShoppingCart = (itemIds) => {
+   let query = `?itemIds=${itemIds}`
+   return fetch(baseUrl + endpoints.GET_FOR_SHOPPING_CART + query)
+   .then(resp => resp.json())
+}
+
+export const getForSell = (publicationIds) => {
+   let query = `?publicationIds=${publicationIds}`
+   return fetch(baseUrl + endpoints.GET_FOR_SELL + query)
+   .then(resp => resp.json())
+}
+
+export const sellProduct = (publicationId, quantityToSell, accessToken, buyer) => {
+   return fetch(baseUrl + endpoints.SELL + publicationId, {
+      method : 'POST',
+      headers : {'Content-Type' : 'application/json', 'X-Authorization' : accessToken},
+      body : JSON.stringify({quantityToSell, buyer})
+   })
+   .then(resp => resp.json())
 }

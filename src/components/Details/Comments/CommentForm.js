@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react"
-import {addComment, getComments, getCommentsCount} from "../../services/commentServices"
-import styles from "./css/details.module.css"
-import { constants } from "../../config/constants"
-import { sortWhenAddComment } from "../../utils/sortWhenAddComment"
+import {addComment, getComments, getCommentsCount} from "../../../services/commentServices"
+import styles from "../css/details.module.css"
+import { constants } from "../../../config/constants"
 import { Comment } from "./Comment"
 import { Pager } from "./Pager"
 import { CommentSort } from "./CommentSort"
+import {SmallLoadingSpinner} from "../../SmallLoadingSpinner/SmallLoadingSpinner"
+import {ErrorAlert} from "../../Alerts/Error"
 
 export const CommentForm = ({userData, publicationId}) => {
       const [currentPage, setCurrentPage] = useState(1)
       const [commentsData, setCommentsData] = useState({})
       const [commentContent, setCommentContent] = useState('')
       const [commentSortType, setCommentSortType] = useState('recent')
+      const [errors, setErrors] = useState([])
 
      
 
@@ -26,12 +28,13 @@ export const CommentForm = ({userData, publicationId}) => {
       useEffect(() => {
         getComments(currentPage, publicationId, commentSortType)
         .then((commentsDataReceived) => setCommentsData(commentsDataReceived))
-        .catch(err => console.log(err))
+        .catch(err => setErrors(oldErrors => [...oldErrors, err.message]))
       },[currentPage])
       
 
       const onCommentSubmit = (e) => {
         e.preventDefault()
+        if(commentContent === ''){return setErrors(oldErrors => [...oldErrors, 'You can\'t post an empty comment'])}
           addComment(publicationId, commentContent, userData._id, userData.accessToken)
           .then(async (newComment) => {
             try {
@@ -48,7 +51,7 @@ export const CommentForm = ({userData, publicationId}) => {
             throw err
           }
           })
-          .catch(err => console.log(err))
+          .catch(err => setErrors(oldErrors => [...oldErrors, err.message]))
       }
 
     let sortedComments
@@ -61,6 +64,7 @@ export const CommentForm = ({userData, publicationId}) => {
     if(userData){
     return (
         <>
+        {errors.length > 0 && <ErrorAlert errors={errors}/>}
         { Object.values(commentsData).length > 0
             ? commentsData.comments.length > 0
                 ?<> 
@@ -68,8 +72,8 @@ export const CommentForm = ({userData, publicationId}) => {
                 <Comment comments={sortedComments}/>
                 < Pager onPageChange={onPageChange} totalPages={commentsData.pages}/>
                 </>
-                : <h1>No comments yet...</h1>
-            : <h1>No comments yet...</h1>
+                : <h1 className={styles.not_available_heading}>No comments yet...</h1>
+            : <SmallLoadingSpinner />
           }
         <article className={styles.add_comment}>
             <form id={styles.comment_form} onSubmit={(e) => onCommentSubmit(e)}>
@@ -79,7 +83,7 @@ export const CommentForm = ({userData, publicationId}) => {
                     placeholder="Type your comment..."
                     onChange={(e) => onChangeHandler(e)}
                 />
-                <input id={styles.commentBtn} type="submit" defaultValue="Add comment" />
+                <input id={styles.commentBtn} type="submit" value="Add comment" />
             </form>
         </article>
       </>
@@ -92,7 +96,7 @@ export const CommentForm = ({userData, publicationId}) => {
               ? commentsData.comments.length > 0
                 ? <Comment comments={sortedComments}/>
                 : <h1>No comments yet...</h1>
-              :<h1>No comments yet...</h1>
+              :<SmallLoadingSpinner />
           }
         </>
     )

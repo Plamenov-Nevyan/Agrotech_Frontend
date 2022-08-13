@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext} from "react";
 import { getUserNotifications} from "../../services/notificationServices";
-import {getRecentMessages} from "../../services/messageServices"
+import {getRecentMessages, markAsRead} from "../../services/messageServices"
 import { authContext } from "../../contexts/authContext";
 import styles from "./css/header.module.css"
 import { Navbar } from "./Navbar/Navbar";
@@ -27,7 +27,6 @@ export const Header = () => {
       getUserNotifications(authData._id),
       getRecentMessages(authData._id)
      ])
-     console.log(receivedNotifications)
      onNotificationHandler(``,receivedNotifications)
      onMessageHandler(``,receivedMessages)
     }catch(err){
@@ -65,7 +64,6 @@ export const Header = () => {
     if(userId){
       getUserNotifications(userId)
         .then(receivedNotifications => {
-          console.log(receivedNotifications)
           setNotifications(oldNotifications => [...receivedNotifications])
         })
         .catch(err => setErrorsHandler(err.message))
@@ -87,6 +85,14 @@ export const Header = () => {
         setMessages(oldMessages => [...updatedMessages])
       }
   }
+
+  const onCheckRead = (userId, messageId) => {
+    markAsRead(messageId, userId)
+    .then((receivedMessages) => {
+      setMessages(oldMessages => [...receivedMessages])
+    })
+    .catch(err => setErrorsHandler(err.message))
+}
 
     return(
         <>
@@ -112,6 +118,7 @@ export const Header = () => {
    onMessageHandler={onMessageHandler} 
    setErrorsHandler={setErrorsHandler}
    userData = {authData}
+   onCheckRead={onCheckRead}
    />
   </div>
    {authData &&  <button className={styles.hamburger_icon}  onClick={hamburgActiviyHandler}>

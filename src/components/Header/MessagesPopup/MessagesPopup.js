@@ -1,33 +1,22 @@
-import userEvent from "@testing-library/user-event";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import {markAsRead, getRecentMessages } from "../../../services/messageServices";
 import styles from "../css/header.module.css"
 
-export const MessagesPopup = ({messages, onMessageHandler, setErrorsHandler, userData}) => {
+export const MessagesPopup = ({messages, onMessageHandler, setErrorsHandler, userData, onCheckRead}) => {
     const [showMessages, setShowMessages] = useState(false)
-    const [unreadMessages, setUnreadMessages] = useState(0)
-  
+    const [unreadMessages, setUnreadMessages] = useState(messages.length)
     const onMessagesClick = () => setShowMessages(!showMessages)
-
-   useEffect(() => {
-    if(messages.length > 0){
+    useEffect(() => {
         let unreadCount = messages.filter(message => !message.read).length
-        
         setUnreadMessages(
-            previousUnread => unreadCount === 0 
-            ? 0 
-            : unreadCount === previousUnread 
-               ? previousUnread
-               : previousUnread + unreadCount
+            previousUnread => messages.length
             )
-    }
    }, [messages])
 
    useEffect(() => {
      if(!showMessages && messages.length > 0){
         let messagesToMark = messages.filter(message => !message.read).map(message => message._id)
-        console.log(messagesToMark)
         if(messagesToMark.length > 0){
         markAsRead(messagesToMark, userData._id)
         .then(updatedMessages =>{
@@ -37,6 +26,8 @@ export const MessagesPopup = ({messages, onMessageHandler, setErrorsHandler, use
         }
      }
    }, [showMessages])
+
+  
 
     return(
         <>
@@ -50,29 +41,30 @@ export const MessagesPopup = ({messages, onMessageHandler, setErrorsHandler, use
     }>
       <div className={styles.notifications_list_holder}>
     {messages.length > 0
-        ?<> 
-            <ul className={styles.notifications_list}>
+        ? <ul className={styles.notifications_list}>
                {messages.map(message => 
                <li className={styles.notification}>
-                <Link to={`/all-messages/${message._id}`}>
                     <div className={styles.single_notification_container}>
                         <img src={message.sender.image} />
                         <p>{message.sender.username}</p>
                         <p>
                             {message.content}
                         </p>
-                        {!message.read && <button className={styles.check_read_btn}><i class="fa-solid fa-check"></i></button>}
+                       <button 
+                       className={styles.check_read_btn}
+                       onClick={() => onCheckRead(userData._id, message._id)}
+                       >
+                        <i class="fa-solid fa-check"></i>
+                        </button>
                     </div>
-                </Link>
             </li>
              )}
             </ul>
+            : <h3>No new messages</h3>
+        }
             <Link to={'/all-messages'}>See all messages</Link>
-        </>
-        :   <h3>No new messages</h3>
-    }
+        </div>
       </div>
-    </div>
-        </>
+    </>
     )
 }

@@ -57,6 +57,31 @@
   background: red;
   color: white;
 }
+.menu_link {
+  background: transparent;
+  color: #92badd;
+  border: 0;
+  cursor: pointer;
+}
+
+.seeAll{
+  background: transparent;
+  border: 0;
+  font-size: 17px;
+  color: chocolate;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.seeAll:hover {
+  text-decoration: underline;
+  color: burlywood;
+}
+
+.menu_link:hover{
+ border-bottom: 2px solid #92badd;
+}
+
 .badge_message {  
   position: absolute;
   top: 7px;
