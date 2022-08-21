@@ -1,7 +1,7 @@
 # Project Description 
 The application is a online marketplace for agricutural vehicles, products, inventory and services. Users can post publications and other users can like, follow and buy what is offered.
 
-# Funtionalities 
+# Functionalities 
 ## Authentication 
   Users can login or register into the application and subsequently receive permission for creating, liking or following publications. Guest users can view the app      content but doesn't have permission for many of the actions 
 -  Guest view : ![scr1](https://user-images.githubusercontent.com/100707694/185781956-8a981a62-6502-4889-876c-f8190f928933.png)
