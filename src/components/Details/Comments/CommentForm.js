@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import {addComment, getComments, getCommentsCount} from "../../../services/commentServices"
+import { sendNotification } from "../../../services/notificationServices"
 import styles from "../css/details.module.css"
 import { constants } from "../../../config/constants"
 import { Comment } from "./Comment"
@@ -8,7 +9,7 @@ import { CommentSort } from "./CommentSort"
 import {SmallLoadingSpinner} from "../../SmallLoadingSpinner/SmallLoadingSpinner"
 import {ErrorAlert} from "../../Alerts/Error"
 
-export const CommentForm = ({userData, publicationId}) => {
+export const CommentForm = ({userData, publicationId, owner}) => {
       const [currentPage, setCurrentPage] = useState(1)
       const [commentsData, setCommentsData] = useState({})
       const [commentContent, setCommentContent] = useState('')
@@ -34,7 +35,9 @@ export const CommentForm = ({userData, publicationId}) => {
 
       const onCommentSubmit = (e) => {
         e.preventDefault()
+        setCommentContent(oldContent => '')
         if(commentContent === ''){return setErrors(oldErrors => [...oldErrors, 'You can\'t post an empty comment'])}
+
           addComment(publicationId, commentContent, userData._id, userData.accessToken)
           .then(async (newComment) => {
             try {
@@ -47,6 +50,13 @@ export const CommentForm = ({userData, publicationId}) => {
                 pages: Math.ceil(count / constants.commentsPerPage)
               }
             })
+           let notification = {
+            sender : userData._id,
+            receiver : owner._id,
+            type : 'comment',
+            forPublication : publicationId
+           }
+           await sendNotification(notification)
           }catch(err){
             throw err
           }
@@ -69,8 +79,12 @@ export const CommentForm = ({userData, publicationId}) => {
             ? commentsData.comments.length > 0
                 ?<> 
                 <CommentSort onSortChangeHandler={onSortChangeHandler}/>
-                <Comment comments={sortedComments}/>
-                < Pager onPageChange={onPageChange} totalPages={commentsData.pages}/>
+                <Comment comments={sortedComments} userId={userData._id} userImage={userData.image}/>
+                < Pager 
+                onPageChange={onPageChange} 
+                totalPages={commentsData.pages} 
+                currentPage={currentPage}
+                />
                 </>
                 : <h1 className={styles.not_available_heading}>No comments yet...</h1>
             : <SmallLoadingSpinner />
@@ -82,7 +96,7 @@ export const CommentForm = ({userData, publicationId}) => {
                     id={styles.content}
                     placeholder="Type your comment..."
                     onChange={(e) => onChangeHandler(e)}
-                />
+                >{commentContent}</textarea>
                 <input id={styles.commentBtn} type="submit" value="Add comment" />
             </form>
         </article>

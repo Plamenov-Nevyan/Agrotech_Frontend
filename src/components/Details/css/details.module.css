@@ -242,14 +242,19 @@ padding: 30px;
     border:0;
     border-radius: 20px;
 }
+
+
 .choose_quantity button {
-    padding: 12px;
-    width: 100px;
-    background-color: dodgerblue;
-    opacity: 0.4;
-    font-size: 18px;
-    color: white;
-    border-radius: 20px;
+  padding: 12px;
+  width: 100px;
+  background-color: dodgerblue;
+  opacity: 0.4;
+  font-size: 18px;
+  color: white;
+  border-radius: 20px;
+  border: 0;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 .choose_quantity button:hover {
     padding: 18px;
@@ -303,8 +308,8 @@ padding: 0;
 overflow: hidden;
 background: transparent;
 display: contents;
-
   }
+  
   .comments li {
     background-color: wheat;
     text-align: center;
@@ -321,12 +326,16 @@ display: contents;
 .comments li a:hover {
   text-decoration: underline;
 }
+.userImage {
+  width:  100px;
+}
 .comments li .comment_author {
-    margin-top: 0px;
-    font-size: 25px;
-    background-color: fuchsia;
-    border-radius: 16px;
-    width: 549px;
+  margin-top: 0px;
+  margin-left: 10px;
+  font-size: 25px;
+  background-color: fuchsia;
+  border-radius: 16px;
+  width: 115px;
 }
 .comments li .comment_content {
     font-size: 20px;
@@ -379,6 +388,72 @@ display: contents;
 }
 .send_buy_msg_btn:hover{
   background: darksalmon;
+}
+
+.pager_container {
+  margin-bottom: 10px;
+ text-align: center;
+}
+.page_btn {
+  padding: 4px;
+  width: 39px;
+  margin: 0px 10px;
+  font-size: 19px;
+  border-radius: 50%;
+  color: white;
+  background: transparent;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+.page_btn_selected{
+  color: black;
+  background: white;
+  padding: 4px;
+  width: 39px;
+  margin: 0px 10px;
+  font-size: 19px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+.page_btn:hover {
+  color: black;
+  background: white;
+}
+.pager_arrow {
+  font-size: 27px;
+  background: transparent;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+.pager_arrow:hover {
+  color: chartreuse;
+}
+.page_text_indicator{
+  color: aliceblue;
+  margin: 10px 0;
+  font-size: larger;
+}
+
+
+
+.comment_sort {
+  width: 16%;
+  padding: 5px;
+  border-radius: 20px;
+  border: 2px solid wheat;
+  background: transparent;
+  color: wheat;
+  cursor: pointer;
+  font-size: 18px;
+  transition: ease-in-out 0.2s;
+}
+.comment_sort:hover {
+  background: white;
+  color: black;
 }
 
   @keyframes gradient {

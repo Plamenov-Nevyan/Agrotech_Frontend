@@ -20,6 +20,7 @@ export const LoginForm = ({onSubmitHandler}) => {
       [input] : errors
    }
   })
+  const [showPassword, setShowPassword] = useState('password')
    
 
   const onChangeHandler = (e) => {
@@ -30,11 +31,26 @@ export const LoginForm = ({onSubmitHandler}) => {
     })
    }
 
+   const onShowOrHidePass = () => {
+    if(showPassword === 'password'){
+      setShowPassword('text')
+    }
+    else{
+      setShowPassword('password')
+    }
+  }
+
     return (
         <>
         <form className={styles.loginForm} onSubmit={(e) => onSubmitHandler(e, inputValues, 'Login')}>
         <EmailInput value={inputValues.email} onChangeHandler={onChangeHandler} onErrorPopup={onErrorPopup}/>
-        <PasswordInput value={inputValues.password} onChangeHandler={onChangeHandler} onErrorPopup={onErrorPopup}/>
+        <PasswordInput 
+        value={inputValues.password} 
+        onChangeHandler={onChangeHandler}
+         onErrorPopup={onErrorPopup} 
+         showPassword={showPassword} 
+         onShowOrHidePass={onShowOrHidePass}
+         />
       <input type="submit" id={styles.login_btn} className={styles.fadeIn + " " + styles.fourth} value= "Login" />
     </form>
     </>

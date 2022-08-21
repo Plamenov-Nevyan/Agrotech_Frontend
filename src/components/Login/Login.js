@@ -37,10 +37,12 @@ function actionHandler(e){
 
    const onSubmitHandler = (e, userData, action) => {
     e.preventDefault();
+    console.log(userData)
     if(userData.userType === 'individual'){
         delete userData.uic; 
         delete userData.location; 
         delete userData.countrySelect;
+        userData.phoneNumber = userData.phoneNumber.split('').filter(digit => digit !== '+' && digit !== ' ').join('')
     }
     else if(userData.userType === 'organization'){
         delete userData.phoneNumber; 

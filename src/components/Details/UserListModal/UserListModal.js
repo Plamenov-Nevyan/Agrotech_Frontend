@@ -1,4 +1,3 @@
-import {useState} from "react"
 import styles from "./userListModal.module.css"
 
 export const UserListModal = ({content, onCloseHandler, likeOrFollow}) => {

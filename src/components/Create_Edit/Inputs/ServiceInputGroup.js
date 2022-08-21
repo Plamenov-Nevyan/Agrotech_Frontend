@@ -12,7 +12,7 @@ export const ServiceInputGroup = ({inputValues, onChangeHandler}) => {
           <PriceInput value={inputValues.price} onChangeHandler={(e) => onChangeHandler(e)}/>
           <AvailableInput value={inputValues.availableUntil} onChangeHandler={(e) => onChangeHandler(e)}/>
           <DescriptionInput value={inputValues.description} onChangeHandler={(e) => onChangeHandler(e)}/>
-          <UploadInput value={inputValues.upload} onChangeHandler={(e) => onChangeHandler(e)}/>
+          <UploadInput value={inputValues.upload} image={inputValues.imageToRender} onChangeHandler={(e) => onChangeHandler(e)}/>
         </>
     )
 }

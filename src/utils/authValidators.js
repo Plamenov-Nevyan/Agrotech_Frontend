@@ -1,7 +1,7 @@
 const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 const usernameRegex = /^[a-zA-Z0-9_. ]+$/
 const uicRegex = /^[0-9]+$/
-const locationRegex = /^[A-Za-z]+,[A-Za-z]+$/
+const locationRegex = /^[A-Za-z]+, [A-Za-z]+$/
 
 export const isPasswordValid = (password) => {
     let isPasswordStrong = password.length >= 8
@@ -80,9 +80,11 @@ export const isLocationValid = (location) => {
 }
 
 export const isPhoneNumValid = (phoneNumber) => {
-    let isValid = phoneNumber.startsWith('+')
-    let isTooLong = phoneNumber.length > 11
+    phoneNumber = phoneNumber.split('').filter(digit => digit !== '+' && digit !== ' ').join('')
+    console.log(phoneNumber)
+    let isValid = !isNaN(phoneNumber)
+    let isLengthCorrect = phoneNumber.length === 10
     let errors = []
-    if(!isValid || isTooLong){errors.push('Please enter a valid phone number!')}
+    if(!isValid || !isLengthCorrect){errors.push('Please enter a valid phone number that is 10 digits long!')}
     return errors
 }

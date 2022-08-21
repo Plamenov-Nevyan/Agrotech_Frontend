@@ -1,6 +1,6 @@
 import styles from "../../css/login.module.css"
 
-export const PasswordInput = ({value, onChangeHandler}) => {
+export const PasswordInput = ({value, onChangeHandler, showPassword, onShowOrHidePass}) => {
  
     return(
     <>
@@ -9,13 +9,19 @@ export const PasswordInput = ({value, onChangeHandler}) => {
     </div>
       <div className={styles.input_holder}>
         <input
-        type="password"
+        type={showPassword}
         id={styles.password}
         className={styles.fadeIn + " " + styles.third}
         name="password"
         placeholder="Your password.."
         onChange={(e) => onChangeHandler(e)}
       />
+      <span onClick={() => onShowOrHidePass()}>
+        { showPassword == 'password'
+          ? <i class="fa fa-eye" aria-hidden="true"></i>
+          : <i class="fa fa-eye-slash" aria-hidden="true"></i>
+        }
+      </span>
       </div>
     </>
     )

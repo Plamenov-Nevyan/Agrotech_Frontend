@@ -23,7 +23,7 @@ export const AddProfilePic = ({userData}) => {
       const onLinkChange = (e) =>  setImageLink(e.target.value)
       const onSubmit = (e, userId) => {
          e.preventDefault()
-         fileValue ? addProfilePic(userData._id, fileValue) : addProfilePic(userData._id, imageLinkValue)
+         fileValue ? addProfilePic(userData, fileValue) : addProfilePic(userData, imageLinkValue)
          .then(() => setImageSaved(true))
          .catch(err => console.log(err))
       }

@@ -51,7 +51,7 @@ export const ChooseQuantity = ({quantity, onAddHandler, onRemoveHandler, isItemA
                         {quantityInput > 0
                            ? isItemAddedToCart
                                 ? <button type="submit" onClick={(e) => onRemoveHandler(e, quantityInput)}> Remove from Cart</button>  
-                                : <button type="submit" onClick={(e) => onAddHandler(e, quantityInput)}> Add to Cart</button> 
+                                : <button className={styles.cart_qty_btn} type="submit" onClick={(e) => onAddHandler(e, quantityInput)}> Add to Cart</button> 
                            : null
                         }
                     </form>

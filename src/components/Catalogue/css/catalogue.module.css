@@ -19,6 +19,10 @@ body{
     height: 0;
   }
 
+  .not_available{
+    color: aliceblue;
+  }
+
   .load_more_container {
     width: 100%;
     align-items: center;

@@ -79,6 +79,23 @@ color: white;
     display:none
   }
 
+  .form_btns_holder {
+    width: 100%;
+    display: flex;
+}
+
+  .cancel_edit_btn {
+    color: crimson;
+    font-size: 20px;
+    background: blanchedalmond;
+    padding: 33px;
+    border-radius: 17px;
+  }
+
+  .cancel_edit_btn:hover {
+    background: gold;
+  }
+
   
   .form_field{
     width: 100%;

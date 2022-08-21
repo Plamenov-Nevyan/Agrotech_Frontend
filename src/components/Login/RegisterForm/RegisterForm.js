@@ -16,6 +16,7 @@ import { TacModal } from "../TacModal/TacModal"
 export const RegisterForm = ({onSubmitHandler}) => {
   const [countryPhoneNum, setCountryPhoneNum] = useState('+359')
   const [showTacModal, setShowTacModal] = useState(false)
+  const [showPassword, setShowPassword] = useState('password')
   const [inputValues, setInputValues] = useState(
 { 
     username : '',
@@ -38,6 +39,14 @@ const onChangeHandler = (e) => setInputValues(oldValues => {
             [e.target.name] : e.target.type === 'checkbox'? e.target.checked : e.target.value,
       }
   })
+const onShowOrHidePass = () => {
+  if(showPassword === 'password'){
+    setShowPassword('text')
+  }
+  else{
+    setShowPassword('password')
+  }
+}
 
 const onCountryPhoneChange = (e) => setCountryPhoneNum(e.target.value)
 
@@ -53,18 +62,27 @@ return (<>
     <form className={styles.registerForm} onSubmit={(e) => onSubmitHandler(e, inputValues, 'Register')}>
      <UsernameInput value={inputValues.username} onChangeHandler={onChangeHandler} />
      <EmailInput value={inputValues.email} onChangeHandler={onChangeHandler} />
-     <PasswordInput value={inputValues.password} onChangeHandler={onChangeHandler} />
-     <ConfirmInput value={inputValues.confirm} onChangeHandler={onChangeHandler} />
+     <PasswordInput 
+     value={inputValues.password}
+      onChangeHandler={onChangeHandler} 
+     showPassword={showPassword} 
+     onShowOrHidePass={onShowOrHidePass} 
+     />
+     <ConfirmInput  
+     value={inputValues.confirm}
+      onChangeHandler={onChangeHandler} 
+     showPassword={showPassword} 
+     />
      <UserTypeInput value={inputValues.userType} onChangeHandler={onChangeHandler}/>
      {inputValues.userType === 'individual'
-      ?<> 
-      <PhoneNumberInput countryValue={countryPhoneNum} value={inputValues.phoneNumber} onChangeHandler={onChangeHandler} onCountryPhoneChange={onCountryPhoneChange}/>
-      <GenderInput value={inputValues.gender} onChangeHandler={onChangeHandler}/>
-      </>
-      :<> 
-      <UicInput value={inputValues.uic} onChangeHandler={onChangeHandler} />
-      <LocationInput value={inputValues.location} onChangeHandler={onChangeHandler}/>
-      </>
+      ?  <> 
+        <PhoneNumberInput countryValue={countryPhoneNum} value={inputValues.phoneNumber} onChangeHandler={onChangeHandler} onCountryPhoneChange={onCountryPhoneChange}/>
+        <GenderInput value={inputValues.gender} onChangeHandler={onChangeHandler}/>
+        </>
+      : <> 
+        <UicInput value={inputValues.uic} onChangeHandler={onChangeHandler} />
+        <LocationInput value={inputValues.location} onChangeHandler={onChangeHandler}/>
+        </>
      }
      {/* <FileInput /> */}
   <input type="submit" id={styles.register_btn} className={styles.fadeIn + " " + styles.fourth} value="Register" disabled={!inputValues.tac}/>

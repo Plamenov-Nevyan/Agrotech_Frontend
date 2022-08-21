@@ -1,6 +1,7 @@
 import styles from "../css/sort.module.css"
 
 export const Sort = ({typesToShow}) => {
+    // Set the sorting type of the publications in the Catalogue component and render sorting select
     return(
         <div className={styles.sort_container}>
         <label className={styles.sort_by_label} htmlFor="sort-by"> Sort by:</label>

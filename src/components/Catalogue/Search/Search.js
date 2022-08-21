@@ -1,6 +1,7 @@
 import styles from "../css/search.module.css"
 
 export const Search = ({value, onSearch}) => {
+  // Set the search parameter state in the Catalogue component and render search input/button
     return (
         <div className= {styles.search_form_container}>
             <form className={styles.search_form} onSubmit={(e) => onSearch(e)}>

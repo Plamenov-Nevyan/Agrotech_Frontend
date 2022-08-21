@@ -17,7 +17,7 @@ export const VehicleInputGroup = ({inputValues, onChangeHandler}) => {
        <VehicleHorsePowers value={inputValues.horsePowers} onChangeHandler={(e) => onChangeHandler(e)}/>
        <VehicleKilometers value={inputValues.kilometers} onChangeHandler={(e) => onChangeHandler(e)}/>
        <DescriptionInput value={inputValues.description} onChangeHandler={(e) => onChangeHandler(e)}/>
-       <UploadInput value={inputValues.upload} onChangeHandler={(e) => onChangeHandler(e)}/>
+       <UploadInput value={inputValues.upload} image={inputValues.imageToRender} onChangeHandler={(e) => onChangeHandler(e)}/>
         </>
     )
 }

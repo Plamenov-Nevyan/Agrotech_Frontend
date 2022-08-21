@@ -8,26 +8,35 @@ import { ErrorAlert } from "../Alerts/Error"
 
 
 export const Chat = () => {
+  // Set the state for array of most recent message (received or sent) from unique users
     const [messages, setMessages] = useState([])
+  // Set the state for the chat transcript (all messages received or sent)  with a unique user
     const [transcript, setTranscript ] = useState(null)
+  // Set the state fot the message input of the user, prepared for a request to the backend
     const [sendMsgInput, setSendMsgInput] = useState('')
+  // Set the state for the contact with who, the user wants to receive transcript 
     const [currentContact, setCurrentContact] = useState('')
     const {_, authData, __} = useContext(authContext)
+    // Set state for errors 
     const [errors, setErrors] = useState([])
-    const transcriptCount = useRef(null)
     
+    const transcriptReceiveInterval = useRef(null)
+    
+    console.log(messages)
 
     useEffect(() => {
+      // Get the most recent message (received or sent) from unique users at component mount
         getMostRecentFromUniqueSenders(authData._id)
         .then(receivedMessages => setMessages(receivedMessages))
         .catch(err => setErrors(oldErrors => [...oldErrors, err.message]))
     }, [])
 
     useEffect(() => {
-      clearInterval(transcriptCount.current)
-      transcriptCount.current = setInterval((transcriptLength) => {
+      // Send a request every 5 sec, checking for new messages and reset the transcript so changes can be rendered (long pulling)
+      clearInterval(transcriptReceiveInterval.current)
+      transcriptReceiveInterval.current = setInterval(() => {
         if(currentContact !== ''){
-          getTranscript(authData._id, currentContact)
+          getTranscript(currentContact, authData._id)
           .then(newMessages => {
             if(newMessages.length > 0){
               setTranscript(oldTranscript => [...newMessages])
@@ -38,10 +47,12 @@ export const Chat = () => {
         }
       }, 5000)
 
-      return () => clearInterval(transcriptCount.current)
+      // Clear interval on component unmount, to prevent memory leaks
+      return () => clearInterval(transcriptReceiveInterval.current)
     }, [currentContact])
 
     const onContactChoose = (contactId) => {
+      //  Get most recent transcript with the contact chosen by the user 
       getTranscript(contactId, authData._id)
       .then(receivedTranscript => {
         setTranscript(oldTranscript => [...receivedTranscript])
@@ -51,6 +62,7 @@ export const Chat = () => {
     } 
     
     const sendMessageHandler = async (e,content, receiver, sender) => {
+      // Sends the data from the "send message" input to the backend, where it's sent to the current contact,
       e.preventDefault()
       if(content){
         let data = {
@@ -60,14 +72,19 @@ export const Chat = () => {
         }
         try{
            await sendMessage(data, authData.accessToken)
-           setSendMsgInput(' ')
+           setSendMsgInput('')
         }catch(err){
           setErrors(oldErrors => [...oldErrors, err.message])
         }
       }
     }
 
+    // Change the message content to send
     const onSendInputChange = (e) => setSendMsgInput(e.target.value)
+
+    let isThereTranscript = transcript !== null
+    let isThereTranscriptMessages = isThereTranscript ? transcript.length > 0 : false
+   
 
     return (
     <div className={styles.wrapper}>
@@ -75,24 +92,25 @@ export const Chat = () => {
           <ContactsList contacts={messages} onContactChoose={onContactChoose} />
         </div>
         <div className={styles.messages_container}>
-            {transcript !== null
-            ? transcript.length > 0
-              ? transcript.map(message => message.msgType === 'received'
-                  ? <div className={styles.container}>
-                        <img src={message.sender.image} alt="Avatar" />
-                        <h4>{message.sender.username}</h4>
-                        <p>{message.content}</p>
-                        <span className="time-right">{message.createdAt.split('T')[1].split('.')[0]}</span>
-                    </div>
-             
-                  : <div className={styles['container'] + ' ' + styles['darker']}>
-                        <img src={message.receiver.image} alt="Avatar" className={styles.right} />
-                        <p>{message.content}</p>
-                        <span className={styles['time-left']}>{message.createdAt.split('T')[1].split('.')[0]}</span>
-                     </div>
-              )
-              : <h2>No messages yet...</h2>
-            : null
+            {isThereTranscript
+              ? isThereTranscriptMessages
+                //  Apply different stylization according to the message type 
+                ? transcript.map(message => message.msgType === 'received'
+                    ? <div className={styles.container}>
+                          <img src={message.sender.image} alt="Avatar" />
+                          <h4>{message.sender.username}</h4>
+                          <p>{message.content}</p>
+                          <span className="time-right">{message.createdAt.split('T')[1].split('.')[0]}</span>
+                      </div>
+              
+                    : <div className={styles['container'] + ' ' + styles['darker']}>
+                          <img src={message.receiver.image} alt="Avatar" className={styles.right} />
+                          <p>{message.content}</p>
+                          <span className={styles['time-left']}>{message.createdAt.split('T')[1].split('.')[0]}</span>
+                      </div>
+                )
+                : <h2>No messages yet...</h2>
+            : <SmallLoadingSpinner />
             }
            
             

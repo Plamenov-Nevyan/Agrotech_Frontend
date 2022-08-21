@@ -102,7 +102,7 @@ return(
       {products.length > 0
        ? products.map(product => <ProductArticle 
         key={product._id} 
-        product={product} 
+        product={{...product, quantity:items.find(item => item._id == product._id).quantity}} 
         prices={prices.IndividualProductPrices}
         onRemoveHandler={onRemoveHandler}
         />

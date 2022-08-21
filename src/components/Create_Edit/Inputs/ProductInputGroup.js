@@ -17,7 +17,7 @@ export const ProductInputGroup = ({inputValues, onChangeHandler}) => {
         <DosageInput value={inputValues.dosage} onChangeHandler={(e) => onChangeHandler(e)}/>
         <ProducedByInput value={inputValues.producedBy} onChangeHandler={(e) => onChangeHandler(e)}/>
         <DescriptionInput value={inputValues.description} onChangeHandler={(e) => onChangeHandler(e)}/>
-        <UploadInput value={inputValues.upload} onChangeHandler={(e) => onChangeHandler(e)}/>
+        <UploadInput value={inputValues.upload} image={inputValues.imageToRender} onChangeHandler={(e) => onChangeHandler(e)}/>
         </>
     )
 }

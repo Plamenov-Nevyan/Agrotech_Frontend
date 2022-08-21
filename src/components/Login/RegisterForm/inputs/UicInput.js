@@ -11,9 +11,9 @@ export const UicInput = ({value, onChangeHandler}) => {
         type="number"
         id={styles.password}
         className={styles.fadeIn + " " + styles.third}
-        name="phoneNumber"
+        name="uic"
         placeholder="Your company's UIC (Unified Identification Code).."
-        defaultValue={value}
+        value={value}
         onChange={(e) => onChangeHandler(e)}
       />
       </div>

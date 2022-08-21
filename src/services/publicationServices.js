@@ -1,5 +1,4 @@
 import {convertToFormData} from "../utils/convertToFormData"
-import {getSession} from "../utils/getUserSession"
 
 const baseUrl = 'http://localhost:5000'
 const endpoints = {
@@ -69,13 +68,12 @@ export const getMostRecent = async() => {
    return publications
 }
 
-export const likeOrFollow = async (publicationId, action) => {
-     let user = getSession()
-     if(!user){throw {message : 'Unauthorized !'}}
+export const likeOrFollow = async (publicationId, action, userData) => {
+     if(!userData){throw {message : 'Unauthorized !'}}
     let resp = await fetch(baseUrl + endpoints.LIKE + publicationId, {
       method: 'POST',
-      headers: {'Content-Type' : 'application/json', 'x-authorization' : user.accessToken},
-      body: JSON.stringify({userId:user._id, action})
+      headers: {'Content-Type' : 'application/json', 'x-authorization' : userData.accessToken},
+      body: JSON.stringify({userId:userData._id, action})
      })
      let data = await resp.json()
      return data

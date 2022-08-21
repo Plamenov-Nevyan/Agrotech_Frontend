@@ -1,6 +1,7 @@
 import styles from "../css/category.module.css"
 
 export const CategorySelect = ({categoryToShow}) => {
+    // Set the category of the publications to show (default : "All") and render the category select
     return(
         <div className={styles.category_container}>
             <label htmlFor="catgory">Category</label>

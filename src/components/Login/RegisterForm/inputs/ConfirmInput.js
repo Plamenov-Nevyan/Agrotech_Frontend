@@ -1,6 +1,6 @@
 import styles from "../../css/login.module.css"
 
-export const ConfirmInput = ({value, onChangeHandler}) => {
+export const ConfirmInput = ({value, onChangeHandler, showPassword}) => {
 
     return (
         <>
@@ -9,7 +9,7 @@ export const ConfirmInput = ({value, onChangeHandler}) => {
             </div>
         <div className={styles.input_holder}>
             <input
-                type="password"
+                type={showPassword}
                 id={styles.confirmPass}
                 className={styles.fadeIn + " " + styles.fourth}
                 name="confirm"

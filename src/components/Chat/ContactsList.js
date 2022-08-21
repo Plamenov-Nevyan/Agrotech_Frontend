@@ -2,14 +2,20 @@ import styles from "./chat.module.css"
 
 export const ContactsList = ({contacts, onContactChoose}) => {
     contacts.forEach(contact => {
+        // Add parsed date and time properties of the message for every unique user
         contact.date = contact.createdAt.split('T')[0]
         contact.time = contact.createdAt.split('T')[1].split('.')[0]
     })
+
+    let areThereContacts = contacts.length > 0
+
     return (
     <ul className={styles.contacts_list}>
-        {contacts.length > 0
-          ? contacts.map(contact => <li 
+        {areThereContacts
+          ? contacts.map(contact => 
+          <li 
           className={styles.contact_li_item} 
+        // Get the contact id, for requesting transcript with him/her  
           onClick={() => onContactChoose(contact.msgType === 'received' ? contact.sender._id : contact.receiver._id)}
           >
             <div className={styles.contact_info}>

@@ -22,7 +22,7 @@ export const getUserNotifications = (userId) => {
 }
 
 export const sendNotification = (notificationData) => {
-    console.log(notificationData)
+
     if(Array.isArray(notificationData)){
         notificationData.forEach(notification => notification.content = constants.notificationTypes[notification.type])
     }

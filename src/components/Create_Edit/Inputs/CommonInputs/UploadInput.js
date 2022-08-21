@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import styles from "../../css/form.module.css"
 
-export const UploadInput = ({value, onChangeHandler}) => {
-    const [imagePreview, setPreview] = useState()
+export const UploadInput = ({value, imageToRender, onChangeHandler}) => {
+    const [imagePreview, setPreview] = useState(imageToRender)
 
     useEffect(() => {
         if(!value){

@@ -14,7 +14,7 @@ export const LocationInput = ({value, onChangeHandler}) => {
                     className={styles.fadeIn + " " + styles.second}
                     name="location"
                     placeholder="Your location(Country, City)"
-                    defaultValue={value}
+                    value={value}
                     onChange={(e) => onChangeHandler(e)}
                 />
             </div>

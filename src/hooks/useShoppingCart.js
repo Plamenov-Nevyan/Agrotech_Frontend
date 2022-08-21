@@ -35,14 +35,13 @@ const removeFromCart = (itemId, quantity, removeAll) => {
         if(Number(quantity) == itemToProcess.quantity){
             updatedItems = [...items.filter(item => item._id !== itemToProcess._id)]
         }
+        else {
+            itemToProcess.quantity -= quantity
+            updatedItems = items.splice(indexOfItem, 1, itemToProcess)
+           }
       }
-       else {
-        itemToProcess.quantity -= quantity
-        updatedItems = items.splice(indexOfItem, 1, itemToProcess)
-       }
-      
        localStorage.setItem('shoppingCart', JSON.stringify(updatedItems))
-       setItems(oldItems =>  [...updatedItems])
+       return updatedItems
     }
   
    const deleteCart = () => {

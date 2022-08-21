@@ -1,5 +1,5 @@
-const alphanumericalRegex = /^[A-Za-z0-9 ]+$/
-const descriptionRegex = /^[A-Za-z0-9 ,."/]+$/
+const alphanumericalRegex = /^[A-Za-z0-9 ()"']+$/
+const descriptionRegex = /^[A-Za-z0-9 ,."/:-]+$/
 
 export const isPriceValid = (price) => {
     let isNegative = price < 1

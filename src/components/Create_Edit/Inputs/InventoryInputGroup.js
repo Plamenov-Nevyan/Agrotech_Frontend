@@ -15,7 +15,7 @@ export const InventoryInputGroup = ({inputValues, onChangeHandler}) => {
        <VehicleBrandInput value={inputValues.brand} onChangeHandler={(e) => onChangeHandler(e)}/>
        <VehicleDateInput value={inputValues.date} onChangeHandler={(e) => onChangeHandler(e)}/>
        <DescriptionInput value={inputValues.description} onChangeHandler={(e) => onChangeHandler(e)}/>
-       <UploadInput value={inputValues.upload} onChangeHandler={(e) => onChangeHandler(e)}/>
+       <UploadInput value={inputValues.upload} image={inputValues.imageToRender} onChangeHandler={(e) => onChangeHandler(e)}/>
         </>
     )
 }

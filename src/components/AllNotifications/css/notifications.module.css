@@ -54,6 +54,24 @@ font-size: 35px;
     -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
   }
+  .sort_notifications {
+    width: 9%;
+    padding: 7px;
+    font-size: 16px;
+    border: 0;
+    border-radius: 20px;
+    background: burlywood;
+    color: cornsilk;
+    cursor: pointer;
+}
+.publ_link {
+  font-size: 20px;
+  color: coral;
+}
+.publ_link:hover {
+  color: cornflowerblue;
+  text-decoration: underline;
+}
   .notification-list--unread {
     border-left: 2px solid #0355d0;
     background-color: azure;

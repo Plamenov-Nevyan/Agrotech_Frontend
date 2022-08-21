@@ -22,7 +22,9 @@ export const EditForm = () => {
     const {_, authData, __} = useContext(authContext)
     let navigate = useNavigate()
     const {publicationId} = useParams()
+
     useEffect(() => {
+      // Get details about the publication, that the user wants to edit, and set the corresponding state
        getDetails(publicationId)
        .then(publicationDetails => {
         setType(publicationDetails.publicationType)
@@ -32,9 +34,11 @@ export const EditForm = () => {
     }, [])
 
     useEffect(() => {
-     if(type === publicationDetails.publicationType){
-      setInputValues(setInputsForState('edit', ``, publicationDetails))
-     }
+      // Set filled inputs if the publication type corresponds with the one in the current publication details
+      if(type === publicationDetails.publicationType){
+        setInputValues(setInputsForState('edit', ``, publicationDetails))
+      }
+      // Set empty inputs if publication type chosen is different than in the current publication details
      else {
       setInputValues(setInputsForState('create', type))
      }
@@ -52,17 +56,20 @@ export const EditForm = () => {
     const onSubmitHandler = (e, publicationData) => {
       e.preventDefault()
       let errors = checkForErrors(publicationData)
+      let isThereEmptyField = Object.values(publicationData).includes('')
+      let areThereErrorsInFormData = errors.length > 0
       
-      if(Object.values(publicationData).includes('')){
+      if(isThereEmptyField){
         window.scrollTo({top: 0, behavior: 'smooth'})
         return setErrors(['Please fill the required information!'])
       }
-      else if(errors.length > 0){
+      else if(areThereErrorsInFormData){
         window.scrollTo({top: 0, behavior: 'smooth'})
         return setErrors(errors)
       }
       else{setErrors([])}
 
+      // Send PUT request to the backend, that will update the publication
       editPublication({
         ...publicationData, 
         followedBy : publicationDetails.followedBy, 
@@ -72,6 +79,7 @@ export const EditForm = () => {
         authData.accessToken
         )
       .then(async() =>{ 
+        // Send notifications to all users who follow this publication, that it was edited
         let notificationsToSend = []
         for(let follower in publicationDetails.followedBy){
       
@@ -85,7 +93,8 @@ export const EditForm = () => {
           notificationsToSend.push(notificationData)
         }
         notificationsToSend.length > 0 && await sendNotification(notificationsToSend)
-        navigate(`/catalogue/details/${publicationDetails._id}`)
+        // Redirect to the publication details page
+        navigate(`/catalogue/details/${publicationDetails._id}`, {state:{showSuccessAlert:true}})
       })
       .catch(err => setErrors([err.message]))
 }
@@ -94,13 +103,22 @@ export const EditForm = () => {
      setType(e.target.value)
   }
 
+  let areThereErrors = errors.length > 0
+
     return (
     <>
-        {errors.length > 0 && <ErrorAlert errors={errors} />}
-        <form className={styles.form} encType="multipart/form-data" onSubmit={(e) => onSubmitHandler(e, inputValues)}>
+        {areThereErrors > 0 && <ErrorAlert errors={errors} />}
+        <form 
+        className={styles.form} 
+        encType="multipart/form-data" 
+        onSubmit={(e) =>
+         onSubmitHandler(e, inputValues)}
+         >
+
         <div id={styles.formContent}>
           <h1 className={styles.active}>Edit your publication</h1>
         </div>
+
         <div className={styles.input_wrapper}>
         <TypeSelect value={type} onSelectTypeHandler={onSelectTypeHandler}/>
           {type === 'product' && <ProductInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} />}
@@ -108,9 +126,12 @@ export const EditForm = () => {
           {type === 'inventory' && <InventoryInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} />}
           {type === 'service' && <ServiceInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} /> }
           {type === 'other' && <OtherInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} /> }
-            <button id={styles.submit_btn}>Submit</button>
-            <Link to={`/catalogue/details/${publicationId}`}>Cancel</Link>
+            <div className={styles.form_btns_holder}>
+              <button id={styles.submit_btn}>Edit</button>
+              <Link className={styles.cancel_edit_btn} to={`/catalogue/details/${publicationId}`}>Cancel</Link>
+            </div>
         </div>
+
       </form>
     </>
     )

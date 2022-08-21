@@ -14,18 +14,23 @@ import { ServiceInputGroup } from "../Inputs/ServiceInputGroup"
 import {OtherInputGroup} from "../Inputs/OtherInputGroup"
 
 export const CreateForm = () => {
+  //  Set state for the type of publication to create
     const [type, setType] = useState('product')
+  // Input values from the controlled form  with different default content, depending on the publication type to create
     const [inputValues, setInputValues] = useState({}) 
+  // Set errors state
     const [errors, setErrors] = useState([]) 
     const {_, authData, __} = useContext(authContext)
     let navigate = useNavigate()
 
 
     useEffect(() => {
+      // Set the default input values when user changes the publication type to create
       setInputValues(setInputsForState('create', type))
     }, [type])
      
     const onChangeHandler = (e) => {
+      // update create form input values, when user enters new values or upload file
       setInputValues(oldValues => {
         return{
           ...oldValues,
@@ -35,14 +40,18 @@ export const CreateForm = () => {
     }
     
     const onSubmitHandler = (e, publicationData) => {
+      //  Send the controlled form data to the back-end for processsing
         e.preventDefault()
+        // check for errors util, that uses validators for checking the integrity of the form data
         let errors = checkForErrors(publicationData)
-        
-        if(Object.values(publicationData).includes('')){
+        let isThereEmptyField = Object.values(publicationData).includes('')
+        let areThereErrorsInFormData = errors.length > 0
+
+        if(isThereEmptyField){
           window.scrollTo({top: 0, behavior: 'smooth'})
           return setErrors(['Please fill the required information!'])
         }
-        else if(errors.length > 0){
+        else if(areThereErrorsInFormData){
           window.scrollTo({top: 0, behavior: 'smooth'})
           return setErrors(errors)
         }
@@ -57,15 +66,24 @@ export const CreateForm = () => {
        setType(e.target.value)
     }
 
+    let areThereErrors = errors.length > 0
+
     return(
 <>
-{errors.length > 0 && <ErrorAlert errors={errors} />}
-    <form className={styles.form} encType="multipart/form-data" onSubmit={(e) => onSubmitHandler(e, inputValues)}>
+{areThereErrors > 0 && <ErrorAlert errors={errors} />}
+    <form 
+    className={styles.form} 
+    encType="multipart/form-data" 
+    onSubmit={(e) => onSubmitHandler(e, inputValues)}
+    >
+
     <div id={styles.formContent}>
       <h1 className={styles.active}>Create a new publication, and post it on the market!</h1>
     </div>
+
     <div className={styles.input_wrapper}>
     <TypeSelect value={type} onSelectTypeHandler={onSelectTypeHandler}/>
+    {/* Show different input groups depending on the publication type to create, that the user chooses */}
       {type === 'product' && <ProductInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} />}
       {type === 'vehicle' && <VehicleInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} />}
       {type === 'inventory' && <InventoryInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} />}
@@ -73,6 +91,7 @@ export const CreateForm = () => {
       {type === 'other' && <OtherInputGroup inputValues={inputValues} onChangeHandler={onChangeHandler} /> }
         <button id={styles.submit_btn}>Submit</button>
     </div>
+
   </form>
 </>
    )

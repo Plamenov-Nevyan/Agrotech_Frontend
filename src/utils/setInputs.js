@@ -70,6 +70,7 @@ const handlers = {
             dosage: publicationData.dosage,
             producedBy: publicationData.producedBy,
             productType: publicationData.productType,
+            image : publicationData.image,
             upload: undefined
         }
     }
@@ -83,6 +84,7 @@ const handlers = {
                 description: publicationData.description,
                 horsePowers: publicationData.horsePowers,
                 kilometers: publicationData.kilometers,
+                imageToRender : publicationData.image,
                 upload: undefined
             }
         }
@@ -93,6 +95,7 @@ const handlers = {
             availableUntil: publicationData.availableUntil,
             price: publicationData.price,
             description: publicationData.description,
+            imageToRender : publicationData.image,
             upload: undefined
         }
     }
@@ -105,6 +108,7 @@ const handlers = {
             date: publicationData.date,
             price: publicationData.price,
             description : publicationData.description,
+            imageToRender : publicationData.image,
             upload: undefined
         }
     }
@@ -115,6 +119,7 @@ const handlers = {
             price: publicationData.price,
             quantity: publicationData.quantity,
             description: publicationData.description,
+            imageToRender : publicationData.image,
             upload: undefined
         }
     }

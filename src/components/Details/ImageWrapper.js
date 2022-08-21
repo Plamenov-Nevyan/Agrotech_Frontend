@@ -18,11 +18,13 @@ export const ImageWrapper = ({publDetails, userData, onModalClickHandler}) => {
 </div>
  <img className={styles.product} src={publDetails.image} />
 <div className={styles.title}>
-  <h2 className={styles.title_header}>{publDetails.name 
-  ? publDetails.name 
-  : publDetails.model 
-      ? publDetails.model 
-      : publDetails.serviceType}
+  <h2 className={styles.title_header}>{
+  publDetails.name 
+    ? publDetails.name 
+    : publDetails.model 
+        ? publDetails.model 
+        : publDetails.serviceType
+      }
   </h2>
   <button className={styles.like_btn}>
     <LikeBtn 

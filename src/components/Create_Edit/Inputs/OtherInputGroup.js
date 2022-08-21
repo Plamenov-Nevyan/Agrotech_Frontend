@@ -11,7 +11,7 @@ export const OtherInputGroup = ({inputValues, onChangeHandler}) => {
         <PriceInput value={inputValues.price} onChangeHandler={(e) => onChangeHandler(e)}/>
         <QuantityInput value={inputValues.quantity} onChangeHandler={(e) => onChangeHandler(e)}/>
         <DescriptionInput value={inputValues.description} onChangeHandler={(e) => onChangeHandler(e)}/>
-        <UploadInput value={inputValues.upload} onChangeHandler={(e) => onChangeHandler(e)}/>
+        <UploadInput value={inputValues.upload} image={inputValues.imageToRender} onChangeHandler={(e) => onChangeHandler(e)}/>
         </>
     )
 }

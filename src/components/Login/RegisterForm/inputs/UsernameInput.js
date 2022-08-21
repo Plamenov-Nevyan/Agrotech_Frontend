@@ -14,7 +14,7 @@ export const UsernameInput = ({value, onChangeHandler}) => {
             className={styles.fadeIn + " " + styles.second}
             name="username"
             placeholder="Your username.."
-            defaultValue={value}
+            value={value}
             onChange={(e) => onChangeHandler(e)}
         />
     </div>
