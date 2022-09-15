@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Project Description 
+The application is a online marketplace for agricutural vehicles, products, inventory and services. Users can post publications and other users can like, follow and buy what is offered.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Functionalities 
+## Authentication 
+  Users can login or register into the application and subsequently receive permission for creating, liking or following publications. Guest users can view the app      content but doesn't have permission for many of the actions 
+-  Guest view : ![scr1](https://user-images.githubusercontent.com/100707694/185781956-8a981a62-6502-4889-876c-f8190f928933.png)
+-  User view : ![scr2](https://user-images.githubusercontent.com/100707694/185782030-b8e89537-afa9-43fa-b6d6-e6a7c6fa00de.png)
 
-## Available Scripts
+## Shopping Cart
+ The application employs a shopping cart in which the users can store products they wish to buy
+ - Adding a specific product to the cart : ![scr5](https://user-images.githubusercontent.com/100707694/185782373-4320af63-c49d-4e5e-be25-a8c7b47e0cb3.png)
+- Shopping Cart component for checkout : ![scr6](https://user-images.githubusercontent.com/100707694/185782404-ddaa17f6-d438-440a-80af-a95036936eb1.png)
 
-In the project directory, you can run:
+## Notifications and Messages
+  The application uses long pulling to transfer notifications and messages between users 
+ ![scr7](https://user-images.githubusercontent.com/100707694/185782534-597fe9ca-ee3a-49da-b3f5-c482ad460892.png)
+![scr8](https://user-images.githubusercontent.com/100707694/185782636-fe5bf6ee-cbd5-41d6-9b58-f63e0d0d2a48.png)
+![scr9](https://user-images.githubusercontent.com/100707694/185782681-b6290d56-0bad-472a-ac91-060965cfe66c.png)
 
-### `npm start`
+# Validation
+ Forms in the application all have validations that informs the user if the action they attempt doesn't meet the requirements 
+  ![scr3](https://user-images.githubusercontent.com/100707694/185782174-fb6ce466-2f40-4527-9c47-1bbd753ae293.png)
+ ![scr4](https://user-images.githubusercontent.com/100707694/185782264-a6942358-62e6-4fa8-95d9-727a2d81a5e7.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Used Technologies and libraries 
+ ## React v 18.2.0
+ ## react-router-dom v 6.3.0
+ ## uuid
+ 
+ # Start Project 
+  > npm start
+  
+ # Deployment
+ Project is deployed on Firebase : (https://agrotech-355416.web.app/)
