@@ -1,5 +1,5 @@
 import {constants} from '../config/constants'
-const baseUrl = 'http://localhost:5000'
+const baseUrl = 'https://agro-tech-market.herokuapp.com'
 const endpoints = {
     ADD_COMMENT : '/comments/add/',
     GET_COMMENTS : '/comments/get/',

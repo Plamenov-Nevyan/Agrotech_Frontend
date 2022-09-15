@@ -6,7 +6,7 @@ export const FollowBtn = ({follows, publicationId, userData, ownerId, onModalCli
     const [currentFollows, setCurrentFollows] = useState(follows)
 
     const onFollowHandler = () => {
-        likeOrFollow(publicationId, 'follow')
+        likeOrFollow(publicationId, 'follow', userData)
         .then(newFollows => setCurrentFollows(newFollows))
         .catch(err => console.log(err))
     }

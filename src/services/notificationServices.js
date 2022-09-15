@@ -1,6 +1,6 @@
 import { constants}  from "../config/constants"
 
-const baseUrl = 'http://localhost:5000/notifications'
+const baseUrl = 'https://agro-tech-market.herokuapp.com/notifications'
 const endpoints = {
     GET_ALL : '/get-all/',
     GET_RECENT: '/get-recent/',

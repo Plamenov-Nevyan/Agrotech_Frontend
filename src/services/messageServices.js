@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000/messages'
+const baseUrl = 'https://agro-tech-market.herokuapp.com/messages'
 const endpoints = {
     GET_RECENT : '/get-recent/',
     MARK_AS_READ : '/read/',

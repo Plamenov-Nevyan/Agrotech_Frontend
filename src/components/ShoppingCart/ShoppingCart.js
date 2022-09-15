@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useCallback } from "react"
 import { useShoppingCart } from "../../hooks/useShoppingCart"
 import {authContext} from "../../contexts/authContext"
 import {getForShoppingCart} from "../../services/publicationServices"
@@ -6,11 +6,13 @@ import {sendNotification} from "../../services/notificationServices"
 import styles from "./css/shoppingCart.module.css"
 import { ProductArticle } from "./ProductArticle"
 import {SuccessModal} from "./SuccessModal/SuccessModal"
+import {ErrorAlert} from "../Alerts/Error"
 
 export const ShoppingCart = () => {
 const [products, setProducts] = useState([])
 const [items, createCart, addToCart, removeFromCart, deleteCart] = useShoppingCart()
 const [showSuccessModal, setShowSuccessModal] = useState(false)
+const [errors, setErrors] = useState([])
 const [prices , setPrices] = useState({
   totalPrice : '',
   IndividualProductPrices : [],
@@ -21,32 +23,34 @@ const onRemoveHandler = (productId) => {
   removeFromCart(productId, ``, true)
 }
 
-const onBuyHandler = (products, userId) => {
-  let owners = products.map(product => product.owner)
-
-   let notificationsToSend = []
-   owners.forEach(owner => {
-    let notificationData = {
-      type : 'buy',
-      sender : userId,
-      receiver : owner._id,
-      publicationsToBuy : products.map(product => {
-        if(owner._id === product.owner._id){
-          return {_id : product._id, quantityToBuy : items.find(item => item._id === product._id).quantity}
-        }
-      })
-    }
-    notificationsToSend.push(notificationData)
-  })
-   sendNotification(notificationsToSend)
-   .then(() => {
-    products.forEach(product => {
-      removeFromCart(product._id, ``, true)
-      setShowSuccessModal(true)
+const onBuyHandler = useCallback((products, userId) => {
+  
+    let owners = products.map(product => product.owner)
+  
+     let notificationsToSend = []
+     owners.forEach(owner => {
+      let notificationData = {
+        type : 'buy',
+        sender : userId,
+        receiver : owner._id,
+        publicationsToBuy : products.map(product => {
+          if(owner._id === product.owner._id){
+            return {_id : product._id, quantityToBuy : items.find(item => item._id === product._id).quantity}
+          }
+        })
+      }
+      notificationsToSend.push(notificationData)
     })
-   })
-   .catch(err => console.log(err))
-}
+     sendNotification(notificationsToSend)
+     .then(() => {
+      products.forEach(product => {
+        removeFromCart(product._id, ``, true)
+        setShowSuccessModal(true)
+      })
+     })
+     .catch(err => setErrors(oldErrors => [...oldErrors, err]))
+  
+},[products])
 
 
 const onCloseHandler = () => setShowSuccessModal(false)
@@ -68,7 +72,6 @@ const calculateIndividualPrices = (products, items) => {
 useEffect(() => {
     if(items.length > 0){
         let itemIds = items.map(item => item._id)
-        console.log(itemIds)
         getForShoppingCart(itemIds)
         .then(products => {
           setProducts(products)
@@ -79,7 +82,7 @@ useEffect(() => {
              }
           })
         })
-        .catch(err => console.log(err))
+        .catch(err => setErrors(oldErrors => [...oldErrors, err]))
     }
     else {
       products.length > 0 && setProducts([])
@@ -89,6 +92,7 @@ useEffect(() => {
 
 return(
 <>
+{errors.length > 0 && <ErrorAlert errors={errors} />}
 {showSuccessModal && <SuccessModal onCloseHandler={onCloseHandler} />}
   <header id={styles['site-header']}>
     <div className={styles.container}>

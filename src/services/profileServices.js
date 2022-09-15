@@ -1,5 +1,5 @@
 import {convertToFormData} from "../utils/convertToFormData"
-const baseUrl = 'http://localhost:5000'
+const baseUrl = 'https://agro-tech-market.herokuapp.com'
 const endpoints = {
     GET_USER_INFO : '/users/profile/',
     ADD_PROFILE_PIC : '/users/add-prof-pic/'

@@ -1,6 +1,6 @@
 import {convertToFormData} from "../utils/convertToFormData"
 
-const baseUrl = 'http://localhost:5000'
+const baseUrl = 'https://agro-tech-market.herokuapp.com'
 const endpoints = {
     CREATE_PUBLICATION :'/publications/create',
     GET_PUBLICATIONS : '/publications/marketplace', 
@@ -76,6 +76,7 @@ export const likeOrFollow = async (publicationId, action, userData) => {
       body: JSON.stringify({userId:userData._id, action})
      })
      let data = await resp.json()
+     console.log(data)
      return data
 }
 

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { useContext } from "react"
 import { authContext } from "../../contexts/authContext"
 import { registerUser, loginUser } from "../../services/userServices"
@@ -35,9 +35,9 @@ function actionHandler(e){
             }
     }
 
-   const onSubmitHandler = (e, userData, action) => {
+   const onSubmitHandler = useCallback((e, userData, action) => {
     e.preventDefault();
-    console.log(userData)
+ 
     if(userData.userType === 'individual'){
         delete userData.uic; 
         delete userData.location; 
@@ -125,7 +125,8 @@ function actionHandler(e){
            setErrors([err.message]);
         });
      };
-   };
+   }, []
+   );
 
    const onCloseHandler = () => setShowRedirModal(state => {return {...state, show:!state.show}})
 

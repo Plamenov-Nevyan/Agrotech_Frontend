@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext} from "react"
 import { authContext } from "../../../contexts/authContext"
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Navigate} from 'react-router-dom'
 import styles from "../css/form.module.css"
 import {createPublication} from "../../../services/publicationServices"
 import {setInputsForState} from "../../../utils/setInputs"

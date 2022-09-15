@@ -18,7 +18,7 @@ export const Home = () => {
    useEffect(() => {
        getNews()
         .then((newsReceived) => setNews(newsReceived))
-        .catch(err => setErrors(oldErrors => [...oldErrors, err]))
+        .catch(err => {console.log(err); setErrors(oldErrors => [...oldErrors, err.message ? err.message : err])})
     }, [])
 
     useEffect(() => {
