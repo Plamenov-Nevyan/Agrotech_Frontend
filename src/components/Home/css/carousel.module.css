@@ -49,10 +49,10 @@
     width: 35px;
 }
 .carousel_btn--left{
-    left:-40px;
+    left: -53px;
 }
 .carousel_btn--right{
-    right:-40px;
+    right: -52px;
 }
 .carousel_nav {
     display: flex;

@@ -14,22 +14,21 @@
     overflow: hidden;
   }
 .recent_info  {
-    width: 80%;
-    height: 100%;
-    float: left;
-    margin-right: 41px;
-    overflow: hidden;
-    margin-top: 51px;
-    text-align: center;
-    background: wheat;
-border-radius: 35px;
-  }
+  width: 109%;
+  height: 100%;
+  float: left;
+  margin-right: 41px;
+  overflow: hidden;
+  margin-top: 33px;
+  text-align: center;
+  border-radius: 35px;
+}
 
   .recent_info img {
     width: 80%;
     height: 50%;
     margin-top: 20px;
-    border-radius: 35px;
+    border-radius: 25px;
   }
   .recent_heading {
     margin-top: 0px;
