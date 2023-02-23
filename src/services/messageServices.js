@@ -1,4 +1,4 @@
-const baseUrl = 'https://agro-tech-market.herokuapp.com/messages'
+const baseUrl = 'http://localhost:5000/messages'
 const endpoints = {
     GET_RECENT : '/get-recent/',
     MARK_AS_READ : '/read/',
@@ -43,6 +43,7 @@ export const getTranscript = (contactId, userId) => {
 }
 
 export const sendEmail = (sender, subject, content) => {
+    console.log(`aa`)
    return fetch(baseUrl + endpoints.SEND_EMAIL, {
     method : 'POST',
     headers : {'Content-Type' : 'application/json'},

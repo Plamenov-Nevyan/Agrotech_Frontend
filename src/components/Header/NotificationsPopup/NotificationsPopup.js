@@ -5,7 +5,7 @@ import styles from "../css/header.module.css"
 import { SellModal } from "./SellModal.js/SellModal";
 import { ShowDeletedModal } from "./ShowDeletedModal/ShowDeletedModal";
 
-export const NotificationsPopup = ({notifications, onNotificationHandler, setErrorsHandler, userData}) => {
+export const NotificationsPopup = ({notifications, onNotificationHandler, setErrorsHandler, userData, selectOpenedPanel}) => {
     const [showNotifications, setShowNotifications] = useState(false)
     const [unreadNotifications, setUnreadNotifications] = useState(0)
     const [deletedPublication, setDeletedPublication] = useState({})
@@ -14,7 +14,10 @@ export const NotificationsPopup = ({notifications, onNotificationHandler, setErr
     const [showSellModal, setShowSellModal] = useState(false)
     let navigate = useNavigate()
     
-    const onNotificationsClick = () => setShowNotifications(!showNotifications)
+    const onNotificationsClick = () => {
+        setShowNotifications(!showNotifications)
+        showNotifications ? selectOpenedPanel('notifications') : selectOpenedPanel('')
+    }
 
    useEffect(() => {
     if(notifications.length > 0){

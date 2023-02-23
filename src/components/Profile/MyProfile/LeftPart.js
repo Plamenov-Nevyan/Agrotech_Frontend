@@ -28,7 +28,7 @@ export const LeftPart = ({profileInfo}) => {
             <p className={styles['desc-stat']}>Publications followed</p>
           </div>
         </div>
-         {profileInfo.description && <p className={styles.desc}>{profileInfo.description}</p>}
+         {profileInfo.shortDescription && <p className={styles.desc}>{profileInfo.shortDescription}</p>}
         <div className={styles.social}>
           {profileInfo.facebookLink && <Link to={profileInfo.facebookLink}><i class="fab fa-facebook-f"></i></Link>}
           {profileInfo.twitterLink && <Link to={profileInfo.twitterLink}><i class="fab fa-twitter"></i></Link>}

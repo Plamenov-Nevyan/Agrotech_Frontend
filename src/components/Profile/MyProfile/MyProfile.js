@@ -14,15 +14,17 @@ export const MyProfile = () => {
     const [errors, setErrors] = useState([])
     const [profileData, setProfileData] = useState(null)
     const [showModal, setShowModal] = useState(false)
-
    let isProfileInfoLoaded = profileData !== null
-
+console.log(profileData)
   const showModalHandler = () => setShowModal(!showModal)
   const onCloseModalHandler = () => setShowModal(false)
   
 useEffect(() => {
   getUserProfile(authData._id)
-  .then((profile) => setProfileData(profile))
+  .then((profile) =>{
+    profile.accessToken = authData.accessToken
+    setProfileData(profile)
+  })
   .catch(err => setErrors(oldErrors => [...oldErrors, err]))
 }, [])
 
@@ -31,10 +33,10 @@ useEffect(() => {
     {showModal && 
     <PersonalizationModal 
     onCloseModalHandler={onCloseModalHandler} 
-    userData={authData}
+    userData={profileData}
     />}
    <Header 
-   coverImage={authData ? authData.coverImage : undefined} 
+   coverImage={profileData ? profileData.coverImage : undefined} 
    showModalHandler={showModalHandler}
    />
   <main className={styles.prof_main}>

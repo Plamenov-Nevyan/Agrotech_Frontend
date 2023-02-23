@@ -81,7 +81,6 @@ export const isLocationValid = (location) => {
 
 export const isPhoneNumValid = (phoneNumber) => {
     phoneNumber = phoneNumber.split('').filter(digit => digit !== '+' && digit !== ' ').join('')
-    console.log(phoneNumber)
     let isValid = !isNaN(phoneNumber)
     let isLengthCorrect = phoneNumber.length === 10
     let errors = []

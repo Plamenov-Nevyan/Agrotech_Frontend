@@ -1,4 +1,4 @@
-const baseUrl = 'https://agro-tech-market.herokuapp.com'
+const baseUrl = 'http://localhost:5000'
 const endpoints = {
     REGISTER : '/register',
     LOGIN: '/login',

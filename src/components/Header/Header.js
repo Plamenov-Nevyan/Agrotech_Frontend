@@ -16,6 +16,7 @@ export const Header = () => {
   const [messages, setMessages] = useState([])
   const [linksActive, setActivity] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [panelOpened, setPanelOpened] = useState('')
   const [errors, setErrors] = useState([])
   const {_, authData, __} = useContext(authContext)
 
@@ -94,6 +95,10 @@ export const Header = () => {
     .catch(err => setErrorsHandler(err.message))
 }
 
+const selectOpenedPanel = (panel) => {
+  setPanelOpened(panel)
+}
+
     return(
         <>
         {errors.length > 0 && <ErrorAlert errors={errors} />}
@@ -107,19 +112,40 @@ export const Header = () => {
     >
     <Link to={"/shopping-cart"} className={styles.menu_link}>Shopping Cart<i class="fas fa-shopping-cart"></i></Link>
     <Link to={"/my-profile"} className={styles.menu_link}>My Profile <i className="fas fa-user"></i></Link>
-    <NotificationsPopup 
-    notifications={notifications} 
-    onNotificationHandler={onNotificationHandler} 
-    setErrorsHandler={setErrorsHandler}
-    userData={authData}
-    />
-   <MessagesPopup 
-   messages={messages} 
-   onMessageHandler={onMessageHandler} 
-   setErrorsHandler={setErrorsHandler}
-   userData = {authData}
-   onCheckRead={onCheckRead}
-   />
+    {panelOpened === 'notifications' &&  <NotificationsPopup 
+     notifications={notifications} 
+     onNotificationHandler={onNotificationHandler} 
+     setErrorsHandler={setErrorsHandler}
+     userData={authData}
+     selectOpenedPanel={selectOpenedPanel}
+     />
+    }
+    {panelOpened === 'messages' && <MessagesPopup 
+     messages={messages} 
+     onMessageHandler={onMessageHandler} 
+     setErrorsHandler={setErrorsHandler}
+     userData = {authData}
+     onCheckRead={onCheckRead}
+     selectOpenedPanel={selectOpenedPanel}
+     />}
+     {panelOpened === '' && <>
+     <NotificationsPopup 
+     notifications={notifications} 
+     onNotificationHandler={onNotificationHandler} 
+     setErrorsHandler={setErrorsHandler}
+     userData={authData}
+     selectOpenedPanel={selectOpenedPanel}
+     />
+     <MessagesPopup 
+     messages={messages} 
+     onMessageHandler={onMessageHandler} 
+     setErrorsHandler={setErrorsHandler}
+     userData = {authData}
+     onCheckRead={onCheckRead}
+     selectOpenedPanel={selectOpenedPanel}
+     />
+     </>
+     }
   </div>
    {authData &&  <button className={styles.hamburger_icon}  onClick={hamburgActiviyHandler}>
       <i className="fa fa-bars"></i>

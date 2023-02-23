@@ -3,10 +3,13 @@ import { Link } from "react-router-dom"
 import {markAsRead, getRecentMessages } from "../../../services/messageServices";
 import styles from "../css/header.module.css"
 
-export const MessagesPopup = ({messages, onMessageHandler, setErrorsHandler, userData, onCheckRead}) => {
+export const MessagesPopup = ({messages, onMessageHandler, setErrorsHandler, userData, onCheckRead, selectOpenedPanel}) => {
     const [showMessages, setShowMessages] = useState(false)
     const [unreadMessages, setUnreadMessages] = useState(messages.length)
-    const onMessagesClick = () => setShowMessages(!showMessages)
+    const onMessagesClick = () => {
+        setShowMessages(!showMessages)
+       showMessages ? selectOpenedPanel('messages') : selectOpenedPanel('')
+    }
     useEffect(() => {
         let unreadCount = messages.filter(message => !message.read).length
         setUnreadMessages(

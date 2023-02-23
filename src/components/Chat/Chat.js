@@ -11,7 +11,7 @@ export const Chat = () => {
   // Set the state for array of most recent message (received or sent) from unique users
     const [messages, setMessages] = useState([])
   // Set the state for the chat transcript (all messages received or sent)  with a unique user
-    const [transcript, setTranscript ] = useState(null)
+    const [transcript, setTranscript] = useState(null)
   // Set the state fot the message input of the user, prepared for a request to the backend
     const [sendMsgInput, setSendMsgInput] = useState('')
   // Set the state for the contact with who, the user wants to receive transcript 

@@ -1,4 +1,6 @@
 import { useState } from "react"
+import {AddCoverPic} from "./AddCoverPic"
+import {AddDescription} from "./AddDescription"
 import { AddProfilePic } from "./AddProfilePic"
 import styles from "./css/persModal.module.css"
 
@@ -23,6 +25,8 @@ export const PersonalizationModal = ({onCloseModalHandler, userData}) => {
       </div>
       <div className={styles.change_container}>
            {optionsToShow === 'profilePic' && <AddProfilePic userData={userData} />}
+           {optionsToShow === 'coverPic' && <AddCoverPic userData={userData} />}
+           {optionsToShow === 'shortDescr' && <AddDescription userData={userData} />}
       </div>
     </div>
   </div>

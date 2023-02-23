@@ -5,6 +5,19 @@
     top: 0%;
     border-radius: 50%;
   }
+  .pic_user_image_for_cover {
+    width: 26%;
+    position: absolute;
+    right: 53%;
+    top: 28%;
+    border-radius: 50%;
+  }
+  .pic_preview_cover {
+    width: 81%;
+    position: absolute;
+    right: 26%;
+    top: 0%;
+  }
 
 .change_form  {
     position: absolute;
@@ -23,5 +36,6 @@
     font-size: 18px;
     margin-top: 10px;
     border-radius: 25px;
+    cursor: pointer;
   }
 

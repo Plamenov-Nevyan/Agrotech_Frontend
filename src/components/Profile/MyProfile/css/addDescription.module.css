@@ -1,0 +1,10 @@
+.user-description {
+    width: 358px;
+    height: 291px;
+}
+
+.save-descr-btn {
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 10px;
+}
