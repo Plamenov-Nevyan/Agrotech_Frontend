@@ -4,7 +4,7 @@ import styles from "../css/details.module.css"
 import {likeOrFollow} from "../../../services/publicationServices"
 
 
-export const LikeBtn = ({likes, publicationId,userData, ownerId, onModalClickHandler}) => {
+export const LikeBtn = ({likes, publicationId,userData, ownerId, onModalClickHandler, errorsSetter, successMessageSetter}) => {
     const [currentLikes, setCurrentLikes] = useState(likes)
 
     const onLikeHandler = () => {
@@ -18,8 +18,9 @@ export const LikeBtn = ({likes, publicationId,userData, ownerId, onModalClickHan
           read : false
         })
         setCurrentLikes(newLikes)
+        successMessageSetter('Publication liked !')
       })
-      .catch(err => console.log(err))
+      .catch(err => errorsSetter(err.message))
     }
 
     let isUserSignedIn = userData

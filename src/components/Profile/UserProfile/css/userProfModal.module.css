@@ -55,11 +55,40 @@
     width: 100%;
     height: 100%;
   }
+  .message-btn {
+    position: absolute;
+    right: 2%;
+    font-size: 13pt;
+    background-color: #42b1fa;
+    color: #fff;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all .4s;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    bottom: 2%;
+}
+  
+  .message-btn:hover {
+    box-shadow: 0 0 15px rgba(0,0,0,0.2), 0 0 15px rgba(0,0,0,0.2);
+  }
+
+  .message {
+    width: 430px;
+    height: 115px;
+  }
   
   @media screen and (max-width: 700px){
     .box{
       width: 70%;
     }
+    .message-btn {
+        width: 50%;
+        margin-left: 25%;
+        display: block;
+        position: unset;
+        text-align: center;
+      }
     .popup{
       width: 70%;
     }

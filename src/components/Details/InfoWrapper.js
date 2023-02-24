@@ -9,11 +9,9 @@ import { OtherInfo } from "./InfoFields.js/OtherInfo"
 import { ProductInfo } from "./InfoFields.js/ProductInfo"
 import { ServiceInfo } from "./InfoFields.js/ServiceInfo"
 import { VehicleInfo } from "./InfoFields.js/VehicleInfo"
-import { ErrorAlert } from "../Alerts/Error"
 import { ConfirmModal } from "./ConfirmModal/ConfirmModal"
 
-export const InfoWrapper = ({ publDetails, userData }) => {
-    const [errors, setErrors] = useState([])
+export const InfoWrapper = ({ publDetails, userData, errorsSetter, successMessageSetter }) => {
     // Set state for showing the confirm delete publication modal
     const [showModal, setShowModal] = useState(false)
     // Set state for choosing the contact method of the publication owner
@@ -33,7 +31,7 @@ export const InfoWrapper = ({ publDetails, userData }) => {
         else {setShowContactOrQuantity(true)}
      }
 
-     const onErrorHandler = (errors) => setErrors(oldErrors => [...oldErrors, ...errors])
+     const onErrorHandler = (err) => errorsSetter(err)
 
      const onAddHandler = (e, quantity) => {
          e.preventDefault()
@@ -41,6 +39,7 @@ export const InfoWrapper = ({ publDetails, userData }) => {
          // Use the addToCart function of useShoppingCart hook, to add the item into the local storage shopping cart
         addToCart(publDetails._id, quantity) 
         setIsItemAddedToCart(true)
+        successMessageSetter('Item added to shopping cart!')
     }
 
     const onRemoveHandler = (e, quantity) => {
@@ -48,6 +47,7 @@ export const InfoWrapper = ({ publDetails, userData }) => {
         // Use the removeFromCart function of useShoppingCart hook, to remove the item from the local storage shopping cart
       let updatedItems =  removeFromCart(publDetails._id, quantity)
       updatedItems.some(item => item._id === publDetails._id) ? setIsItemAddedToCart(true) : setIsItemAddedToCart(false)
+      successMessageSetter('Item removed from shopping cart!')
     }
 
     // Show either owner phone number or send message form, when changing the contact method
@@ -145,7 +145,9 @@ export const InfoWrapper = ({ publDetails, userData }) => {
                 owner={publDetails.owner}
                  contactMethod={contactMethod} 
                  userData={userData} 
-                 setErrors={setErrors}/>
+                 errorsSetter={errorsSetter}
+                 successMessageSetter={successMessageSetter}
+                 />
             </div>
         </div>
         </>

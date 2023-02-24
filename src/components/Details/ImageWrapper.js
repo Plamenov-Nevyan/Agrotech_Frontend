@@ -8,13 +8,22 @@ export const ImageWrapper = ({
   publDetails,
   userData,
   onModalClickHandler,
+  errorsSetter,
+  successMessageSetter
 }) => {
   const [showModal, setShowModal] = useState(false)
   const onCloseModalHandler = () => setShowModal(false)
 
   return (
     <>
-    {showModal && <UserProfileModal userId={publDetails.owner._id} onCloseModalHandler={onCloseModalHandler}/>}
+    {showModal && <UserProfileModal 
+    userData={userData} 
+    ownerId={publDetails.owner._id} 
+    onCloseModalHandler={onCloseModalHandler} 
+    errorsSetter={errorsSetter}
+    successMessageSetter={successMessageSetter}
+    />
+    }
     <div className={styles.product_card_wrapper}>
       <div className={styles.product_image}>
         <div className={styles.author}>
@@ -41,6 +50,8 @@ export const ImageWrapper = ({
             userData={userData}
             ownerId={publDetails.owner._id}
             onModalClickHandler={onModalClickHandler}
+            errorsSetter={errorsSetter}
+            successMessageSetter={successMessageSetter}
           />
           <FollowBtn
             follows={publDetails.followedBy}
@@ -48,6 +59,8 @@ export const ImageWrapper = ({
             userData={userData}
             ownerId={publDetails.owner._id}
             onModalClickHandler={onModalClickHandler}
+            errorsSetter={errorsSetter}
+            successMessageSetter={successMessageSetter}
           />
           <h3 className={styles.title_price}>{publDetails.price}$</h3>
         </div>

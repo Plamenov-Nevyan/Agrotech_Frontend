@@ -9,7 +9,6 @@ export const RightPart = () => {
           <li>Groups</li>
           <li>About</li>
         </ul> */}
-        <span className={styles.follow}>Follow</span>
         {/* <div className={styles.row + ' ' + styles.gallery}>
           <div className={styles['col-md-4']}>
             <img src="https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />

@@ -3,16 +3,45 @@ import { getUserProfile } from "../../../services/profileServices"
 import {useEffect, useState} from "react"
 import {SmallLoadingSpinner} from "../../SmallLoadingSpinner/SmallLoadingSpinner"
 import {UserPublicationStats} from "../UserPublicationStats/UserPublicationStats"
+import { sendMessage } from "../../../services/messageServices"
 
-export const UserProfileModal = ({userId, onCloseModalHandler}) => {
+
+export const UserProfileModal = ({userData,ownerId, onCloseModalHandler, errorsSetter, successMessageSetter}) => {
     const [profileData, setProfileData] = useState(null)
-    const [errors, setErrors] = useState([])
+    const [message, setMessage] = useState('')
    
    useEffect(() => {
-    getUserProfile(userId)
+    getUserProfile(ownerId)
     .then((receivedData) => setProfileData({...receivedData}))
-    .catch((err) => setErrors((oldErrors) => setErrors([...oldErrors, err.message])))
+    .catch((err) => {
+        errorsSetter(err.message)
+        onCloseModalHandler()
+    })
    }, [])
+
+   const onMessageChange = (e) => setMessage(e.target.value)
+
+   const sendMessageHandler = (e) => {
+    if(message === ''){
+      errorsSetter('You cannot send an empty message!')
+      return onCloseModalHandler()
+    }
+      e.preventDefault()
+      let data = {
+        sender : userData._id,
+        receiver : ownerId,
+        content : message.trim(),
+    }
+    sendMessage(data, userData.accessToken)
+    .then((resp) => {
+        onCloseModalHandler()
+        successMessageSetter('Message sent successfully !')
+    })
+    .catch(err => {
+        errorsSetter(err.message)
+        onCloseModalHandler()
+    })
+   }
 
     return (
     <>
@@ -32,6 +61,12 @@ export const UserProfileModal = ({userId, onCloseModalHandler}) => {
                         likedPublLength = {profileData.publicationsLiked.length}
                         followedPublLength = {profileData.publicationsFollowed.length}
                         />
+                        <div className={styles['send-message-form']}>
+                        <textarea className={styles.message} onChange={(e) => onMessageChange(e)}>
+
+                        </textarea>
+                        <span className={styles['message-btn']} onClick={(e) => sendMessageHandler(e)}>Send a message</span>
+                        </div>
                     </div>
         </div>
       </div>

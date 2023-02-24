@@ -12,9 +12,10 @@ import { UserListModal } from "./UserListModal/UserListModal"
 import { UsersLikedOrFollowed } from "./UsersLiked"
 import { SmallLoadingSpinner } from "../SmallLoadingSpinner/SmallLoadingSpinner"
 import { SuccessAlert } from "../Alerts/Success"
+import { ErrorAlert } from "../Alerts/Error";
 
 export const Details = () => {
-    const [showSuccessAlert, setShowSuccessAlert] = useState(false)
+    const [showSuccessAlert, setShowSuccessAlert] = useState('')
     // Set state for the publication details info
     const [publicationDetails, setPublicationDetails] = useState({})
     // Set state about showing the modal for users who liked or followed this publication
@@ -26,21 +27,32 @@ export const Details = () => {
         // Identicator to search for users who liked or followed 
         likedOrFollowed: ''
     })
+    const [errors, setErrors] = useState([])
+    const errorsSetter = (err) => {
+      setErrors([...errors, err])
+    }
+    const successMessageSetter = (message) => {
+        setShowSuccessAlert(message)
+    }
     const {publicationId} = useParams()
     const location = useLocation()
 
     useEffect(() => {
         //  get the confirmation for showing success alert when redirecting from edit component, using useLocation hook 
        if(location.state !== null && location.state.showSuccessAlert){
-        setShowSuccessAlert(true)
+        setShowSuccessAlert(`Publication edited successfully, all users following were notified!`)
        }
        }, [location])
 
    useEffect(() => {
     // Get the details info on component mount
     const loadDetails = async () => {
+        try{
         let data = await getDetails(publicationId)
         setPublicationDetails(data)
+        }catch(err){
+         setErrors([...errors, err.message])
+        }
     }
     loadDetails()
    }, [])
@@ -59,7 +71,8 @@ export const Details = () => {
 
     return(
     <>
-    {showSuccessAlert && <SuccessAlert message={`Publication edited successfully, all users following were notified!`}/>}
+     {errors.length > 0 && <ErrorAlert errors={errors} />}
+    {showSuccessAlert && <SuccessAlert message={showSuccessAlert}/>}
     {showModalData.showModal && 
     <UserListModal 
      content={
@@ -77,8 +90,19 @@ export const Details = () => {
          {areDetailsLoaded
             ? <> 
                 <div className={styles.wrapper}>
-                    <ImageWrapper publDetails={publicationDetails} userData={authData} onModalClickHandler={onModalClickHandler}/>
-                    <InfoWrapper publDetails={publicationDetails} userData={authData}/>
+                    <ImageWrapper 
+                    publDetails={publicationDetails} 
+                    userData={authData} 
+                    onModalClickHandler={onModalClickHandler} 
+                    errorsSetter={errorsSetter}
+                    successMessageSetter={successMessageSetter}
+                    />
+                    <InfoWrapper 
+                    publDetails={publicationDetails} 
+                    userData={authData} 
+                    errorsSetter={errorsSetter} 
+                    successMessageSetter={successMessageSetter}
+                    />
                 </div>
                 <h1 className ={styles.comments_title}>Comments</h1>
                 <div className={styles.add_comment_wrapper}>

@@ -2,13 +2,16 @@ import {useState} from "react"
 import styles from "../css/details.module.css"
 import {likeOrFollow} from "../../../services/publicationServices"
 
-export const FollowBtn = ({follows, publicationId, userData, ownerId, onModalClickHandler}) => {
+export const FollowBtn = ({follows, publicationId, userData, ownerId, onModalClickHandler, errorsSetter, successMessageSetter}) => {
     const [currentFollows, setCurrentFollows] = useState(follows)
 
     const onFollowHandler = () => {
         likeOrFollow(publicationId, 'follow', userData)
-        .then(newFollows => setCurrentFollows(newFollows))
-        .catch(err => console.log(err))
+        .then(newFollows => {
+          setCurrentFollows(newFollows)
+          successMessageSetter('Publication followed !')
+        })
+        .catch(err => errorsSetter(err.message))
     }
 
     return (

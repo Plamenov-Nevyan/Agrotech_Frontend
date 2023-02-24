@@ -2,9 +2,8 @@ import { useState } from "react"
 import styles from "./css/details.module.css"
 import { sendMessage } from "../../services/messageServices"
 
-export const ContactOwner = ({owner, contactMethod, userData, setErrors}) => {
+export const ContactOwner = ({owner, contactMethod, userData, errorsSetter, successMessageSetter}) => {
     const [message, setMessage] = useState('')
-    const [showSuccessModal, setShowSuccessModal] = useState(false)
 
     const onMessageChange = (e) => setMessage(e.target.value)
 
@@ -13,11 +12,11 @@ export const ContactOwner = ({owner, contactMethod, userData, setErrors}) => {
     let data = {
         sender : userData._id,
         receiver : owner._id,
-        content : message,
+        content : message.trim(),
     }
     sendMessage(data, userData.accessToken)
-    .then((resp) => console.log(resp))
-    .catch(err => console.log(err))
+    .then((resp) => successMessageSetter('Message sent successfully!'))
+    .catch(err => {errorsSetter(err.message)})
  }
 
 if(contactMethod === 'phone'){
