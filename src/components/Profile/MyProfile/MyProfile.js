@@ -15,7 +15,6 @@ export const MyProfile = () => {
     const [profileData, setProfileData] = useState(null)
     const [showModal, setShowModal] = useState(false)
    let isProfileInfoLoaded = profileData !== null
-console.log(profileData)
   const showModalHandler = () => setShowModal(!showModal)
   const onCloseModalHandler = () => setShowModal(false)
   

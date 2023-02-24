@@ -1,24 +1,28 @@
-import { Link } from "react-router-dom";
 import styles from "./css/details.module.css";
 import { LikeBtn } from "./LikeAndFollowBtn/LikeBtn";
 import { FollowBtn } from "./LikeAndFollowBtn/FollowBtn";
+import {useState} from "react";
+import {UserProfileModal} from "../Profile/UserProfile/UserProfileModal";
 
 export const ImageWrapper = ({
   publDetails,
   userData,
   onModalClickHandler,
 }) => {
+  const [showModal, setShowModal] = useState(false)
+  const onCloseModalHandler = () => setShowModal(false)
+
   return (
+    <>
+    {showModal && <UserProfileModal userId={publDetails.owner._id} onCloseModalHandler={onCloseModalHandler}/>}
     <div className={styles.product_card_wrapper}>
       <div className={styles.product_image}>
         <div className={styles.author}>
           <p>
             Publication added by:
-            <span>
-              <Link to={`/profile/user/${publDetails.owner._id}`}>
+            <span className={styles['owner-modal-link']} onClick={(e) => setShowModal(true)}>
                 {" "}
                 {publDetails.owner.username}
-              </Link>
             </span>
           </p>
         </div>
@@ -49,5 +53,6 @@ export const ImageWrapper = ({
         </div>
       </div>
     </div>
+    </>
   );
 };

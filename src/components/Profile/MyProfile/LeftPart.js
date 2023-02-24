@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom"
+import {UserPublicationStats} from "../UserPublicationStats/UserPublicationStats"
 import styles from "./css/myProfile.module.css"
 
 export const LeftPart = ({profileInfo}) => {
@@ -14,7 +15,12 @@ export const LeftPart = ({profileInfo}) => {
         <h4 className={styles.name}>{profileInfo.username}</h4>
         <p className={styles.info}>{profileInfo.userType}</p>
         <p className={styles.info}>{profileInfo.email}</p>
-        <div className= {styles.stats + " " + styles.row}>
+        <UserPublicationStats 
+        createdPublLength={profileInfo.publicationsCreated.length}
+        likedPublLength = {profileInfo.publicationsLiked.length}
+        followedPublLength = {profileInfo.publicationsFollowed.length}
+        />
+        {/* <div className= {styles.stats + " " + styles.row}>
           <div className={styles.stat + ' ' + styles['col-xs-4']} style={{ paddingRight: 50 }}>
             <p className={styles['number-stat']}>{profileInfo.publicationsCreated.length}</p>
             <p className={styles['desc-stat']}>Publications created</p>
@@ -27,7 +33,7 @@ export const LeftPart = ({profileInfo}) => {
             <p className={styles['number-stat']}>{profileInfo.publicationsFollowed.length}</p>
             <p className={styles['desc-stat']}>Publications followed</p>
           </div>
-        </div>
+        </div> */}
          {profileInfo.shortDescription && <p className={styles.desc}>{profileInfo.shortDescription}</p>}
         <div className={styles.social}>
           {profileInfo.facebookLink && <Link to={profileInfo.facebookLink}><i class="fab fa-facebook-f"></i></Link>}

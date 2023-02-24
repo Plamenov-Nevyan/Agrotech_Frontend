@@ -1,0 +1,31 @@
+.stats {
+    margin-top: 25px;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ededed;
+    font-family: 'Montserrat', sans-serif;
+    width: 85%;
+    display: flex;
+  }
+  
+  .stat {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .number-stat {
+    padding: 0px;
+    font-size: 14pt;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: #aaa;
+  }
+  
+  .desc-stat {
+    margin-top: -15px;
+    font-size: 10pt;
+    color: #bbb;
+    position: absolute;
+  }
+  

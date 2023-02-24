@@ -11,7 +11,7 @@ export const Header = ({coverImage, showModalHandler}) => {
 
    return ( 
    <header className={styles.my_prof_header}>
-    <img className={styles.prof_cover_image} src={coverImage ? coverImage : `https://images.pexels.com/photos/1731427/pexels-photo-1731427.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`}/>
+    <img className={styles.prof_cover_image} src={coverImage}/>
     <i className="fa fa-bars" aria-hidden="true" onClick={onClickHandler} />
     <div className={
       showOptions 

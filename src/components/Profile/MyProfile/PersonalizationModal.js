@@ -13,7 +13,7 @@ export const PersonalizationModal = ({onCloseModalHandler, userData}) => {
     return (
         <div id="popup1" className={styles.overlay}>
   <div className={styles.popup}>
-    <h2>Here i am</h2>
+    <h2>Add flavour to your profile</h2>
     <a className={styles.close} href="#" onClick={onCloseModalHandler}>&times;</a>
     <div className={styles.content}>
       <div className={styles.chooseOption}>
