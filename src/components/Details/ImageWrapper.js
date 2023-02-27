@@ -9,27 +9,24 @@ export const ImageWrapper = ({
   userData,
   onModalClickHandler,
   errorsSetter,
-  successMessageSetter
+  successMessageSetter,
+  openUserProfModal
 }) => {
-  const [showModal, setShowModal] = useState(false)
-  const onCloseModalHandler = () => setShowModal(false)
+
 
   return (
     <>
-    {showModal && <UserProfileModal 
-    userData={userData} 
-    ownerId={publDetails.owner._id} 
-    onCloseModalHandler={onCloseModalHandler} 
-    errorsSetter={errorsSetter}
-    successMessageSetter={successMessageSetter}
-    />
-    }
     <div className={styles.product_card_wrapper}>
       <div className={styles.product_image}>
         <div className={styles.author}>
           <p>
             Publication added by:
-            <span className={styles['owner-modal-link']} onClick={(e) => setShowModal(true)}>
+          <span className={styles['owner-modal-link']} onClick={(e) => openUserProfModal({
+              show: true,
+              userId: publDetails.owner._id
+                }
+              )}
+              >
                 {" "}
                 {publDetails.owner.username}
             </span>

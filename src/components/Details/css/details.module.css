@@ -323,11 +323,13 @@ display: contents;
   .comments li {
     background-color: wheat;
     text-align: center;
-    display: block;
-    width: 550px;
+    display: flex;
+    width: 100%;
     margin: 10px auto 18px auto;
-    box-shadow: 8px 8px 8px 0 rgba(0, 0, 0, 0.2), 12px 12px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 8px 8px 8px 0 rgb(0 0 0 / 20%), 12px 12px 20px 0 rgb(0 0 0 / 19%);
     border-radius: 16px;
+    flex-wrap: nowrap;
+    flex-direction: column;
 }
 .comments li a {
     text-decoration: none;
@@ -346,6 +348,14 @@ display: contents;
   background-color: fuchsia;
   border-radius: 16px;
   width: 115px;
+}
+.comment_author {
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+.comment_author:hover {
+  text-decoration: underline;
+  font-size: 28px;
 }
 .comments li .comment_content {
     font-size: 20px;

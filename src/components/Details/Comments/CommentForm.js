@@ -7,16 +7,12 @@ import { Comment } from "./Comment"
 import { Pager } from "./Pager"
 import { CommentSort } from "./CommentSort"
 import {SmallLoadingSpinner} from "../../SmallLoadingSpinner/SmallLoadingSpinner"
-import {ErrorAlert} from "../../Alerts/Error"
 
-export const CommentForm = ({userData, publicationId, owner}) => {
+export const CommentForm = ({userData, publicationId, owner, errorsSetter, successMessageSetter, openUserProfModal}) => {
       const [currentPage, setCurrentPage] = useState(1)
       const [commentsData, setCommentsData] = useState({})
       const [commentContent, setCommentContent] = useState('')
-      const [commentSortType, setCommentSortType] = useState('recent')
-      const [errors, setErrors] = useState([])
-
-     
+      const [commentSortType, setCommentSortType] = useState('recent')  
 
       const onChangeHandler = (e) => setCommentContent(e.target.value)
       const onSortChangeHandler = (e) => setCommentSortType(e.target.value)
@@ -29,14 +25,14 @@ export const CommentForm = ({userData, publicationId, owner}) => {
       useEffect(() => {
         getComments(currentPage, publicationId, commentSortType)
         .then((commentsDataReceived) => setCommentsData(commentsDataReceived))
-        .catch(err => setErrors(oldErrors => [...oldErrors, err.message]))
+        .catch(err => errorsSetter(err.message))
       },[currentPage])
       
 
       const onCommentSubmit = (e) => {
         e.preventDefault()
         setCommentContent(oldContent => '')
-        if(commentContent === ''){return setErrors(oldErrors => [...oldErrors, 'You can\'t post an empty comment'])}
+        if(commentContent === ''){return errorsSetter('You can\'t post an empty comment!')}
 
           addComment(publicationId, commentContent, userData._id, userData.accessToken)
           .then(async (newComment) => {
@@ -57,11 +53,12 @@ export const CommentForm = ({userData, publicationId, owner}) => {
             forPublication : publicationId
            }
            await sendNotification(notification)
+           successMessageSetter('Comment posted successfully!')
           }catch(err){
             throw err
           }
           })
-          .catch(err => setErrors(oldErrors => [...oldErrors, err.message]))
+          .catch(err => errorsSetter(err.message))
       }
 
     let sortedComments
@@ -74,12 +71,11 @@ export const CommentForm = ({userData, publicationId, owner}) => {
     if(userData){
     return (
         <>
-        {errors.length > 0 && <ErrorAlert errors={errors}/>}
         { Object.values(commentsData).length > 0
             ? commentsData.comments.length > 0
                 ?<> 
                 <CommentSort onSortChangeHandler={onSortChangeHandler}/>
-                <Comment comments={sortedComments} userId={userData._id} userImage={userData.image}/>
+                <Comment comments={sortedComments} userId={userData._id} userImage={userData.image} openUserProfModal={openUserProfModal}/>
                 < Pager 
                 onPageChange={onPageChange} 
                 totalPages={commentsData.pages} 

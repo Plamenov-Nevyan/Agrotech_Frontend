@@ -13,6 +13,7 @@ import { UsersLikedOrFollowed } from "./UsersLiked"
 import { SmallLoadingSpinner } from "../SmallLoadingSpinner/SmallLoadingSpinner"
 import { SuccessAlert } from "../Alerts/Success"
 import { ErrorAlert } from "../Alerts/Error";
+import {UserProfileModal} from "../Profile/UserProfile/UserProfileModal"
 
 export const Details = () => {
     const [showSuccessAlert, setShowSuccessAlert] = useState('')
@@ -27,11 +28,20 @@ export const Details = () => {
         // Identicator to search for users who liked or followed 
         likedOrFollowed: ''
     })
+    const [showUserProfModal, setShowUserProfModal] = useState({
+        show : false,
+        userId : ''
+    })
+    const onCloseUserProfModal = () => setShowUserProfModal(oldData => {return {...oldData, show:false}})
+    const openUserProfModal = (data) => setShowUserProfModal({...data})
+    
     const [errors, setErrors] = useState([])
     const errorsSetter = (err) => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
       setErrors([...errors, err])
     }
     const successMessageSetter = (message) => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
         setShowSuccessAlert(message)
     }
     const {publicationId} = useParams()
@@ -51,7 +61,7 @@ export const Details = () => {
         let data = await getDetails(publicationId)
         setPublicationDetails(data)
         }catch(err){
-         setErrors([...errors, err.message])
+        errorsSetter(err.message)
         }
     }
     loadDetails()
@@ -73,6 +83,14 @@ export const Details = () => {
     <>
      {errors.length > 0 && <ErrorAlert errors={errors} />}
     {showSuccessAlert && <SuccessAlert message={showSuccessAlert}/>}
+    {showUserProfModal.show && <UserProfileModal 
+     userData={authData} 
+     ownerId={showUserProfModal.userId} 
+     onCloseModalHandler={onCloseUserProfModal} 
+     errorsSetter={errorsSetter}
+     successMessageSetter={successMessageSetter}
+    />
+    }
     {showModalData.showModal && 
     <UserListModal 
      content={
@@ -96,6 +114,7 @@ export const Details = () => {
                     onModalClickHandler={onModalClickHandler} 
                     errorsSetter={errorsSetter}
                     successMessageSetter={successMessageSetter}
+                    openUserProfModal={openUserProfModal}
                     />
                     <InfoWrapper 
                     publDetails={publicationDetails} 
@@ -107,7 +126,14 @@ export const Details = () => {
                 <h1 className ={styles.comments_title}>Comments</h1>
                 <div className={styles.add_comment_wrapper}>
                 {isUserLogged
-                    ? <CommentForm userData={authData} publicationId={publicationDetails._id} owner={publicationDetails.owner}/>
+                    ? <CommentForm 
+                    userData={authData} 
+                    publicationId={publicationDetails._id} 
+                    owner={publicationDetails.owner}
+                    errorsSetter={errorsSetter}
+                    successMessageSetter={successMessageSetter}
+                    openUserProfModal={openUserProfModal}
+                    />
                     : <h3 className={styles.sign_up_header}><Link to={'/login'}>Login or Sign Up</Link> to post comments.</h3>
                 }
                 </div>
