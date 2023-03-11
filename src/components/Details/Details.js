@@ -89,6 +89,7 @@ export const Details = () => {
      onCloseModalHandler={onCloseUserProfModal} 
      errorsSetter={errorsSetter}
      successMessageSetter={successMessageSetter}
+     isUserLogged={isUserLogged}
     />
     }
     {showModalData.showModal && 

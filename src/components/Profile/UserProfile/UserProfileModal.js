@@ -6,7 +6,7 @@ import {UserPublicationStats} from "../UserPublicationStats/UserPublicationStats
 import { sendMessage } from "../../../services/messageServices"
 
 
-export const UserProfileModal = ({userData,ownerId, onCloseModalHandler, errorsSetter, successMessageSetter}) => {
+export const UserProfileModal = ({userData,ownerId, onCloseModalHandler, errorsSetter, successMessageSetter, isUserLogged}) => {
     const [profileData, setProfileData] = useState(null)
     const [message, setMessage] = useState('')
    
@@ -61,12 +61,13 @@ export const UserProfileModal = ({userData,ownerId, onCloseModalHandler, errorsS
                         likedPublLength = {profileData.publicationsLiked.length}
                         followedPublLength = {profileData.publicationsFollowed.length}
                         />
-                        <div className={styles['send-message-form']}>
+                        {isUserLogged && <div className={styles['send-message-form']}>
                         <textarea className={styles.message} onChange={(e) => onMessageChange(e)}>
 
                         </textarea>
                         <span className={styles['message-btn']} onClick={(e) => sendMessageHandler(e)}>Send a message</span>
-                        </div>
+                        </div> 
+                        }
                     </div>
         </div>
       </div>
