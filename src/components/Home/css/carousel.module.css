@@ -35,24 +35,32 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: transparent;
     border: 0;
     cursor: pointer;
-    background-color: rgb(181, 208, 208);
+    background-color: white;
     border-radius: 50%;
-    border: 2px solid black;
+    border: none;
+    outline: none;
+}
+
+.carousel_btn svg {
+    max-width: 3em;
+    max-height: 3em;
+    width: 3em;
+    height: 3em;
 }
 .carousel_btn:hover {
-    background-color: dodgerblue;
+    background-color: lightgrey;
 }
 .carousel_btn img {
     width: 35px;
 }
 .carousel_btn--left{
-    left: -53px;
+    left: 0;
+    z-index: 2;
 }
 .carousel_btn--right{
-    right: -52px;
+    right: 0;
 }
 .carousel_nav {
     display: flex;

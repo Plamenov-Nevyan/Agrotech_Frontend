@@ -1,12 +1,11 @@
 import { useContext } from "react"
-import {NavLink} from "react-router-dom"
+import {NavLink} from "react-router-dom"  
 import styles from "../css/navbar.module.css"
 import { authContext } from "../../../contexts/authContext"
 
 
 export const Navbar = ({logoutModalShow}) => {
   const {onUserSignUp_SignIn, authData} = useContext(authContext)
-
     return (
         <div className={styles.navbar}>
         <NavLink to='/' className={isActive => isActive.isActive ? styles.active : ''}><i className="fa fa-fw fa-home"></i> Home</NavLink>

@@ -4,7 +4,7 @@ export const CategorySelect = ({categoryToShow}) => {
     // Set the category of the publications to show (default : "All") and render the category select
     return(
         <div className={styles.category_container}>
-            <label htmlFor="catgory">Category</label>
+            <label htmlFor="catgory">Category:</label>
             <select id="category" name="category" onChange={(e) => categoryToShow(e.target.value)}>
                 <option value="all">All</option>
                  <option value="product">Crop Treatment Products</option> 

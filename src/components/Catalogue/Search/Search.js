@@ -6,7 +6,7 @@ export const Search = ({value, onSearch}) => {
         <div className= {styles.search_form_container}>
             <form className={styles.search_form} onSubmit={(e) => onSearch(e)}>
               <div className={styles.input_wrapper}>
-             <label htmlFor="search">Search  product, vehicle or service</label>
+             <label htmlFor="search">Search  product, vehicle or service:</label>
              <input 
              type="search" 
              name="search" 
@@ -14,8 +14,6 @@ export const Search = ({value, onSearch}) => {
              defaultValue={value}
              />
              <button className={styles.search_btn}>Search</button>
-             </div>
-             <div className={styles.input_wrapper}>
              </div>
             </form>
           </div>

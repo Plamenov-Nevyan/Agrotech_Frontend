@@ -1,14 +1,12 @@
 .search_form_container {
-  display: inline-block;
-  width: 50%;
+  margin: 0;
+  flex: 0 1 33%;
+  padding: 1em;
 }
 .search_form{
     display: flex;
     justify-content: flex-start;
-    width: 65%;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  padding: 30px;
+    flex-wrap: wrap;
   }
   
   .input_wrapper label{
@@ -16,7 +14,7 @@
   }
 
   #name_input{
-    padding: 10px;
+  padding: .5em;
   width: 50%;
   background-image: url(https://cdn2.hubspot.net/hubfs/4004166/bioticresearch_website_assets/images/search_icon.png);
   background-repeat: no-repeat;
@@ -30,7 +28,7 @@
   }
   
   #name_input:focus {
-    width: 100%;
+    width: 70%;
   }
   
   #type_input{
@@ -49,7 +47,7 @@
   }
 
   .search_btn {
-    padding: 8px;
+    padding: 0.8em;
     margin-left: 10px;
     background: transparent;
     border: 2px solid aliceblue;
@@ -58,9 +56,16 @@
     color: aliceblue;
     cursor: pointer;
     margin-top: 10px;
+    transition: ease-in-out 400ms;
   }
 
   .search_btn:hover {
     background-color: aliceblue;
     color: dodgerblue;
   }
+
+  @media(max-width: 790px) {
+    .search_form_container {
+      flex: 1 1 100%;
+    }
+ }

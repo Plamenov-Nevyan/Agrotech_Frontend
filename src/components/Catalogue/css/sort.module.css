@@ -1,24 +1,25 @@
 .sort_container {
-    margin: 31px auto;
+  margin: 0;
+  padding: 1em;
+  flex: 0 1 33%;
 }
 .sort_by {
 width: 100%;
-padding: 12px;
-font-size: 20px;
+padding: .5em;
 background: transparent;
 color: white;
 border-radius: 20px;
 margin-top : 10px;
 cursor: pointer;
+transition: ease-in-out 400ms;
 }
 .sort_by_label {
-    font-size: 23px;
 color: wheat;
 }
 
 .sort_by:hover {
   color: black;
-  background-color: wheat;
+  background-color: white;
 }
 
 .search_btn {
@@ -28,4 +29,10 @@ font-size: 15px;
 background: bisque;
 border: 0;
 cursor: pointer;
+}
+
+@media(max-width: 790px) {
+  .sort_container {
+    flex: 0 1 50%;
+  }
 }

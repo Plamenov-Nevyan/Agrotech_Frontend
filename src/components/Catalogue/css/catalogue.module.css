@@ -57,4 +57,29 @@ body{
 
 .data_modif_inputs {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: none;
+  justify-content: flex-end;
+  padding: 0.7em;
+}
+
+.filters svg {
+  max-width: 4em;
+  max-height: 4em;
+  fill: white;
+  margin: 0;
+}
+
+@media(max-width: 790px) {
+   .filters {
+     display: flex;
+   }
+
+   .data_modif_inputs {
+     display: none;
+   }
 }
