@@ -32,5 +32,3 @@ The application is a online marketplace for agricutural vehicles, products, inve
  # Start Project 
   > npm start
   
- # Deployment
- Project is deployed on Firebase : (https://agrotech-355416.web.app/)
